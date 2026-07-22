@@ -1,0 +1,70 @@
+{
+  "checkpoint": {
+    "name": "final.ckpt",
+    "path": "results/clip/bpe_geo_two_llm_ep20/checkpoints/final.ckpt"
+  },
+  "dataset": {
+    "batch_size": 24,
+    "caption_policy": "two_llm_descriptions",
+    "caption_sources": [
+      {
+        "prompt_style": "llm_description",
+        "source_version": "v1.0"
+      },
+      {
+        "prompt_style": "llm_description",
+        "source_version": "v2.0"
+      }
+    ],
+    "captions_path": "data/text/patches_description.parquet",
+    "eval_fraction": 0.1,
+    "patch_size": 512,
+    "stride": 512,
+    "vision_root": "/home/pg2026/data"
+  },
+  "evaluation": {
+    "latency_seconds": 462.2213591048494,
+    "split": "eval"
+  },
+  "metrics": {
+    "full_image_to_text_mean_rank": 4.128875255584717,
+    "full_image_to_text_median_rank": 2.0,
+    "full_image_to_text_recall@1": 0.49512842297554016,
+    "full_image_to_text_recall@10": 0.910983145236969,
+    "full_image_to_text_recall@5": 0.8157661557197571,
+    "full_mean_recall": 0.733687624335289,
+    "full_text_to_image_mean_rank": 4.9503984451293945,
+    "full_text_to_image_median_rank": 2.0,
+    "full_text_to_image_recall@1": 0.49601417779922485,
+    "full_text_to_image_recall@10": 0.8879539370536804,
+    "full_text_to_image_recall@5": 0.7962799072265625,
+    "full_v1_0_text_to_image_mean_rank": 6.876882076263428,
+    "full_v1_0_text_to_image_median_rank": 2.0,
+    "full_v1_0_text_to_image_recall@1": 0.3923826515674591,
+    "full_v1_0_text_to_image_recall@10": 0.833480954170227,
+    "full_v1_0_text_to_image_recall@5": 0.7068201899528503,
+    "full_v2_0_text_to_image_mean_rank": 3.0008857250213623,
+    "full_v2_0_text_to_image_median_rank": 1.0,
+    "full_v2_0_text_to_image_recall@1": 0.6009743213653564,
+    "full_v2_0_text_to_image_recall@10": 0.9428697824478149,
+    "full_v2_0_text_to_image_recall@5": 0.886625349521637
+  },
+  "model": {
+    "modality": "geomap",
+    "projection_dim": 512,
+    "temperature": 0.07,
+    "text_encoder": "bpe",
+    "vision_encoder": "geo"
+  },
+  "schema_version": 1,
+  "training": {
+    "epochs": 20,
+    "learning_rate": 0.00015,
+    "run_name": "ep20_bs24_two_llm",
+    "seed": 42,
+    "text_encoder_frozen": false,
+    "text_encoder_learning_rate": 1.5e-05,
+    "vision_encoder_frozen": true,
+    "weight_decay": 0.01
+  }
+}

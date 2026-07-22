@@ -1,0 +1,25 @@
+model_id: bpe_geo
+status: selected
+selection_metric: full_mean_recall
+selection_value: 0.733687624335289
+
+source:
+  experiment: bpe_geo_two_llm_ep20
+  checkpoint: results/clip/bpe_geo_two_llm_ep20/checkpoints/final.ckpt
+
+model:
+  text_encoder: bpe
+  vision_encoder: geo
+  modality: geomap
+  projection_dim: 512
+  temperature: 0.07
+
+training:
+  epochs: 20
+  caption_policy: two_llm_descriptions
+  text_encoder_frozen: false
+  vision_encoder_frozen: true
+
+files:
+  checkpoint: best.ckpt
+  evaluation: evaluation.json
