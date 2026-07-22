@@ -1,0 +1,38 @@
+experiment:
+  name: bpe_geo
+  modality: geomap
+text:
+  encoder: bpe
+  tokenizer_path: artifacts/tokenizers/bpe/v4.0/tokenizer.json
+  checkpoint_path: artifacts/text_models/bpe/step_085000.ckpt
+  freeze_encoder: false
+vision:
+  encoder: geo
+  checkpoint_path: artifacts/vision_models/geo2geo/best.pt
+  freeze_encoder: true
+data:
+  captions_path: data/text/patches_description.parquet
+  vision_root: /home/pg2026/data
+  patch_size: 512
+  stride: 512
+  caption_policy: two_llm_descriptions
+  eval_fraction: 0.1
+model:
+  projection_dim: 512
+  temperature: 0.07
+training:
+  output_dir: results/clip/ep20_bs24_two_llm_telr30
+  run_name: ep20_bs24_two_llm
+  batch_size: 24
+  epochs: 20
+  learning_rate: 0.00015
+  text_encoder_learning_rate: 0.00002
+  weight_decay: 0.01
+  num_workers: 4
+  seed: 42
+  accelerator: gpu
+  devices: 1
+  precision: 32-true
+  grad_clip: 1.0
+  log_every: 100
+  save_top_k: 1

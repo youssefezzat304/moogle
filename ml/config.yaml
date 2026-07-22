@@ -1,0 +1,18 @@
+dataset:
+  path: "/home/pg2026/data"
+  descriptions_path: "data/text/patches_description.parquet"
+
+hyperparameters:
+  patch_size: 512
+  stride: 512
+
+mlm:
+  model:
+    embed_dim: 512
+    num_heads: 8
+    num_layers: 8
+    ffn_dim: 1024
+    dropout: 0.1
+    layer_norm_eps: 0.00001
+  training:
+    max_seq_len: 384

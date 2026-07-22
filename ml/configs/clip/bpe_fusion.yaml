@@ -1,0 +1,36 @@
+experiment:
+  name: bpe_fusion
+  modality: wac
+text:
+  encoder: bpe
+  tokenizer_path: artifacts/tokenizers/bpe/v4.0/tokenizer.json
+  checkpoint_path: artifacts/text_models/bpe/step_085000.ckpt
+  freeze_encoder: true
+vision:
+  encoder: fusion
+  checkpoint_path: artifacts/vision_models/fusion/best.pt
+  freeze_encoder: true
+data:
+  captions_path: data/text/patches_description.parquet
+  vision_root: /home/pg2026/data
+  patch_size: 512
+  stride: 512
+  caption_policy: sample_one
+model:
+  projection_dim: 512
+  temperature: 0.07
+training:
+  output_dir: results/clip
+  run_name: bpe_fusion
+  batch_size: 32
+  epochs: 1
+  learning_rate: 0.0001
+  weight_decay: 0.01
+  num_workers: 0
+  seed: 42
+  accelerator: auto
+  devices: auto
+  precision: 32-true
+  grad_clip: 1.0
+  log_every: 100
+  save_top_k: 1

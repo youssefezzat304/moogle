@@ -1,0 +1,18 @@
+model:
+  embed_dim: 512
+  num_heads: 8
+  num_layers: 8
+  ffn_dim: 1024
+  dropout: 0.1
+  layer_norm_eps: 0.00001
+training:
+  train_path: data/mlm/v1.0/train.parquet
+  eval_path: data/mlm/v1.0/eval.parquet
+  tokenizer_path: artifacts/tokenizers/bpe/v4.0/tokenizer.json
+  output_root: results/mlm/runs
+  run_name: mlm_train
+  max_seq_len: 384
+  batch_size: 64
+  epochs: 50
+  learning_rate: 0.00015
+  weight_decay: 0.01
