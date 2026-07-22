@@ -43,7 +43,6 @@ The application uses a feature-oriented structure under `src/`:
 - `features/moon/` contains the Three.js lunar visualization and canvas setup.
 - `features/retrieval/` defines the mock retrieval data and matching behavior.
 - `shared/` contains reusable layout components and hooks.
-- `components/ui/` contains generic UI primitives.
 - `styles/` contains global styles and application-specific CSS.
 - `public/` contains lunar imagery and other static assets served by Vite.
 
