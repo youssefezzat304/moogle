@@ -95,22 +95,16 @@ function SplitLayout({
           isAsideCollapsed ? "aside-collapsed" : ""
         }`}
       >
-        <section className="viewport-panel">
-          {leftPanel}
-        </section>
+        <section className="viewport-panel">{leftPanel}</section>
         <button
           type="button"
           className="aside-edge-toggle"
           onClick={() => setIsAsideCollapsed((collapsed) => !collapsed)}
           aria-label={
-            isAsideCollapsed
-              ? "Show retrieval panel"
-              : "Hide retrieval panel"
+            isAsideCollapsed ? "Show retrieval panel" : "Hide retrieval panel"
           }
           title={
-            isAsideCollapsed
-              ? "Show retrieval panel"
-              : "Hide retrieval panel"
+            isAsideCollapsed ? "Show retrieval panel" : "Hide retrieval panel"
           }
         >
           {isAsideCollapsed ? (

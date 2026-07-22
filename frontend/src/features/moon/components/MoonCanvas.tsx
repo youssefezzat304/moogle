@@ -114,7 +114,9 @@ function TrackingLight({ activeResult }: { activeResult: RetrievalResult }) {
     }
 
     if (glowLight.current) {
-      glowLight.current.position.copy(lightPosition.current.clone().multiplyScalar(0.72));
+      glowLight.current.position.copy(
+        lightPosition.current.clone().multiplyScalar(0.72),
+      );
     }
   });
 
@@ -396,9 +398,13 @@ function MoonCanvas({ activeResult, hasRetrieved }: MoonCanvasProps) {
         />
 
         <Suspense fallback={<MoonSphere />}>
-          <Moon targetCoords={{ lat: activeResult.lat, lng: activeResult.lng }} />
+          <Moon
+            targetCoords={{ lat: activeResult.lat, lng: activeResult.lng }}
+          />
           <TargetMarker activeResult={activeResult} />
-          {hasRetrieved && <TargetEvidenceCallouts activeResult={activeResult} />}
+          {hasRetrieved && (
+            <TargetEvidenceCallouts activeResult={activeResult} />
+          )}
         </Suspense>
       </Canvas>
     </div>

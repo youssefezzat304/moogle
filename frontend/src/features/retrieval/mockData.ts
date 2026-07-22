@@ -40,7 +40,13 @@ export const RETRIEVAL_RESULTS: RetrievalResult[] = [
     lighting:
       "Key light is slewed onto the near-side mare so the retrieval area stays readable.",
     tags: ["apollo", "mare", "landing site"],
-    keywords: ["apollo 11", "tranquility", "tranquillitatis", "landing", "eagle"],
+    keywords: [
+      "apollo 11",
+      "tranquility",
+      "tranquillitatis",
+      "landing",
+      "eagle",
+    ],
     images: [
       {
         id: "a11-nac-01",
@@ -124,7 +130,14 @@ export const RETRIEVAL_RESULTS: RetrievalResult[] = [
     lighting:
       "Scene illumination pivots down to the polar target, keeping the rim visible while the far limb falls dark.",
     tags: ["south pole", "shadow", "volatiles"],
-    keywords: ["shackleton", "south pole", "polar", "ice", "shadow", "volatile"],
+    keywords: [
+      "shackleton",
+      "south pole",
+      "polar",
+      "ice",
+      "shadow",
+      "volatile",
+    ],
     images: [
       {
         id: "shack-nac-01",

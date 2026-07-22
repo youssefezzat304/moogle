@@ -24,8 +24,16 @@
   flex-direction: column;
   color: var(--color-text);
   background:
-    radial-gradient(circle at 18% 18%, rgba(56, 189, 248, 0.14), transparent 28%),
-    radial-gradient(circle at 84% 70%, rgba(240, 166, 189, 0.09), transparent 28%),
+    radial-gradient(
+      circle at 18% 18%,
+      rgba(56, 189, 248, 0.14),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 84% 70%,
+      rgba(240, 166, 189, 0.09),
+      transparent 28%
+    ),
     linear-gradient(135deg, #030508 0%, #071018 42%, #05070b 100%);
 }
 
@@ -33,7 +41,10 @@
   height: 64px;
   flex: 0 0 auto;
   display: grid;
-  grid-template-columns: minmax(240px, 1fr) minmax(280px, 0.8fr) minmax(360px, 1.2fr);
+  grid-template-columns: minmax(240px, 1fr) minmax(280px, 0.8fr) minmax(
+      360px,
+      1.2fr
+    );
   align-items: center;
   gap: 18px;
   padding: 0 22px;
@@ -57,7 +68,11 @@
   border: 1px solid rgba(125, 211, 252, 0.38);
   border-radius: 8px;
   color: var(--color-cyan);
-  background: linear-gradient(145deg, rgba(125, 211, 252, 0.14), rgba(255, 255, 255, 0.03));
+  background: linear-gradient(
+    145deg,
+    rgba(125, 211, 252, 0.14),
+    rgba(255, 255, 255, 0.03)
+  );
   box-shadow: 0 0 24px rgba(56, 189, 248, 0.14);
 }
 
@@ -178,7 +193,11 @@
   background: rgba(7, 11, 17, 0.7);
   box-shadow: 0 12px 34px rgba(0, 0, 0, 0.28);
   backdrop-filter: blur(12px);
-  transition: border-color 160ms ease, background 160ms ease, transform 160ms ease, right 180ms ease;
+  transition:
+    border-color 160ms ease,
+    background 160ms ease,
+    transform 160ms ease,
+    right 180ms ease;
 }
 
 .workspace-grid.aside-collapsed .aside-edge-toggle {
@@ -210,7 +229,12 @@
   pointer-events: none;
   z-index: 1;
   background:
-    radial-gradient(circle at 50% 50%, transparent 0 34%, rgba(0, 0, 0, 0.18) 58%, rgba(0, 0, 0, 0.52) 100%),
+    radial-gradient(
+      circle at 50% 50%,
+      transparent 0 34%,
+      rgba(0, 0, 0, 0.18) 58%,
+      rgba(0, 0, 0, 0.52) 100%
+    ),
     linear-gradient(180deg, rgba(5, 7, 11, 0.16), rgba(5, 7, 11, 0.72));
 }
 
@@ -273,7 +297,10 @@
   box-shadow: 0 12px 34px rgba(0, 0, 0, 0.28);
   backdrop-filter: blur(12px);
   pointer-events: auto;
-  transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+  transition:
+    border-color 160ms ease,
+    background 160ms ease,
+    transform 160ms ease;
 }
 
 .recenter-button:hover {
@@ -308,13 +335,22 @@
 .reticle::after {
   width: 1px;
   height: 88px;
-  background: linear-gradient(transparent, rgba(125, 211, 252, 0.46), transparent);
+  background: linear-gradient(
+    transparent,
+    rgba(125, 211, 252, 0.46),
+    transparent
+  );
 }
 
 .reticle span {
   width: 88px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(125, 211, 252, 0.46), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(125, 211, 252, 0.46),
+    transparent
+  );
 }
 
 .viewport-footer {
@@ -361,7 +397,9 @@
   filter: contrast(1.14) brightness(1.08);
   pointer-events: auto;
   cursor: pointer;
-  transition: box-shadow 160ms ease, filter 160ms ease;
+  transition:
+    box-shadow 160ms ease,
+    filter 160ms ease;
 }
 
 .target-evidence-thumb:hover,
@@ -478,7 +516,9 @@
   border-radius: 8px;
   color: #031018;
   background: linear-gradient(135deg, var(--color-cyan), #b8f0ff);
-  transition: transform 160ms ease, opacity 160ms ease;
+  transition:
+    transform 160ms ease,
+    opacity 160ms ease;
 }
 
 .send-button:not(:disabled):hover {
@@ -511,7 +551,10 @@
   background: rgba(255, 255, 255, 0.035);
   font: inherit;
   font-size: 10px;
-  transition: border-color 160ms ease, color 160ms ease, background 160ms ease;
+  transition:
+    border-color 160ms ease,
+    color 160ms ease,
+    background 160ms ease;
 }
 
 .recommendation-row button {
@@ -572,7 +615,9 @@
   border-radius: 6px;
   background-size: 540%;
   filter: contrast(1.15) brightness(1.08) saturate(0.9);
-  transition: box-shadow 160ms ease, filter 160ms ease;
+  transition:
+    box-shadow 160ms ease,
+    filter 160ms ease;
 }
 
 .evidence-thumb-link:hover .evidence-thumb,

@@ -35,10 +35,7 @@ function App() {
       activeResult={activeResult}
       stats={retrievalStats}
       leftPanel={
-        <MoonCanvas
-          activeResult={activeResult}
-          hasRetrieved={queryCount > 0}
-        />
+        <MoonCanvas activeResult={activeResult} hasRetrieved={queryCount > 0} />
       }
       rightPanel={
         <ChatInterface
