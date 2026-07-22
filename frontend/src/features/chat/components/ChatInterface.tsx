@@ -1,396 +1,318 @@
-import { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import {
+  ArrowUpRight,
+  Bot,
+  Image as ImageIcon,
+  Loader2,
+  Search,
+  Send,
+  Sparkles,
+  User,
+} from "lucide-react";
+import {
+  EVIDENCE_IMAGE_URL,
+  formatCoords,
+  type RetrievalResult,
+} from "../../retrieval/mockData";
 
 interface Message {
   id: number;
   role: "user" | "system";
   text: string;
+  resultId?: string;
   ts: string;
 }
 
-let _id = 0;
-const uid = () => ++_id;
+interface ChatInterfaceProps {
+  activeResult: RetrievalResult;
+  hasRetrieved: boolean;
+  results: RetrievalResult[];
+  onQuery: (query: string) => RetrievalResult;
+  onSelectResult: (result: RetrievalResult) => void;
+}
 
-const timestamp = () => {
+let messageId = 0;
+
+const exampleQueries = [
+  "Show me Tycho central peak imagery",
+  "Find polar shadow evidence near Shackleton",
+  "Where are lunar swirls like Reiner Gamma?",
+];
+
+function timestamp() {
   const now = new Date();
   return now.toUTCString().split(" ")[4] + " UTC";
-};
+}
 
-// Mock system responses — swap out for real API responses later
-const MOCK_RESPONSES = [
-  "Scanning regolith database… 3,847 results matched. Refining by crater morphology.",
-  "Query indexed. Nearest Apollo landing site: Apollo 11 — Mare Tranquillitatis, 0.6741°N 23.4731°E.",
-  "Retrieval complete. LROC NAC imagery available at 0.5 m/px for selected coordinates.",
-  "Cross-referencing LDEM elevation data… Peak elevation delta: +4,230 m over 180 km baseline.",
-  "No surface feature matches found in current FOV. Expanding search radius to 50 km.",
-];
-let _mockIdx = 0;
-
-function ChatInterface() {
-  const [messages, setMessages] = useState<Message[]>([]);
+function ChatInterface({
+  activeResult,
+  hasRetrieved,
+  results,
+  onQuery,
+  onSelectResult,
+}: ChatInterfaceProps) {
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      id: ++messageId,
+      role: "system",
+      text: "Mock vector index is ready. Ask for a crater, mare, landing site, polar shadow, or albedo pattern.",
+      resultId: activeResult.id,
+      ts: timestamp(),
+    },
+  ]);
   const [input, setInput] = useState("");
   const [isThinking, setIsThinking] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const isInitial = messages.length === 0;
-
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, isThinking]);
+  }, [messages, isThinking, activeResult.id]);
 
-  const handleSend = () => {
-    const trimmed = input.trim();
+  const submitQuery = (query = input) => {
+    const trimmed = query.trim();
     if (!trimmed || isThinking) return;
 
-    const userMsg: Message = {
-      id: uid(),
-      role: "user",
-      text: trimmed,
-      ts: timestamp(),
-    };
-
-    setMessages((prev) => [...prev, userMsg]);
+    const matchedResult = onQuery(trimmed);
     setInput("");
     setIsThinking(true);
 
-    window.dispatchEvent(new CustomEvent("messageSent"));
-
-    // Simulate async system response
-    setTimeout(
-      () => {
-        const sysMsg: Message = {
-          id: uid(),
-          role: "system",
-          text: MOCK_RESPONSES[_mockIdx % MOCK_RESPONSES.length],
-          ts: timestamp(),
-        };
-        _mockIdx++;
-        setMessages((prev) => [...prev, sysMsg]);
-        setIsThinking(false);
+    setMessages((current) => [
+      ...current,
+      {
+        id: ++messageId,
+        role: "user",
+        text: trimmed,
+        ts: timestamp(),
       },
-      1200 + Math.random() * 800,
-    );
+    ]);
+
+    window.setTimeout(() => {
+      setMessages((current) => [
+        ...current,
+        {
+          id: ++messageId,
+          role: "system",
+          resultId: matchedResult.id,
+          text: `${matchedResult.summary} ${matchedResult.images.length} evidence frames surfaced at ${Math.round(
+            matchedResult.confidence * 100,
+          )}% confidence.`,
+          ts: timestamp(),
+        },
+      ]);
+      setIsThinking(false);
+    }, 760);
+  };
+
+  const selectResult = (result: RetrievalResult) => {
+    onSelectResult(result);
+    setMessages((current) => [
+      ...current,
+      {
+        id: ++messageId,
+        role: "system",
+        resultId: result.id,
+        text: `Target changed to ${result.title}. Camera and scene light are slewing to ${formatCoords(
+          result.lat,
+          result.lng,
+        )}.`,
+        ts: timestamp(),
+      },
+    ]);
   };
 
   return (
-    <div
-      className="h-full flex flex-col font-mono"
-      style={{ background: "var(--color-surface)" }}
-    >
-      {/* ── Panel header ── */}
-      <div
-        className="shrink-0 flex items-center justify-between px-4 py-2.5 border-b"
-        style={{ borderColor: "var(--color-border)" }}
-      >
-        <div className="flex flex-col gap-0.5">
-          <span
-            className="text-[10px] tracking-[0.25em] uppercase"
-            style={{ color: "var(--color-amber)" }}
-          >
-            Query Interface
-          </span>
-          <span
-            className="text-[9px] tracking-[0.12em]"
-            style={{ color: "var(--color-muted)" }}
-          >
-            {messages.length === 0
-              ? "AWAITING INPUT"
-              : `${messages.filter((m) => m.role === "user").length} QUERIES · ${messages.filter((m) => m.role === "system").length} RESULTS`}
-          </span>
-        </div>
+    <div className="chat-shell">
+      <div className="query-composer"></div>
 
-        {/* Session indicator */}
-        <div
-          className="text-[9px] tracking-[0.12em] px-2 py-1 border"
-          style={{
-            color: "var(--color-muted)",
-            borderColor: "var(--color-border)",
-          }}
-        >
-          SES-{String(Math.floor(Math.random() * 9000) + 1000)}
-        </div>
-      </div>
-
-      {/* ── Message list ── */}
-      <div className="flex-1 overflow-y-auto min-h-0 flex flex-col">
-        {isInitial ? (
+      <AnimatePresence initial={false}>
+        {hasRetrieved && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.3 }}
-            className="flex-1 flex flex-col items-center justify-center gap-6 px-6"
+            className="evidence-section"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.22 }}
           >
-            {/* Reticle art */}
-            <div className="relative flex items-center justify-center">
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-                style={{
-                  width: 72,
-                  height: 72,
-                  borderRadius: "50%",
-                  border: "1px solid var(--color-amber-dim)",
-                  borderTopColor: "var(--color-amber)",
-                }}
-              />
-              <div
-                className="absolute text-2xl"
-                style={{ color: "var(--color-amber-dim)" }}
-              >
-                ◎
-              </div>
+            <div className="panel-section-title">
+              <span>
+                <ImageIcon size={13} />
+                Vector evidence
+              </span>
+              <strong>{activeResult.images.length} frames</strong>
             </div>
 
-            <div className="flex flex-col items-center gap-2 text-center">
-              <p
-                className="text-[11px] tracking-[0.2em] uppercase"
-                style={{ color: "var(--color-amber)" }}
-              >
-                System Ready
-              </p>
-              <p
-                className="text-[10px] leading-relaxed max-w-[240px]"
-                style={{ color: "var(--color-muted)" }}
-              >
-                Enter a query to begin lunar surface retrieval. Coordinates,
-                feature names, or natural language accepted.
-              </p>
-            </div>
-
-            {/* Example queries */}
-            <div className="flex flex-col gap-1.5 w-full max-w-[280px]">
-              {[
-                "Show craters near Apollo 11 site",
-                "Elevation profile: Tycho crater",
-                "Mare Tranquillitatis imagery",
-              ].map((ex) => (
-                <button
-                  key={ex}
-                  onClick={() => setInput(ex)}
-                  className="text-left text-[9px] tracking-[0.1em] px-3 py-2 border transition-colors duration-150"
-                  style={{
-                    color: "var(--color-muted)",
-                    borderColor: "var(--color-border)",
-                    background: "transparent",
-                  }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLButtonElement).style.borderColor =
-                      "var(--color-amber-dim)";
-                    (e.currentTarget as HTMLButtonElement).style.color =
-                      "var(--color-amber)";
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLButtonElement).style.borderColor =
-                      "var(--color-border)";
-                    (e.currentTarget as HTMLButtonElement).style.color =
-                      "var(--color-muted)";
-                  }}
-                >
-                  ↗ {ex}
-                </button>
-              ))}
+            <div className="evidence-grid">
+              <AnimatePresence mode="popLayout">
+                {activeResult.images.map((image) => (
+                  <motion.article
+                    key={image.id}
+                    className="evidence-card"
+                    initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -8, scale: 0.98 }}
+                    transition={{ duration: 0.22 }}
+                  >
+                    <a
+                      href={EVIDENCE_IMAGE_URL}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="evidence-thumb-link"
+                      aria-label={`Open ${image.title} image`}
+                      title={`Open ${image.title} image`}
+                    >
+                      <span
+                        className="evidence-thumb"
+                        style={{
+                          backgroundImage: `linear-gradient(145deg, rgba(4, 10, 18, 0.08), rgba(125, 211, 252, 0.12)), url('${EVIDENCE_IMAGE_URL}')`,
+                          backgroundPosition: image.crop,
+                        }}
+                      />
+                    </a>
+                    <div className="evidence-copy">
+                      <div className="evidence-title-row">
+                        <h3>{image.title}</h3>
+                        <span>{Math.round(image.score * 100)}</span>
+                      </div>
+                      <p>{image.caption}</p>
+                      <small>{image.meta}</small>
+                    </div>
+                  </motion.article>
+                ))}
+              </AnimatePresence>
             </div>
           </motion.div>
-        ) : (
-          <div className="flex flex-col px-4 py-4 gap-5">
-            <AnimatePresence initial={false}>
-              {messages.map((msg) => (
-                <motion.div
-                  key={msg.id}
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.25 }}
-                  className={`flex flex-col gap-1 ${
-                    msg.role === "user" ? "items-end" : "items-start"
-                  }`}
-                >
-                  {/* Role label + timestamp */}
-                  <div className="flex items-center gap-2">
-                    <span
-                      className="text-[9px] tracking-[0.15em] uppercase"
-                      style={{
-                        color:
-                          msg.role === "user"
-                            ? "var(--color-amber-dim)"
-                            : "var(--color-muted)",
-                      }}
-                    >
-                      {msg.role === "user" ? "OPERATOR" : "MOOGLE"}
-                    </span>
-                    <span
-                      className="text-[8px] tabular-nums"
-                      style={{ color: "var(--color-muted)" }}
-                    >
-                      {msg.ts}
-                    </span>
-                  </div>
-
-                  {/* Bubble */}
-                  <div
-                    className="max-w-[88%] px-3 py-2.5 text-[11px] leading-relaxed"
-                    style={
-                      msg.role === "user"
-                        ? {
-                            borderRight: "2px solid var(--color-amber)",
-                            color: "var(--color-fg)",
-                            background: "rgba(200,169,110,0.05)",
-                          }
-                        : {
-                            borderLeft: "2px solid var(--color-border)",
-                            color: "var(--color-fg-dim)",
-                            background: "rgba(255,255,255,0.02)",
-                          }
-                    }
-                  >
-                    {msg.text}
-                  </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
-
-            {/* Thinking indicator */}
-            <AnimatePresence>
-              {isThinking && (
-                <motion.div
-                  initial={{ opacity: 0, y: 4 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
-                  className="flex flex-col gap-1 items-start"
-                >
-                  <span
-                    className="text-[9px] tracking-[0.15em] uppercase"
-                    style={{ color: "var(--color-muted)" }}
-                  >
-                    MOOGLE
-                  </span>
-                  <div
-                    className="px-3 py-2.5 flex items-center gap-1.5"
-                    style={{
-                      borderLeft: "2px solid var(--color-border)",
-                      background: "rgba(255,255,255,0.02)",
-                    }}
-                  >
-                    {[0, 1, 2].map((i) => (
-                      <motion.span
-                        key={i}
-                        animate={{ opacity: [0.2, 1, 0.2] }}
-                        transition={{
-                          duration: 1.2,
-                          repeat: Infinity,
-                          delay: i * 0.2,
-                        }}
-                        className="w-1 h-1 rounded-full"
-                        style={{ background: "var(--color-muted)" }}
-                      />
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            <div ref={bottomRef} />
-          </div>
         )}
+      </AnimatePresence>
+
+      <div className="message-log">
+        <div className="panel-section-title">
+          <span>
+            <Bot size={13} />
+            Session trace
+          </span>
+          <strong>{messages.length} events</strong>
+        </div>
+
+        <div className="messages">
+          <AnimatePresence initial={false}>
+            {messages.map((message) => (
+              <motion.div
+                key={message.id}
+                className={`message ${message.role}`}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className="message-icon">
+                  {message.role === "user" ? (
+                    <User size={13} />
+                  ) : (
+                    <Bot size={13} />
+                  )}
+                </div>
+                <div>
+                  <div className="message-meta">
+                    <span>
+                      {message.role === "user" ? "operator" : "engine"}
+                    </span>
+                    <small>{message.ts}</small>
+                  </div>
+                  <p>{message.text}</p>
+                </div>
+              </motion.div>
+            ))}
+
+            {isThinking && (
+              <motion.div
+                className="message system"
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+              >
+                <div className="message-icon">
+                  <Loader2 size={13} className="spin" />
+                </div>
+                <div>
+                  <div className="message-meta">
+                    <span>engine</span>
+                    <small>retrieving</small>
+                  </div>
+                  <p>
+                    Embedding query, selecting coordinate target, and loading
+                    evidence tiles.
+                  </p>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+          <div ref={bottomRef} />
+        </div>
+      </div>
+      <div className="panel-section-title">
+        <span>
+          <Search size={13} />
+          Retrieval query
+        </span>
+        <strong>mock backend</strong>
       </div>
 
-      {/* ── Input area ── */}
-      <div
-        className="shrink-0 border-t p-4"
-        style={{ borderColor: "var(--color-border)" }}
-      >
-        {/* Corner-bracket input wrapper */}
-        <div className="relative">
-          {/* TL bracket */}
-          <svg
-            className="absolute top-0 left-0 pointer-events-none"
-            width="10"
-            height="10"
-            viewBox="0 0 10 10"
-          >
-            <path
-              d="M0 10 L0 0 L10 0"
-              stroke="var(--color-amber-dim)"
-              strokeWidth="1"
-              fill="none"
-            />
-          </svg>
-          {/* BR bracket */}
-          <svg
-            className="absolute bottom-0 right-0 pointer-events-none"
-            width="10"
-            height="10"
-            viewBox="0 0 10 10"
-            style={{ transform: "rotate(180deg)" }}
-          >
-            <path
-              d="M0 10 L0 0 L10 0"
-              stroke="var(--color-amber-dim)"
-              strokeWidth="1"
-              fill="none"
-            />
-          </svg>
+      <div className="composer-box">
+        <textarea
+          ref={textareaRef}
+          rows={3}
+          value={input}
+          placeholder="Ask about a lunar surface feature..."
+          onChange={(event) => setInput(event.target.value)}
+          onKeyDown={(event) => {
+            if (event.key === "Enter" && !event.shiftKey) {
+              event.preventDefault();
+              submitQuery();
+            }
+          }}
+        />
+        <button
+          type="button"
+          className="send-button"
+          onClick={() => submitQuery()}
+          disabled={!input.trim() || isThinking}
+          aria-label="Send query"
+          title="Send query"
+        >
+          {isThinking ? (
+            <Loader2 size={16} className="spin" />
+          ) : (
+            <Send size={16} />
+          )}
+        </button>
+      </div>
 
-          <textarea
-            ref={textareaRef}
-            rows={2}
-            className="w-full resize-none text-[11px] leading-relaxed px-3 py-2.5 outline-none font-mono placeholder:opacity-100 transition-colors duration-150"
-            placeholder="Enter query…"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" && !e.shiftKey) {
-                e.preventDefault();
-                handleSend();
-              }
-            }}
-            style={{
-              background: "var(--color-input-bg)",
-              color: "var(--color-fg)",
-              border: "1px solid var(--color-border)",
-              caretColor: "var(--color-amber)",
-            }}
-            onFocus={(e) => {
-              e.currentTarget.style.borderColor = "var(--color-amber-dim)";
-            }}
-            onBlur={(e) => {
-              e.currentTarget.style.borderColor = "var(--color-border)";
-            }}
-          />
-        </div>
-
-        {/* Footer row */}
-        <div className="flex items-center justify-between mt-2">
-          <span
-            className="text-[9px] tracking-[0.1em]"
-            style={{ color: "var(--color-muted)" }}
-          >
-            ↵ SEND · SHIFT+↵ NEWLINE
-          </span>
-
+      <div className="recommendation-row">
+        {exampleQueries.map((query) => (
           <button
-            onClick={handleSend}
-            disabled={!input.trim() || isThinking}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-[9px] tracking-[0.15em] uppercase border transition-all duration-150 disabled:opacity-30 disabled:cursor-not-allowed"
-            style={{
-              color: "var(--color-amber)",
-              borderColor: "var(--color-amber-dim)",
-              background: "transparent",
-            }}
-            onMouseEnter={(e) => {
-              if (!isThinking && input.trim()) {
-                (e.currentTarget as HTMLButtonElement).style.background =
-                  "rgba(200,169,110,0.08)";
-              }
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLButtonElement).style.background =
-                "transparent";
-            }}
+            key={query}
+            type="button"
+            onClick={() => submitQuery(query)}
+            disabled={isThinking}
           >
-            {isThinking ? "RETRIEVING…" : "TRANSMIT ↗"}
+            <Sparkles size={12} />
+            {query}
           </button>
-        </div>
+        ))}
+
+        {results.map((result) => (
+          <button
+            key={result.id}
+            type="button"
+            className={result.id === activeResult.id ? "selected" : ""}
+            onClick={() => selectResult(result)}
+          >
+            <span>{result.title}</span>
+            <ArrowUpRight size={12} />
+          </button>
+        ))}
       </div>
     </div>
   );

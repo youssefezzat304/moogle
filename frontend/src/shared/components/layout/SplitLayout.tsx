@@ -1,189 +1,152 @@
 import { type ReactNode, useEffect, useState } from "react";
+import {
+  Activity,
+  Database,
+  Orbit,
+  PanelRightClose,
+  PanelRightOpen,
+  Radio,
+} from "lucide-react";
+import {
+  formatCoords,
+  type RetrievalResult,
+} from "../../../features/retrieval/mockData";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
 interface SplitLayoutProps {
   leftPanel: ReactNode;
   rightPanel: ReactNode;
+  activeResult: RetrievalResult;
+  stats: {
+    totalResults: number;
+    queryCount: number;
+  };
 }
 
-function SplitLayout({ leftPanel, rightPanel }: SplitLayoutProps) {
+function getUtcClock() {
+  const now = new Date();
+  return `UTC ${now.toUTCString().split(" ")[4]}`;
+}
+
+function SplitLayout({
+  leftPanel,
+  rightPanel,
+  activeResult,
+  stats,
+}: SplitLayoutProps) {
   const isMobile = useMediaQuery("(max-width: 845px)");
-  const [clock, setClock] = useState("");
-  const [mounted, setMounted] = useState(false);
+  const [isAsideCollapsed, setIsAsideCollapsed] = useState(false);
+  const [clock, setClock] = useState(getUtcClock);
 
   useEffect(() => {
-    setMounted(true);
-    const tick = () => {
-      const now = new Date();
-      const utc = now.toUTCString().split(" ")[4];
-      setClock(`UTC ${utc}`);
-    };
-    tick();
-    const id = setInterval(tick, 1000);
+    const id = setInterval(() => setClock(getUtcClock()), 1000);
     return () => clearInterval(id);
   }, []);
 
   if (isMobile) {
     return (
-      <main
-        className="h-full w-full flex flex-col"
-        style={{ background: "var(--color-bg)" }}
-      >
-        {rightPanel}
+      <main className="app-shell mobile-shell">
+        <section className="mobile-canvas">{leftPanel}</section>
+        <section className="mobile-panel">{rightPanel}</section>
       </main>
     );
   }
 
   return (
-    <main
-      className="h-full w-full flex flex-col"
-      style={{ background: "var(--color-bg)" }}
-    >
-      {/* ── Global top bar ── */}
-      <header
-        className="shrink-0 flex items-center justify-between px-5 h-9 border-b"
-        style={{
-          borderColor: "var(--color-border)",
-          background: "var(--color-surface)",
-        }}
-      >
-        {/* Left: system identifier */}
-        <div className="flex items-center gap-3">
-          <span
-            className="text-[10px] tracking-[0.25em] uppercase font-mono"
-            style={{ color: "var(--color-amber)" }}
-          >
-            MOOGLE
-          </span>
-          <span
-            className="text-[10px] tracking-[0.15em] uppercase font-mono"
-            style={{ color: "var(--color-muted)" }}
-          >
-            // Lunar Retrieval System
-          </span>
+    <main className="app-shell">
+      <header className="topbar">
+        <div className="brand-lockup">
+          <div className="brand-mark">
+            <Orbit size={18} strokeWidth={1.7} />
+          </div>
+          <div>
+            <span className="eyebrow">MOOGLE</span>
+            <h1>Lunar Retrieval Engine</h1>
+          </div>
         </div>
 
-        {/* Center: status dots */}
-        <div className="flex items-center gap-4">
-          <StatusIndicator label="TELEMETRY" active />
-          <StatusIndicator label="RENDER" active />
-          <StatusIndicator label="INDEX" pulse />
+        <div className="topbar-target">
+          <span>{activeResult.title}</span>
+          <strong>{formatCoords(activeResult.lat, activeResult.lng)}</strong>
         </div>
 
-        {/* Right: clock */}
-        <div
-          className="text-[10px] tracking-[0.15em] font-mono tabular-nums"
-          style={{ color: "var(--color-muted)" }}
-        >
-          {mounted ? clock : ""}
+        <div className="status-cluster">
+          <StatusIndicator
+            icon={<Radio size={13} />}
+            label="Telemetry"
+            active
+          />
+          <StatusIndicator
+            icon={<Database size={13} />}
+            label={`${stats.totalResults} mock vectors`}
+            active
+          />
+          <StatusIndicator
+            icon={<Activity size={13} />}
+            label={stats.queryCount ? `${stats.queryCount} queries` : "standby"}
+            pulse
+          />
+          <div className="clock">{clock}</div>
         </div>
       </header>
 
-      {/* ── Main grid ── */}
-      <div className="flex flex-1 min-h-0">
-        {/* Left: Moon canvas */}
-        <section className="flex-1 relative" style={{ background: "#000" }}>
+      <div
+        className={`workspace-grid ${
+          isAsideCollapsed ? "aside-collapsed" : ""
+        }`}
+      >
+        <section className="viewport-panel">
           {leftPanel}
-
-          {/* Corner brackets — top-left */}
-          <div className="absolute top-3 left-3 pointer-events-none">
-            <Corner />
-          </div>
-          {/* Corner brackets — bottom-right */}
-          <div
-            className="absolute bottom-3 right-3 pointer-events-none"
-            style={{ transform: "rotate(180deg)" }}
-          >
-            <Corner />
-          </div>
-
-          {/* Bottom label strip */}
-          <div
-            className="absolute bottom-0 left-0 right-0 flex items-center justify-between px-4 py-1.5 pointer-events-none"
-            style={{
-              borderTop: "1px solid var(--color-border)",
-              background: "rgba(2,4,10,0.72)",
-              backdropFilter: "blur(6px)",
-            }}
-          >
-            <span
-              className="text-[9px] tracking-[0.2em] uppercase font-mono"
-              style={{ color: "var(--color-muted)" }}
-            >
-              LROC · NAC · 0.5 m/px
-            </span>
-            <span
-              className="text-[9px] tracking-[0.2em] uppercase font-mono"
-              style={{ color: "var(--color-amber-dim)" }}
-            >
-              ◎ LIVE VIEW
-            </span>
-          </div>
         </section>
-
-        {/* Divider */}
-        <div
-          className="w-px shrink-0"
-          style={{
-            background:
-              "linear-gradient(to bottom, transparent, var(--color-amber-dim) 20%, var(--color-border) 80%, transparent)",
-          }}
-        />
-
-        {/* Right: Chat panel */}
-        <aside
-          className="flex flex-col shrink-0"
-          style={{
-            width: "420px",
-            background: "var(--color-surface)",
-          }}
+        <button
+          type="button"
+          className="aside-edge-toggle"
+          onClick={() => setIsAsideCollapsed((collapsed) => !collapsed)}
+          aria-label={
+            isAsideCollapsed
+              ? "Show retrieval panel"
+              : "Hide retrieval panel"
+          }
+          title={
+            isAsideCollapsed
+              ? "Show retrieval panel"
+              : "Hide retrieval panel"
+          }
         >
-          {rightPanel}
-        </aside>
+          {isAsideCollapsed ? (
+            <PanelRightOpen size={16} />
+          ) : (
+            <PanelRightClose size={16} />
+          )}
+        </button>
+        {!isAsideCollapsed && (
+          <aside className="retrieval-panel">{rightPanel}</aside>
+        )}
       </div>
     </main>
   );
 }
 
 function StatusIndicator({
+  icon,
   label,
   active,
   pulse,
 }: {
+  icon: ReactNode;
   label: string;
   active?: boolean;
   pulse?: boolean;
 }) {
   return (
-    <div className="flex items-center gap-1.5">
-      <span
-        className={`w-1.5 h-1.5 rounded-full ${pulse ? "animate-pulse" : ""}`}
-        style={{
-          background:
-            active || pulse ? "var(--color-green)" : "var(--color-muted)",
-          boxShadow: active || pulse ? "0 0 4px var(--color-green)" : "none",
-        }}
-      />
-      <span
-        className="text-[9px] tracking-[0.15em] uppercase font-mono"
-        style={{ color: "var(--color-muted)" }}
-      >
-        {label}
-      </span>
+    <div
+      className={`status-pill ${active ? "is-active" : ""} ${
+        pulse ? "is-pulse" : ""
+      }`}
+    >
+      {icon}
+      <span>{label}</span>
     </div>
-  );
-}
-
-function Corner() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-      <path
-        d="M0 16 L0 0 L16 0"
-        stroke="var(--color-amber-dim)"
-        strokeWidth="1"
-        fill="none"
-      />
-    </svg>
   );
 }
 

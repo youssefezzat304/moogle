@@ -92,11 +92,11 @@ html, body, #root {
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
 
-  /* ── Core palette ── */
-  --color-bg:          #02040a;       /* deep space black */
-  --color-surface:     #060b12;       /* panel surface */
-  --color-input-bg:    #030608;       /* textarea bg */
-  --color-border:      #141f2e;       /* subtle grid lines */
+  /* Core app palette. App.css refines these for the main interface. */
+  --color-bg:          #05070b;
+  --color-surface:     #0b1017;
+  --color-input-bg:    #070d14;
+  --color-border:      #182431;
  
   /* ── Foreground ── */
   --color-fg:          #ddd5be;       /* warm parchment */
@@ -158,23 +158,7 @@ html, body, #root {
 }
 
 /* Scrollbar */
-::-webkit-scrollbar        { width: 3px; }
+::-webkit-scrollbar        { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track  { background: transparent; }
-::-webkit-scrollbar-thumb  { background: var(--color-border); border-radius: 0; }
-::-webkit-scrollbar-thumb:hover { background: var(--color-amber-dim); }
- 
-/* CRT scan-line overlay */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(0, 0, 0, 0.025) 2px,
-    rgba(0, 0, 0, 0.025) 4px
-  );
-  pointer-events: none;
-  z-index: 9999;
-}
+::-webkit-scrollbar-thumb  { background: rgba(125, 211, 252, 0.28); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(125, 211, 252, 0.48); }

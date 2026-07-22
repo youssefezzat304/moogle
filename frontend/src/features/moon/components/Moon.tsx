@@ -1,7 +1,7 @@
-import { useRef, useMemo } from "react";
+import { useMemo, useRef } from "react";
 import * as THREE from "three";
 import { useTexture } from "@react-three/drei";
-import { useThree, useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 
 interface MoonProps {
   targetCoords?: { lat: number; lng: number } | null;
@@ -19,57 +19,57 @@ function Moon({ targetCoords }: MoonProps) {
 
   const maxAnisotropy = gl.capabilities.getMaxAnisotropy();
 
-  useMemo(() => {
-    for (const tex of [colorMap, normalMap, displacementMap]) {
-      tex.anisotropy = maxAnisotropy;
-      // Clamp wrapping avoids seam artefacts at the antimeridian
-      tex.wrapS = THREE.ClampToEdgeWrapping;
-      tex.wrapT = THREE.ClampToEdgeWrapping;
-      tex.needsUpdate = true;
-    }
-  }, [colorMap, normalMap, displacementMap, maxAnisotropy]);
+  const [configuredColorMap, configuredNormalMap, configuredDisplacementMap] =
+    useMemo(() => {
+      const configureTexture = (
+        source: THREE.Texture,
+        colorSpace: THREE.ColorSpace,
+      ) => {
+        const tex = source.clone();
+        tex.colorSpace = colorSpace;
+        tex.anisotropy = maxAnisotropy;
+        tex.wrapS = THREE.ClampToEdgeWrapping;
+        tex.wrapT = THREE.ClampToEdgeWrapping;
+        tex.needsUpdate = true;
+        return tex;
+      };
 
-  // Slow idle axial drift when no target is being tracked
+      return [
+        configureTexture(colorMap, THREE.SRGBColorSpace),
+        configureTexture(normalMap, THREE.NoColorSpace),
+        configureTexture(displacementMap, THREE.NoColorSpace),
+      ];
+    }, [colorMap, normalMap, displacementMap, maxAnisotropy]);
+
   useFrame(({ clock }) => {
     if (!moonRef.current) return;
-    // Extremely subtle wobble — feels alive without being distracting
-    moonRef.current.rotation.y = clock.getElapsedTime() * 0.004;
+    if (!targetCoords) {
+      moonRef.current.rotation.y = clock.getElapsedTime() * 0.004;
+    }
   });
 
   return (
     <group>
-      {/* ── Main lunar sphere ── */}
       <mesh ref={moonRef} position={[0, 0, 0]}>
-        {/*
-          96 segments give a smoother silhouette vs the default 64,
-          especially visible against the star field at the limb.
-        */}
-        <sphereGeometry args={[2, 96, 96]} />
+        <sphereGeometry args={[2, 128, 128]} />
         <meshStandardMaterial
-          map={colorMap}
-          normalMap={normalMap}
-          normalScale={new THREE.Vector2(1.2, 1.2)}
-          displacementMap={displacementMap}
-          displacementScale={0.015}
-          roughness={0.98}
-          metalness={0.0}
-          // Slight color tint — pulls the textures toward the amber palette
-          color={new THREE.Color(0xddd5be)}
+          map={configuredColorMap}
+          normalMap={configuredNormalMap}
+          normalScale={new THREE.Vector2(1.35, 1.35)}
+          displacementMap={configuredDisplacementMap}
+          displacementScale={0.018}
+          roughness={0.92}
+          metalness={0}
+          color="#ffffff"
         />
       </mesh>
 
-      {/* ── Terminator atmosphere rim ── */}
-      {/*
-        A slightly larger, inverted, fully-transparent sphere with additive
-        blending creates a thin scattering halo around the moon limb
-        without any actual atmosphere — pure optical trick.
-      */}
       <mesh position={[0, 0, 0]}>
         <sphereGeometry args={[2.018, 64, 64]} />
         <meshStandardMaterial
-          color={new THREE.Color(0x8899bb)}
+          color="#8fb9d8"
           transparent
-          opacity={0.045}
+          opacity={0.04}
           side={THREE.BackSide}
           roughness={1}
           metalness={0}
