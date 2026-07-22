@@ -1,0 +1,75 @@
+[project]
+name = "example_package"
+version = "0.0.1"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[dependency-groups]
+format = ["ruff>=0.15.0", "ty>=0.0.30"]
+test = ["pytest>=9.0.1", "pytest-cov>=7.0.0"]
+dev = ["pre-commit>=4.0.0"]
+
+[tool.pyright]
+exclude = [".venv"]
+venvPath = ".venv"
+venv = "."
+
+[tool.ty.environment]
+python = "./.venv"
+
+[tool.ruff]
+lint.ignore = ["F722"]
+
+[tool.pytest.ini_options]
+python_files = "test/test_*.py"
+log_cli = false
+log_cli_level = "INFO"
+log_cli_format = "%(asctime)s [%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)"
+log_cli_date_format = "%Y-%m-%d %H:%M:%S"
+
+[tool.uv.build-backend]
+
+[build-system]
+requires = ["uv_build >= 0.8.0, <1.0.0"]
+build-backend = "uv_build"
+
+# --- PyTorch GPU Backend Configuration ---
+# Uncomment the block for your GPU, then add packages with uv add:
+#   uv add torch torchvision torchaudio
+#
+# NVIDIA CUDA:     index-url = "https://download.pytorch.org/whl/cu124"
+# Intel Arc (XPU): index-url = "https://download.pytorch.org/whl/xpu"
+# AMD ROCm:        index-url = "https://download.pytorch.org/whl/rocm7.2"
+#
+# Adjust the CUDA/ROCm version to match your target machine.
+# Browse available versions: https://download.pytorch.org/whl/
+
+# [[tool.uv.index]]
+# name = "pytorch-cuda"
+# url = "https://download.pytorch.org/whl/cu124"
+# explicit = true
+
+# [[tool.uv.index]]
+# name = "pytorch-xpu"
+# url = "https://download.pytorch.org/whl/xpu"
+# explicit = true
+
+# [[tool.uv.index]]
+# name = "pytorch-rocm"
+# url = "https://download.pytorch.org/whl/rocm7.2"
+# explicit = true
+
+# [tool.uv.sources]
+# torch = [{ index = "pytorch-cuda" }]
+# torchvision = [{ index = "pytorch-cuda" }]
+# torchaudio = [{ index = "pytorch-cuda" }]
+
+# [tool.uv]
+# find-links = ["https://data.pyg.org/whl/"]
+
+# [tool.uv.extra-build-dependencies]
+# torch-scatter = ["torch"]
+# torch-sparse = ["torch"]
+# torch-cluster = ["torch"]

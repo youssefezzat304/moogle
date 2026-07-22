@@ -1,0 +1,14 @@
+steps:
+  lint:
+    image: ghcr.io/astral-sh/uv:alpine
+    commands:
+      - uv sync --only-group format
+      - uv run ruff check .
+      - uv run ruff format --check .
+  test:
+    image: ghcr.io/astral-sh/uv:alpine
+    commands:
+      - uv sync --group test
+      - uv run pytest
+    when:
+      - event: [manual, pull_request]
