@@ -1,8 +1,9 @@
 # Moogle Frontend
 
-The Moogle frontend is a React application for exploring mock lunar retrieval
+The Moogle frontend is a React application for exploring lunar retrieval
 results in an interactive 3D interface. It is built with TypeScript, Vite,
-Tailwind CSS, React Three Fiber, and Framer Motion.
+Tailwind CSS, React Three Fiber, and Framer Motion. Retrieval results come only
+from the configured API; the production interface has no landmark fallback.
 
 ## Requirements
 
@@ -39,9 +40,10 @@ npm run format:check  # Check formatting without modifying files
 The application uses a feature-oriented structure under `src/`:
 
 - `app/` contains the React entry point and top-level application composition.
-- `features/chat/` implements the query and retrieval conversation interface.
+- `features/chat/` implements the retrieval query and result interface.
 - `features/moon/` contains the Three.js lunar visualization and canvas setup.
-- `features/retrieval/` defines the mock retrieval data and matching behavior.
+- `features/retrieval/` defines the API contract, response validation, and
+  retrieval client.
 - `shared/` contains reusable layout components and hooks.
 - `styles/` contains global styles and application-specific CSS.
 - `public/` contains lunar imagery and other static assets served by Vite.
@@ -49,17 +51,59 @@ The application uses a feature-oriented structure under `src/`:
 The `@/` alias resolves to `src/`. Tailwind is loaded through `src/styles/index.css`
 and integrated into Vite by `@tailwindcss/vite`.
 
-## Environment variables
+## Retrieval API
 
-No environment variables are currently required; retrieval data is local mock
-data. For future configuration, create an untracked `.env.local` file in this
-directory. Vite only exposes variables prefixed with `VITE_` to browser code:
+The frontend sends `POST /api/retrieval` by default. During local development,
+Vite proxies `/api` to `http://localhost:8000`. This repository does not yet
+provide that backend, so queries fail visibly until a compatible service is
+running.
 
-```dotenv
-# Example for a future API integration; this is not currently consumed.
-VITE_API_BASE_URL=http://localhost:8000
+The request body is:
+
+```json
+{
+  "query": "bright ejecta around a fresh crater",
+  "top_k": 6
+}
 ```
 
-Read a client variable with `import.meta.env.VITE_API_BASE_URL` and restart the
-development server after changing an environment file. Never put secrets in a
-`VITE_` variable because its value is included in the browser bundle.
+The response contract is:
+
+```json
+{
+  "query": "bright ejecta around a fresh crater",
+  "model_id": "optional-model-identifier",
+  "index_size": 22578,
+  "results": [
+    {
+      "patch_id": 1234,
+      "image_url": "/api/patches/1234/image",
+      "latitude": -12.34,
+      "longitude": 45.67,
+      "similarity": 0.312,
+      "description": "Optional source description",
+      "source_version": "optional-source-version",
+      "prompt_style": "optional-prompt-style"
+    }
+  ]
+}
+```
+
+Similarity is displayed as the raw model value. The frontend does not convert
+it into a confidence percentage.
+
+## Environment variables
+
+Create an untracked `.env.local` file to override either API location:
+
+```dotenv
+# Browser-facing base URL. Defaults to /api.
+VITE_API_BASE_URL=/api
+
+# Vite development proxy target. Defaults to http://localhost:8000.
+VITE_API_PROXY_TARGET=http://localhost:8000
+```
+
+Restart the development server after changing an environment file. Never put
+secrets in a `VITE_` variable because its value is included in the browser
+bundle.

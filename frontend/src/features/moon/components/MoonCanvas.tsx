@@ -12,14 +12,13 @@ import { LocateFixed } from "lucide-react";
 import * as THREE from "three";
 import Moon from "./Moon";
 import {
-  EVIDENCE_IMAGE_URL,
   formatCoords,
+  resultLabel,
   type RetrievalResult,
-} from "../../retrieval/mockData";
+} from "../../retrieval/api";
 
 interface MoonCanvasProps {
-  activeResult: RetrievalResult;
-  hasRetrieved: boolean;
+  activeResult: RetrievalResult | null;
 }
 
 function latLngToSpherical(lat: number, lng: number, radius: number) {
@@ -90,12 +89,18 @@ function CameraController({
   return null;
 }
 
-function TrackingLight({ activeResult }: { activeResult: RetrievalResult }) {
+function TrackingLight({
+  activeResult,
+}: {
+  activeResult: RetrievalResult | null;
+}) {
   const keyLight = useRef<THREE.DirectionalLight>(null);
   const glowLight = useRef<THREE.PointLight>(null);
   const lightPosition = useRef(new THREE.Vector3(6, 3, 4));
 
   useFrame(() => {
+    if (!activeResult) return;
+
     const surfaceDirection = latLngToSpherical(
       activeResult.lat,
       activeResult.lng,
@@ -196,7 +201,7 @@ function TargetMarker({ activeResult }: { activeResult: RetrievalResult }) {
   );
 }
 
-function TargetEvidenceCallouts({
+function TargetEvidenceCallout({
   activeResult,
 }: {
   activeResult: RetrievalResult;
@@ -206,14 +211,7 @@ function TargetEvidenceCallouts({
     [activeResult.lat, activeResult.lng],
   );
   const calloutRef = useRef<THREE.Group>(null);
-  const offsets = useMemo<[number, number, number][]>(
-    () => [
-      [0.52, 0.32, 0],
-      [0.58, -0.3, 0],
-      [-0.48, 0.02, 0],
-    ],
-    [],
-  );
+  const offset = useMemo<[number, number, number]>(() => [0.52, 0.32, 0], []);
 
   useFrame(({ camera }) => {
     calloutRef.current?.lookAt(camera.position);
@@ -221,53 +219,43 @@ function TargetEvidenceCallouts({
 
   return (
     <group ref={calloutRef} position={markerPosition}>
-      {activeResult.images.slice(0, 3).map((image, index) => {
-        const offset =
-          offsets[index] ?? ([0.72, 0.44, 0] as [number, number, number]);
-
-        return (
-          <group key={image.id}>
-            <Line
-              points={[
-                [0, 0, 0],
-                [offset[0] * 0.72, offset[1] * 0.72, 0],
-              ]}
-              color="#7dd3fc"
-              transparent
-              opacity={0.46}
-              lineWidth={1}
-              depthTest={false}
-            />
-            <Html
-              center
-              position={offset}
-              zIndexRange={[30, 0]}
-              className="target-callout-html"
-            >
-              <article className="target-evidence-card">
-                <a
-                  href={EVIDENCE_IMAGE_URL}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="target-evidence-thumb"
-                  aria-label={`Open ${image.title} image`}
-                  title={`Open ${image.title} image`}
-                  onPointerDown={(event) => event.stopPropagation()}
-                  onClick={(event) => event.stopPropagation()}
-                  style={{
-                    backgroundImage: `linear-gradient(145deg, rgba(3, 8, 14, 0.16), rgba(125, 211, 252, 0.12)), url('${EVIDENCE_IMAGE_URL}')`,
-                    backgroundPosition: image.crop,
-                  }}
-                />
-                <section>
-                  <strong>{image.title}</strong>
-                  <span>{Math.round(image.score * 100)} match</span>
-                </section>
-              </article>
-            </Html>
-          </group>
-        );
-      })}
+      <Line
+        points={[
+          [0, 0, 0],
+          [offset[0] * 0.72, offset[1] * 0.72, 0],
+        ]}
+        color="#7dd3fc"
+        transparent
+        opacity={0.46}
+        lineWidth={1}
+        depthTest={false}
+      />
+      <Html
+        center
+        position={offset}
+        zIndexRange={[30, 0]}
+        className="target-callout-html"
+      >
+        <article className="target-evidence-card">
+          <a
+            href={activeResult.imageUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="target-evidence-thumb"
+            aria-label={`Open ${resultLabel(activeResult)} image`}
+            title={`Open ${resultLabel(activeResult)} image`}
+            onPointerDown={(event) => event.stopPropagation()}
+            onClick={(event) => event.stopPropagation()}
+            style={{
+              backgroundImage: `linear-gradient(145deg, rgba(3, 8, 14, 0.16), rgba(125, 211, 252, 0.12)), url('${activeResult.imageUrl}')`,
+            }}
+          />
+          <section>
+            <strong>{resultLabel(activeResult)}</strong>
+            <span>{activeResult.similarity.toFixed(3)} similarity</span>
+          </section>
+        </article>
+      </Html>
     </group>
   );
 }
@@ -277,23 +265,31 @@ function ViewportHUD({
   hasWandered,
   onRecenter,
 }: {
-  activeResult: RetrievalResult;
+  activeResult: RetrievalResult | null;
   hasWandered: boolean;
   onRecenter: () => void;
 }) {
   return (
     <div className="viewport-hud">
       <div className="hud-target">
-        <span className="eyebrow">target lock</span>
-        <strong>{activeResult.title}</strong>
-        <small>{formatCoords(activeResult.lat, activeResult.lng)}</small>
+        <span className="eyebrow">
+          {activeResult ? "retrieval target" : "no target"}
+        </span>
+        <strong>
+          {activeResult ? resultLabel(activeResult) : "Awaiting retrieval"}
+        </strong>
+        <small>
+          {activeResult
+            ? formatCoords(activeResult.lat, activeResult.lng)
+            : "Submit a query to the retrieval API"}
+        </small>
       </div>
 
       <div className="reticle" aria-hidden="true">
         <span />
       </div>
 
-      {hasWandered && (
+      {activeResult && hasWandered && (
         <button
           type="button"
           className="recenter-button"
@@ -306,14 +302,14 @@ function ViewportHUD({
       )}
 
       <div className="viewport-footer">
-        <span>LROC texture stream · LDEM relief</span>
+        <span>LROC texture · LDEM relief</span>
         <strong>dynamic terminator</strong>
       </div>
     </div>
   );
 }
 
-function MoonCanvas({ activeResult, hasRetrieved }: MoonCanvasProps) {
+function MoonCanvas({ activeResult }: MoonCanvasProps) {
   const [hasWandered, setHasWandered] = useState(false);
   const [recenterNonce, setRecenterNonce] = useState(0);
   const [userInteracting, setUserInteracting] = useState(false);
@@ -368,12 +364,14 @@ function MoonCanvas({ activeResult, hasRetrieved }: MoonCanvasProps) {
       >
         <TrackingLight activeResult={activeResult} />
 
-        <CameraController
-          activeResult={activeResult}
-          cameraDistanceRef={cameraDistanceRef}
-          recenterNonce={recenterNonce}
-          userInteracting={userInteracting}
-        />
+        {activeResult && (
+          <CameraController
+            activeResult={activeResult}
+            cameraDistanceRef={cameraDistanceRef}
+            recenterNonce={recenterNonce}
+            userInteracting={userInteracting}
+          />
+        )}
 
         <OrbitControls
           enableDamping
@@ -399,11 +397,17 @@ function MoonCanvas({ activeResult, hasRetrieved }: MoonCanvasProps) {
 
         <Suspense fallback={<MoonSphere />}>
           <Moon
-            targetCoords={{ lat: activeResult.lat, lng: activeResult.lng }}
+            targetCoords={
+              activeResult
+                ? { lat: activeResult.lat, lng: activeResult.lng }
+                : null
+            }
           />
-          <TargetMarker activeResult={activeResult} />
-          {hasRetrieved && (
-            <TargetEvidenceCallouts activeResult={activeResult} />
+          {activeResult && (
+            <>
+              <TargetMarker activeResult={activeResult} />
+              <TargetEvidenceCallout activeResult={activeResult} />
+            </>
           )}
         </Suspense>
       </Canvas>

@@ -5,18 +5,18 @@ import {
   Orbit,
   PanelRightClose,
   PanelRightOpen,
-  Radio,
 } from "lucide-react";
 import {
   formatCoords,
+  resultLabel,
   type RetrievalResult,
-} from "../../../features/retrieval/mockData";
+} from "../../../features/retrieval/api";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
 interface SplitLayoutProps {
   leftPanel: ReactNode;
   rightPanel: ReactNode;
-  activeResult: RetrievalResult;
+  activeResult: RetrievalResult | null;
   stats: {
     totalResults: number;
     queryCount: number;
@@ -66,25 +66,26 @@ function SplitLayout({
         </div>
 
         <div className="topbar-target">
-          <span>{activeResult.title}</span>
-          <strong>{formatCoords(activeResult.lat, activeResult.lng)}</strong>
+          <span>
+            {activeResult ? resultLabel(activeResult) : "No target selected"}
+          </span>
+          <strong>
+            {activeResult
+              ? formatCoords(activeResult.lat, activeResult.lng)
+              : "Waiting for retrieval results"}
+          </strong>
         </div>
 
         <div className="status-cluster">
           <StatusIndicator
-            icon={<Radio size={13} />}
-            label="Telemetry"
-            active
-          />
-          <StatusIndicator
             icon={<Database size={13} />}
-            label={`${stats.totalResults} mock vectors`}
-            active
+            label={`${stats.totalResults} returned`}
+            active={stats.totalResults > 0}
           />
           <StatusIndicator
             icon={<Activity size={13} />}
             label={stats.queryCount ? `${stats.queryCount} queries` : "standby"}
-            pulse
+            pulse={stats.queryCount > 0}
           />
           <div className="clock">{clock}</div>
         </div>
