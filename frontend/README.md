@@ -31,6 +31,7 @@ commands are:
 npm run build         # Type-check and create a production build
 npm run preview       # Serve the production build locally
 npm run lint          # Run ESLint
+npm run test          # Run unit tests
 npm run format        # Format supported files with Prettier
 npm run format:check  # Check formatting without modifying files
 ```
@@ -40,7 +41,7 @@ npm run format:check  # Check formatting without modifying files
 The application uses a feature-oriented structure under `src/`:
 
 - `app/` contains the React entry point and top-level application composition.
-- `features/chat/` implements the retrieval query and result interface.
+- `features/search/` owns search state and the ranked retrieval interface.
 - `features/moon/` contains the Three.js lunar visualization and canvas setup.
 - `features/retrieval/` defines the API contract, response validation, and
   retrieval client.
