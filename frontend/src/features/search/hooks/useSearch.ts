@@ -77,6 +77,7 @@ export function useSearch(
           metadata: {
             modelId: response.modelId,
             indexSize: response.indexSize,
+            elapsedMs: response.elapsedMs,
           },
         });
         setQueryCount((count) => count + 1);

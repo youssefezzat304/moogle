@@ -37,6 +37,7 @@ function SearchForm({ isSubmitting, onSubmit }: SearchFormProps) {
         <textarea
           rows={3}
           value={input}
+          maxLength={500}
           placeholder="Describe the lunar terrain to retrieve..."
           onChange={(event) => setInput(event.target.value)}
           onKeyDown={(event) => {

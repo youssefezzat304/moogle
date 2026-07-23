@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "query": "young crater with bright ejecta",
+  "model_id": "bpe_geo",
+  "index_size": 22578,
+  "elapsed_ms": 84,
+  "results": [
+    {
+      "rank": 1,
+      "patch_id": 123,
+      "similarity": 0.312,
+      "description": "A fresh crater surrounded by bright ejecta material.",
+      "source_version": "v2.0",
+      "prompt_style": "llm_description",
+      "image_url": "/api/patches/123/image",
+      "latitude": -12.34,
+      "longitude": 45.67
+    }
+  ]
+}

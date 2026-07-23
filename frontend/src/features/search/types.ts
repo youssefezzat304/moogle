@@ -5,6 +5,7 @@ export type SearchPhase = "idle" | "loading" | "success" | "empty" | "error";
 export interface SearchMetadata {
   modelId?: string;
   indexSize?: number;
+  elapsedMs?: number;
 }
 
 export type SearchRequest = (

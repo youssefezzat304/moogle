@@ -1,0 +1,213 @@
+openapi: 3.1.0
+info:
+  title: Moogle Retrieval API
+  version: 1.0.0
+  description: |
+    Contract for the first Moogle semantic-retrieval MVP.
+
+    The configured `bpe_geo` model searches 512 by 512 geomap patches. Results
+    are ranked by descending raw similarity. Similarity is not a probability
+    and must not be presented as confidence.
+
+    Coordinates are positive-east, planetocentric degrees at the center of
+    each patch. Longitude is normalized to [-180, 180). Patch coordinates are
+    reconstructed from the canonical 512-pixel grid; transposed v3.0 caption
+    coordinates are not a valid geographic source.
+paths:
+  /api/retrieval:
+    post:
+      operationId: retrieveLunarPatches
+      summary: Search the configured lunar patch index
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RetrievalRequest"
+            example:
+              query: young crater with bright ejecta
+              top_k: 5
+      responses:
+        "200":
+          description: Successful search, including a search with no results.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RetrievalResponse"
+              example:
+                schema_version: 1
+                query: young crater with bright ejecta
+                model_id: bpe_geo
+                index_size: 22578
+                elapsed_ms: 84
+                results:
+                  - rank: 1
+                    patch_id: 123
+                    similarity: 0.312
+                    description: A fresh crater surrounded by bright ejecta material.
+                    source_version: v2.0
+                    prompt_style: llm_description
+                    image_url: /api/patches/123/image
+                    latitude: -12.34
+                    longitude: 45.67
+        "422":
+          $ref: "#/components/responses/ValidationError"
+        "500":
+          $ref: "#/components/responses/InternalError"
+        "503":
+          $ref: "#/components/responses/NotReadyError"
+components:
+  responses:
+    ValidationError:
+      description: The query or top-k value is invalid.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+    InternalError:
+      description: The backend encountered an unexpected failure.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+    NotReadyError:
+      description: The configured model or retrieval index is not loaded.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+          example:
+            error:
+              code: MODEL_NOT_READY
+              message: The retrieval model is not ready.
+              request_id: abc123
+  schemas:
+    RetrievalRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - query
+      properties:
+        query:
+          type: string
+          minLength: 1
+          maxLength: 500
+          description: Whitespace-trimmed semantic terrain query.
+        top_k:
+          type: integer
+          minimum: 1
+          maximum: 10
+          default: 5
+          description: Maximum number of ranked patches to return.
+    RetrievalResult:
+      type: object
+      additionalProperties: false
+      required:
+        - rank
+        - patch_id
+        - similarity
+        - description
+        - source_version
+        - prompt_style
+        - image_url
+        - latitude
+        - longitude
+      properties:
+        rank:
+          type: integer
+          minimum: 1
+          description: One-based rank matching this result's array position.
+        patch_id:
+          type: integer
+          description: Canonical dataset patch identifier.
+        similarity:
+          type: number
+          description: Finite raw similarity score; not a probability.
+        description:
+          type: string
+          minLength: 1
+          description: Deterministically selected dataset caption.
+        source_version:
+          type: string
+          minLength: 1
+          description: Dataset version supplying the description.
+        prompt_style:
+          type: string
+          minLength: 1
+          description: Prompt style supplying the description.
+        image_url:
+          type: string
+          format: uri-reference
+          minLength: 1
+          pattern: "^(?:/|https?://)"
+          description: URL for the geomap thumbnail represented by this patch.
+        latitude:
+          type: number
+          minimum: -90
+          maximum: 90
+          description: Planetocentric latitude of the patch center in degrees.
+        longitude:
+          type: number
+          minimum: -180
+          exclusiveMaximum: 180
+          description: Positive-east longitude of the patch center in degrees.
+    RetrievalResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - schema_version
+        - query
+        - model_id
+        - index_size
+        - elapsed_ms
+        - results
+      properties:
+        schema_version:
+          type: integer
+          const: 1
+        query:
+          type: string
+          minLength: 1
+          maxLength: 500
+        model_id:
+          type: string
+          minLength: 1
+        index_size:
+          type: integer
+          minimum: 0
+        elapsed_ms:
+          type: integer
+          minimum: 0
+        results:
+          type: array
+          maxItems: 10
+          description: |
+            Unique patches sorted by descending similarity. Ranks must be
+            contiguous and match one-based array positions.
+          items:
+            $ref: "#/components/schemas/RetrievalResult"
+    ErrorDetail:
+      type: object
+      additionalProperties: false
+      required:
+        - code
+        - message
+        - request_id
+      properties:
+        code:
+          type: string
+          pattern: "^[A-Z][A-Z0-9_]*$"
+        message:
+          type: string
+          minLength: 1
+        request_id:
+          type: string
+          minLength: 1
+    ErrorResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - error
+      properties:
+        error:
+          $ref: "#/components/schemas/ErrorDetail"

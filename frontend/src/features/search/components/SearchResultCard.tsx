@@ -1,19 +1,18 @@
 import {
   formatCoords,
+  formatSimilarity,
   resultLabel,
   type RetrievalResult,
 } from "../../retrieval/api";
 
 interface SearchResultCardProps {
   result: RetrievalResult;
-  rank: number;
   selected: boolean;
   onSelect: (result: RetrievalResult) => void;
 }
 
 function SearchResultCard({
   result,
-  rank,
   selected,
   onSelect,
 }: SearchResultCardProps) {
@@ -33,10 +32,12 @@ function SearchResultCard({
       <div className="evidence-copy">
         <div className="evidence-title-row">
           <strong>
-            <b className="evidence-rank">#{rank.toString().padStart(2, "0")}</b>
+            <b className="evidence-rank">
+              #{result.rank.toString().padStart(2, "0")}
+            </b>
             {resultLabel(result)}
           </strong>
-          <span>{result.similarity.toFixed(3)}</span>
+          <span>{formatSimilarity(result.similarity)}</span>
         </div>
         {result.description && <p>{result.description}</p>}
         <small>{formatCoords(result.lat, result.lng)}</small>

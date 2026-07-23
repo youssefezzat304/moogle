@@ -31,6 +31,11 @@ log_cli_date_format = "%Y-%m-%d %H:%M:%S"
 
 [tool.uv.build-backend]
 
+[tool.uv.workspace]
+members = [
+    "backend",
+]
+
 [build-system]
 requires = ["uv_build >= 0.8.0, <1.0.0"]
 build-backend = "uv_build"

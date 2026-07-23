@@ -55,16 +55,17 @@ and integrated into Vite by `@tailwindcss/vite`.
 ## Retrieval API
 
 The frontend sends `POST /api/retrieval` by default. During local development,
-Vite proxies `/api` to `http://localhost:8000`. This repository does not yet
-provide that backend, so queries fail visibly until a compatible service is
-running.
+Vite proxies `/api` to `http://localhost:8000`. The authoritative wire contract
+is [`docs/api/retrieval-v1.yaml`](../docs/api/retrieval-v1.yaml). This repository
+does not yet provide the endpoint, so queries fail visibly until a compatible
+service is running.
 
 The request body is:
 
 ```json
 {
   "query": "bright ejecta around a fresh crater",
-  "top_k": 6
+  "top_k": 5
 }
 ```
 
@@ -72,19 +73,22 @@ The response contract is:
 
 ```json
 {
+  "schema_version": 1,
   "query": "bright ejecta around a fresh crater",
-  "model_id": "optional-model-identifier",
+  "model_id": "bpe_geo",
   "index_size": 22578,
+  "elapsed_ms": 84,
   "results": [
     {
+      "rank": 1,
       "patch_id": 1234,
       "image_url": "/api/patches/1234/image",
       "latitude": -12.34,
       "longitude": 45.67,
       "similarity": 0.312,
-      "description": "Optional source description",
-      "source_version": "optional-source-version",
-      "prompt_style": "optional-prompt-style"
+      "description": "A fresh crater surrounded by bright ejecta material.",
+      "source_version": "v2.0",
+      "prompt_style": "llm_description"
     }
   ]
 }

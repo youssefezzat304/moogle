@@ -45,6 +45,9 @@ function SearchStatus({ phase, query, error, metadata }: SearchStatusProps) {
           {metadata.indexSize !== undefined && (
             <span>{metadata.indexSize.toLocaleString()} indexed patches</span>
           )}
+          {metadata.elapsedMs !== undefined && (
+            <span>{metadata.elapsedMs.toLocaleString()} ms</span>
+          )}
         </span>
       )}
     </AnimatePresence>

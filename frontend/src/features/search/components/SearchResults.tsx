@@ -33,11 +33,10 @@ function SearchResults({
       </div>
 
       <div className="evidence-grid">
-        {results.map((result, index) => (
+        {results.map((result) => (
           <SearchResultCard
             key={result.id}
             result={result}
-            rank={index + 1}
             selected={result.id === activeResult?.id}
             onSelect={onSelectResult}
           />
