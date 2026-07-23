@@ -5,9 +5,11 @@ info:
   description: |
     Contract for the first Moogle semantic-retrieval MVP.
 
-    The configured `bpe_geo` model searches 512 by 512 geomap patches. Results
-    are ranked by descending raw similarity. Similarity is not a probability
-    and must not be presented as confidence.
+    The configured `bpe_geo` model searches 512 by 512 geomap patches. Each
+    result presents the spatially corresponding WAC patch and a deterministic
+    v3.0 `Geologist to Non-Geologist` description. Results are ranked by
+    descending raw similarity. Similarity is not a probability and must not be
+    presented as confidence.
 
     Coordinates are positive-east, planetocentric degrees at the center of
     each patch. Longitude is normalized to [-180, 180). Patch coordinates are
@@ -45,9 +47,9 @@ paths:
                     patch_id: 123
                     similarity: 0.312
                     description: A fresh crater surrounded by bright ejecta material.
-                    source_version: v2.0
-                    prompt_style: llm_description
-                    image_url: /api/patches/123/image
+                    source_version: v3.0
+                    prompt_style: Geologist to Non-Geologist
+                    wac_image_url: /api/patches/123/wac
                     latitude: -12.34
                     longitude: 45.67
         "422":
@@ -109,7 +111,7 @@ components:
         - description
         - source_version
         - prompt_style
-        - image_url
+        - wac_image_url
         - latitude
         - longitude
       properties:
@@ -130,17 +132,17 @@ components:
         source_version:
           type: string
           minLength: 1
-          description: Dataset version supplying the description.
+          description: Caption-generation version supplying the description.
         prompt_style:
           type: string
           minLength: 1
           description: Prompt style supplying the description.
-        image_url:
+        wac_image_url:
           type: string
           format: uri-reference
           minLength: 1
           pattern: "^(?:/|https?://)"
-          description: URL for the geomap thumbnail represented by this patch.
+          description: URL for the WAC image spatially corresponding to this geomap patch.
         latitude:
           type: number
           minimum: -90

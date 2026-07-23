@@ -42,7 +42,7 @@ function EvidenceCallout({ activeResult }: EvidenceCalloutProps) {
       >
         <article className="target-evidence-card">
           <a
-            href={activeResult.imageUrl}
+            href={activeResult.wacImageUrl}
             target="_blank"
             rel="noreferrer"
             className="target-evidence-thumb"
@@ -51,7 +51,7 @@ function EvidenceCallout({ activeResult }: EvidenceCalloutProps) {
             onPointerDown={(event) => event.stopPropagation()}
             onClick={(event) => event.stopPropagation()}
             style={{
-              backgroundImage: `linear-gradient(145deg, rgba(3, 8, 14, 0.16), rgba(125, 211, 252, 0.12)), url('${activeResult.imageUrl}')`,
+              backgroundImage: `linear-gradient(145deg, rgba(3, 8, 14, 0.16), rgba(125, 211, 252, 0.12)), url('${activeResult.wacImageUrl}')`,
             }}
           />
           <section>

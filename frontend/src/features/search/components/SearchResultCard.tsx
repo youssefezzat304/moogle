@@ -25,7 +25,7 @@ function SearchResultCard({
     >
       <img
         className="evidence-thumb"
-        src={result.imageUrl}
+        src={result.wacImageUrl}
         alt={`Retrieved lunar ${resultLabel(result)}`}
         loading="lazy"
       />

@@ -82,13 +82,13 @@ The response contract is:
     {
       "rank": 1,
       "patch_id": 1234,
-      "image_url": "/api/patches/1234/image",
+      "wac_image_url": "/api/patches/1234/wac",
       "latitude": -12.34,
       "longitude": 45.67,
       "similarity": 0.312,
       "description": "A fresh crater surrounded by bright ejecta material.",
-      "source_version": "v2.0",
-      "prompt_style": "llm_description"
+      "source_version": "v3.0",
+      "prompt_style": "Geologist to Non-Geologist"
     }
   ]
 }

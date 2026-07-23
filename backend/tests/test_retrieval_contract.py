@@ -33,6 +33,9 @@ def test_shared_response_fixture_matches_backend_contract(
 
     assert response.model_id == "bpe_geo"
     assert response.results[0].similarity == pytest.approx(0.312)
+    assert response.results[0].source_version == "v3.0"
+    assert response.results[0].prompt_style == "Geologist to Non-Geologist"
+    assert response.results[0].wac_image_url == "/api/patches/123/wac"
 
 
 def test_request_trims_query_and_defaults_to_five_results() -> None:

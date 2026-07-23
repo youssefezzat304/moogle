@@ -10,7 +10,7 @@ interface RetrievalApiResult {
   description: string;
   source_version: string;
   prompt_style: string;
-  image_url: string;
+  wac_image_url: string;
   latitude: number;
   longitude: number;
 }
@@ -36,7 +36,7 @@ export interface RetrievalResult {
   id: string;
   rank: number;
   patchId: number;
-  imageUrl: string;
+  wacImageUrl: string;
   lat: number;
   lng: number;
   similarity: number;
@@ -120,7 +120,7 @@ export async function retrieveLunarPatches(
     ...parsed,
     results: parsed.results.map((result) => ({
       ...result,
-      imageUrl: resolveImageUrl(result.imageUrl),
+      wacImageUrl: resolveImageUrl(result.wacImageUrl),
     })),
   };
 }
@@ -164,7 +164,7 @@ function toRetrievalResult(result: RetrievalApiResult): RetrievalResult {
     id: String(result.patch_id),
     rank: result.rank,
     patchId: result.patch_id,
-    imageUrl: result.image_url,
+    wacImageUrl: result.wac_image_url,
     lat: result.latitude,
     lng: result.longitude,
     similarity: result.similarity,
@@ -223,7 +223,7 @@ function isRetrievalApiResult(value: unknown): value is RetrievalApiResult {
       "description",
       "source_version",
       "prompt_style",
-      "image_url",
+      "wac_image_url",
       "latitude",
       "longitude",
     ]) &&
@@ -234,8 +234,8 @@ function isRetrievalApiResult(value: unknown): value is RetrievalApiResult {
     isTrimmedString(value.description) &&
     isTrimmedString(value.source_version) &&
     isTrimmedString(value.prompt_style) &&
-    typeof value.image_url === "string" &&
-    /^(?:\/|https?:\/\/)/.test(value.image_url) &&
+    typeof value.wac_image_url === "string" &&
+    /^(?:\/|https?:\/\/)/.test(value.wac_image_url) &&
     isFiniteNumber(value.latitude) &&
     value.latitude >= -90 &&
     value.latitude <= 90 &&

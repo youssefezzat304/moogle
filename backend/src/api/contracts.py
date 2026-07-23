@@ -35,7 +35,7 @@ class RetrievalResult(ContractModel):
     description: str = Field(min_length=1)
     source_version: str = Field(min_length=1)
     prompt_style: str = Field(min_length=1)
-    image_url: str = Field(
+    wac_image_url: str = Field(
         min_length=1,
         pattern=r"^(?:/|https?://)",
     )
@@ -46,7 +46,7 @@ class RetrievalResult(ContractModel):
         "description",
         "source_version",
         "prompt_style",
-        "image_url",
+        "wac_image_url",
         mode="before",
     )
     @classmethod
