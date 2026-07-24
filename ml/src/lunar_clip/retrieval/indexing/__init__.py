@@ -6,6 +6,7 @@ from lunar_clip.retrieval.indexing.artifacts import (
     load_index_artifact,
     sha256_file,
 )
+from lunar_clip.retrieval.indexing.batches import RasterioGeomapBatchSource
 from lunar_clip.retrieval.indexing.builder import IndexBuildConfig, build_index
 from lunar_clip.retrieval.indexing.contracts import (
     EmbeddingDescriptor,
@@ -28,6 +29,7 @@ __all__ = [
     "IndexBuildConfig",
     "IndexManifest",
     "LunarClipImageEmbedder",
+    "RasterioGeomapBatchSource",
     "build_index",
     "default_index_id",
     "load_index_artifact",
