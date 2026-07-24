@@ -4,9 +4,14 @@ import { Loader2, Search, Send } from "lucide-react";
 interface SearchFormProps {
   isSubmitting: boolean;
   onSubmit: (query: string) => Promise<boolean>;
+  placement?: "initial" | "conversation";
 }
 
-function SearchForm({ isSubmitting, onSubmit }: SearchFormProps) {
+function SearchForm({
+  isSubmitting,
+  onSubmit,
+  placement = "initial",
+}: SearchFormProps) {
   const [input, setInput] = useState("");
 
   const submit = async () => {
@@ -24,18 +29,18 @@ function SearchForm({ isSubmitting, onSubmit }: SearchFormProps) {
   };
 
   return (
-    <section className="search-form-section">
+    <section className={`search-form-section ${placement}`}>
       <div className="panel-section-title">
         <span>
           <Search size={13} />
-          Retrieval query
+          {placement === "initial" ? "Start a search" : "Next query"}
         </span>
-        <strong>API required</strong>
+        <strong>Semantic retrieval</strong>
       </div>
 
       <form className="composer-box" onSubmit={handleSubmit}>
         <textarea
-          rows={3}
+          rows={placement === "initial" ? 4 : 2}
           value={input}
           maxLength={500}
           placeholder="Describe the lunar terrain to retrieve..."

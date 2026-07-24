@@ -642,7 +642,16 @@
 .result-image-dialog h2 {
   margin: 3px 0 0;
   color: var(--color-text);
-  font-size: 17px;
+  font-size: 21px;
+  line-height: 1.25;
+}
+
+.result-image-position {
+  display: block;
+  margin-top: 5px;
+  color: var(--color-cyan);
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .result-image-close {
@@ -664,7 +673,11 @@
   outline: 0;
 }
 
-.result-image-dialog > img {
+.result-image-stage {
+  position: relative;
+}
+
+.result-image-stage img {
   display: block;
   width: 100%;
   aspect-ratio: 1;
@@ -672,6 +685,48 @@
   object-fit: contain;
   background: #020407;
   filter: contrast(1.08) brightness(1.04);
+}
+
+.result-image-navigation {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  display: grid;
+  width: 44px;
+  height: 52px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 8px;
+  color: var(--color-text);
+  background: rgba(3, 8, 14, 0.72);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.32);
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition:
+    border-color 160ms ease,
+    color 160ms ease,
+    background 160ms ease;
+}
+
+.result-image-navigation.previous {
+  left: 12px;
+}
+
+.result-image-navigation.next {
+  right: 12px;
+}
+
+.result-image-navigation:hover:not(:disabled),
+.result-image-navigation:focus-visible {
+  border-color: var(--color-cyan);
+  color: var(--color-cyan);
+  background: rgba(3, 12, 20, 0.9);
+  outline: 0;
+}
+
+.result-image-navigation:disabled {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .result-image-details {
@@ -696,7 +751,7 @@
 
 .result-image-details span {
   color: var(--color-text-mute);
-  font-size: 9px;
+  font-size: 11px;
   text-transform: uppercase;
 }
 
@@ -704,7 +759,7 @@
   margin-top: 4px;
   overflow: hidden;
   color: var(--color-cyan);
-  font-size: 11px;
+  font-size: 14px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -712,13 +767,13 @@
 .result-image-dialog > p {
   margin: 14px 0 8px;
   color: var(--color-text-soft);
-  font-size: 12px;
-  line-height: 1.65;
+  font-size: 16px;
+  line-height: 1.6;
 }
 
 .result-image-dialog > small {
   color: var(--color-text-mute);
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .viewport-footer strong {
@@ -738,8 +793,116 @@
     var(--color-surface);
 }
 
+.search-panel.initial {
+  justify-content: center;
+}
+
+.initial-search {
+  width: min(100%, 560px);
+  margin: 0 auto;
+}
+
+.initial-search > h2 {
+  margin: 8px 0 6px;
+  color: var(--color-text);
+  font-size: clamp(22px, 3vw, 30px);
+  line-height: 1.2;
+}
+
+.initial-search > p {
+  margin: 0 0 24px;
+  color: var(--color-text-soft);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.search-panel.conversation {
+  gap: 10px;
+}
+
 .search-form-section {
   flex: 0 0 auto;
+}
+
+.search-results-window {
+  display: flex;
+  flex: 0 1 44%;
+  min-height: 176px;
+  overflow: hidden;
+}
+
+.search-results-window .evidence-section {
+  width: 100%;
+}
+
+.conversation-window {
+  display: flex;
+  flex: 1 1 0;
+  min-height: 150px;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 12px;
+  border: 1px solid var(--color-line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.conversation-messages {
+  display: flex;
+  min-height: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  padding-right: 3px;
+}
+
+.conversation-message {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 9px;
+  align-items: start;
+}
+
+.conversation-avatar {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border: 1px solid var(--color-line);
+  border-radius: 50%;
+  color: var(--color-cyan);
+  background: rgba(125, 211, 252, 0.07);
+}
+
+.conversation-message.user .conversation-avatar {
+  color: var(--color-gold);
+  background: rgba(238, 199, 112, 0.07);
+}
+
+.conversation-message strong {
+  color: var(--color-text);
+  font-size: 11px;
+}
+
+.conversation-message p {
+  margin: 3px 0 0;
+  color: var(--color-text-soft);
+  font-size: 13px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.conversation-message.error p {
+  color: var(--color-rose);
+}
+
+.conversation-message.pending {
+  opacity: 0.75;
+}
+
+.search-form-section.conversation .composer-box textarea {
+  min-height: 42px;
 }
 
 .panel-section-title {

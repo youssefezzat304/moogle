@@ -9,13 +9,17 @@ import "../styles/App.css";
 
 function App() {
   const search = useSearch();
+  const { selectResult } = search;
   const [previewResultId, setPreviewResultId] = useState<string | null>(null);
   const previewResult =
     search.results.find((result) => result.id === previewResultId) ?? null;
   const closePreview = useCallback(() => setPreviewResultId(null), []);
   const previewImage = useCallback(
-    (result: RetrievalResult) => setPreviewResultId(result.id),
-    [],
+    (result: RetrievalResult) => {
+      selectResult(result);
+      setPreviewResultId(result.id);
+    },
+    [selectResult],
   );
 
   return (
@@ -35,7 +39,12 @@ function App() {
         rightPanel={<SearchPanel search={search} />}
       />
       {previewResult && (
-        <ResultImageDialog result={previewResult} onClose={closePreview} />
+        <ResultImageDialog
+          results={search.results}
+          activeResultId={previewResult.id}
+          onSelectResult={previewImage}
+          onClose={closePreview}
+        />
       )}
     </>
   );

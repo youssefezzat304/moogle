@@ -1,5 +1,5 @@
-import { X } from "lucide-react";
-import { useEffect } from "react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { useCallback, useEffect } from "react";
 import {
   formatCoords,
   formatSimilarity,
@@ -8,19 +8,46 @@ import {
 } from "../api";
 
 interface ResultImageDialogProps {
-  result: RetrievalResult;
+  results: RetrievalResult[];
+  activeResultId: string;
+  onSelectResult: (result: RetrievalResult) => void;
   onClose: () => void;
 }
 
-function ResultImageDialog({ result, onClose }: ResultImageDialogProps) {
+function ResultImageDialog({
+  results,
+  activeResultId,
+  onSelectResult,
+  onClose,
+}: ResultImageDialogProps) {
+  const activeIndex = results.findIndex(
+    (result) => result.id === activeResultId,
+  );
+  const result = results[activeIndex];
+
+  const showResult = useCallback(
+    (offset: number) => {
+      if (results.length < 2 || activeIndex < 0) return;
+      const nextIndex =
+        (activeIndex + offset + results.length) % results.length;
+      onSelectResult(results[nextIndex]);
+    },
+    [activeIndex, onSelectResult, results],
+  );
+
   useEffect(() => {
-    function closeOnEscape(event: KeyboardEvent) {
+    function handleKeyboardNavigation(event: KeyboardEvent) {
       if (event.key === "Escape") onClose();
+      if (event.key === "ArrowLeft") showResult(-1);
+      if (event.key === "ArrowRight") showResult(1);
     }
 
-    document.addEventListener("keydown", closeOnEscape);
-    return () => document.removeEventListener("keydown", closeOnEscape);
-  }, [onClose]);
+    document.addEventListener("keydown", handleKeyboardNavigation);
+    return () =>
+      document.removeEventListener("keydown", handleKeyboardNavigation);
+  }, [onClose, showResult]);
+
+  if (!result) return null;
 
   return (
     <div
@@ -40,6 +67,9 @@ function ResultImageDialog({ result, onClose }: ResultImageDialogProps) {
           <div>
             <span className="eyebrow">Retrieved WAC patch</span>
             <h2 id="result-image-dialog-title">{resultLabel(result)}</h2>
+            <span className="result-image-position">
+              Image {activeIndex + 1} of {results.length}
+            </span>
           </div>
           <button
             type="button"
@@ -51,10 +81,30 @@ function ResultImageDialog({ result, onClose }: ResultImageDialogProps) {
           </button>
         </header>
 
-        <img
-          src={result.wacImageUrl}
-          alt={`Retrieved lunar ${resultLabel(result)}`}
-        />
+        <div className="result-image-stage">
+          <button
+            type="button"
+            className="result-image-navigation previous"
+            onClick={() => showResult(-1)}
+            disabled={results.length < 2}
+            aria-label="Show previous retrieved image"
+          >
+            <ChevronLeft size={24} />
+          </button>
+          <img
+            src={result.wacImageUrl}
+            alt={`Retrieved lunar ${resultLabel(result)}`}
+          />
+          <button
+            type="button"
+            className="result-image-navigation next"
+            onClick={() => showResult(1)}
+            disabled={results.length < 2}
+            aria-label="Show next retrieved image"
+          >
+            <ChevronRight size={24} />
+          </button>
+        </div>
 
         <div className="result-image-details">
           <div>

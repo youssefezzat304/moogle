@@ -8,6 +8,13 @@ export interface SearchMetadata {
   elapsedMs?: number;
 }
 
+export interface SearchMessage {
+  id: string;
+  role: "user" | "assistant";
+  content: string;
+  tone?: "default" | "error";
+}
+
 export type SearchRequest = (
   query: string,
   signal: AbortSignal,
@@ -20,6 +27,7 @@ export interface SearchController {
   activeResult: RetrievalResult | null;
   error: string | null;
   metadata: SearchMetadata;
+  messages: SearchMessage[];
   queryCount: number;
   runSearch: (query: string) => Promise<boolean>;
   selectResult: (result: RetrievalResult) => void;
