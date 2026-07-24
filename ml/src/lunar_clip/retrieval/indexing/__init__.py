@@ -14,6 +14,9 @@ from lunar_clip.retrieval.indexing.contracts import (
     ImageEmbedder,
 )
 from lunar_clip.retrieval.indexing.embedder import LunarClipImageEmbedder
+from lunar_clip.retrieval.indexing.model_loader import (
+    load_promoted_embedder,
+)
 from lunar_clip.retrieval.indexing.validation import (
     validate_index_artifact,
     validate_index_compatibility,
@@ -33,6 +36,7 @@ __all__ = [
     "build_index",
     "default_index_id",
     "load_index_artifact",
+    "load_promoted_embedder",
     "sha256_file",
     "validate_index_artifact",
     "validate_index_compatibility",

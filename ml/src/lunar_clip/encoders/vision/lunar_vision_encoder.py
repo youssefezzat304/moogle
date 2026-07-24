@@ -27,6 +27,7 @@ class LunarVisionEncoder(nn.Module):
         self,
         encoder: str,
         checkpoint_path: str | None = None,
+        backend: VisionEncoderBackend | None = None,
         freeze_encoder: bool = False,
         device: str | torch.device | None = None,
     ) -> None:
@@ -36,7 +37,12 @@ class LunarVisionEncoder(nn.Module):
             raise ValueError(f"Unknown vision encoder '{encoder}'. Available encoders: {sorted(self._MODALITIES)}")
         self.expected_modality = self._MODALITIES[self.encoder]
 
-        if self.encoder == "geo":
+        if backend is not None and checkpoint_path is not None:
+            raise ValueError("Provide either backend or checkpoint_path, not both.")
+        if backend is not None:
+            self.model = backend
+            self.output_dim = backend.output_dim
+        elif self.encoder == "geo":
             self.model, self.output_dim = self._load_geo(checkpoint_path)
         elif self.encoder == "wac":
             self.model, self.output_dim = self._load_wac(checkpoint_path)
