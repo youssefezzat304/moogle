@@ -1,4 +1,5 @@
 import { LocateFixed } from "lucide-react";
+import SearchFeatureLegend from "../../../shared/components/SearchFeatureLegend";
 import { formatCoords, resultLabel } from "../../retrieval/api";
 import type { MoonTarget } from "../types";
 
@@ -40,6 +41,8 @@ function MoonHud({ activeResult, hasWandered, onRecenter }: MoonHudProps) {
           <LocateFixed size={16} />
         </button>
       )}
+
+      <SearchFeatureLegend />
 
       <div className="viewport-footer">
         <span>LROC texture · LDEM relief</span>

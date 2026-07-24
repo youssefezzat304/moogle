@@ -1,247 +1,247 @@
 {
-    "Cc": {
-        "color": "#FCDC0A",
-        "description": "Crater Unit",
-        "long_description": "Copernican Crater Unit"
-    },
-    "Ccc": {
-        "color": "#FDC602",
-        "description": "Crater Cluster Unit",
-        "long_description": "Copernican Crater Cluster Unit"
-    },
-    "Csc": {
-        "color": "#FFFFBE",
-        "description": "Secondary Crater Unit",
-        "long_description": "Copernican Secondary Crater Unit"
-    },
-    "Ec": {
-        "color": "#A5CF30",
-        "description": "Crater Unit",
-        "long_description": "Eratosthenian Crater Unit"
-    },
-    "Ecc": {
-        "color": "#1AA946",
-        "description": "Crater Cluster Unit",
-        "long_description": "Eratosthenian Crater Cluster Unit"
-    },
-    "EIp": {
-        "color": "#E64D75",
-        "description": "Plateau Unit",
-        "long_description": "Eratosthenian-Imbrian Plateau Unit"
-    },
-    "Em": {
-        "color": "#F20D0D",
-        "description": "Mare Unit",
-        "long_description": "Eratosthenian Mare Unit"
-    },
-    "Esc": {
-        "color": "#6FC400",
-        "description": "Secondary Crater Unit",
-        "long_description": "Eratosthenian Secondary Crater Unit"
-    },
-    "Ib": {
-        "color": "#446589",
-        "description": "Basin Undivided Unit",
-        "long_description": "Imbrian Basin Undivided Unit"
-    },
-    "Ibm": {
-        "color": "#BC424D",
-        "description": "Basin Massif Unit",
-        "long_description": "Imbrian Basin Massif Unit"
-    },
-    "Ic": {
-        "color": "#6B20DF",
-        "description": "Crater Undivided Unit",
-        "long_description": "Imbrian Crater Undivided Unit"
-    },
-    "Ic1": {
-        "color": "#2016F8",
-        "description": "Lower Crater Unit",
-        "long_description": "Imbrian Lower Crater Unit"
-    },
-    "Ic2": {
-        "color": "#1C7BF6",
-        "description": "Upper Crater Unit",
-        "long_description": "Imbrian Upper Crater Unit"
-    },
-    "Icc": {
-        "color": "#97DBF2",
-        "description": "Crater Cluster Unit",
-        "long_description": "Imbrian Crater Cluster Unit"
-    },
-    "Icf": {
-        "color": "#F38BB8",
-        "description": "Crater Fracture Floor Unit",
-        "long_description": "Imbrian Crater Fracture Floor Unit"
-    },
-    "Id": {
-        "color": "#FF3600",
-        "description": "Dark Mantling Unit",
-        "long_description": "Imbrian Dark Mantling Unit"
-    },
-    "Ig": {
-        "color": "#73B2C2",
-        "description": "Grooved Terrain Unit",
-        "long_description": "Imbrian Grooved Terrain Unit"
-    },
-    "Iia": {
-        "color": "#2A5ED4",
-        "description": "Imbrium Alpes Formation Unit",
-        "long_description": "Imbrian Imbrium Alpes Formation Unit"
-    },
-    "Iiap": {
-        "color": "#704489",
-        "description": "Imbrium Apenninus Formation Unit",
-        "long_description": "Imbrian Imbrium Apenninus Formation Unit"
-    },
-    "Iic": {
-        "color": "#1091CA",
-        "description": "Imbrium Crater Unit",
-        "long_description": "Imbrian Imbrium Crater Unit"
-    },
-    "Iif": {
-        "color": "#AA58E0",
-        "description": "Imbrium Fra Mauro Formation Unit",
-        "long_description": "Imbrian Imbrium Fra Mauro Formation Unit"
-    },
-    "Im1": {
-        "color": "#E500C5",
-        "description": "Lower Mare Unit",
-        "long_description": "Imbrian Lower Mare Unit"
-    },
-    "Im2": {
-        "color": "#FF3361",
-        "description": "Upper Mare Unit",
-        "long_description": "Imbrian Upper Mare Unit"
-    },
-    "Imd": {
-        "color": "#FD029B",
-        "description": "Mare Dome Unit",
-        "long_description": "Imbrian Mare Dome Unit"
-    },
-    "INp": {
-        "color": "#73B2C2",
-        "description": "Plains Unit",
-        "long_description": "Imbrian-Nectarian Plains Unit"
-    },
-    "INt": {
-        "color": "#CCABAB",
-        "description": "Terra Unit",
-        "long_description": "Imbrian-Nectarian Terra Unit"
-    },
-    "Iohi": {
-        "color": "#A6D6FF",
-        "description": "Orientale Hevelius Formation, Inner Facies Unit",
-        "long_description": "Imbrian Orientale Hevelius Formation, Inner Facies Unit"
-    },
-    "Ioho": {
-        "color": "#C4E8FF",
-        "description": "Orientale Hevelius Formation, Inner Facies Unit",
-        "long_description": "Imbrian Orientale Hevelius Formation, Outer Facies Unit"
-    },
-    "Iohs": {
-        "color": "#00ABB3",
-        "description": "Orientale Hevelius Formation, Secondary Crater Facies Unit",
-        "long_description": "Imbrian Orientale Hevelius Formation, Secondary Crater Facies Unit"
-    },
-    "Iom": {
-        "color": "#7695DB",
-        "description": "Orientale Maunder Formation Unit",
-        "long_description": "Imbrian Orientale Maunder Formation Unit"
-    },
-    "Iork": {
-        "color": "#52BAFC",
-        "description": "Orientale Montes Rook Formation, Knobby Facies Unit",
-        "long_description": "Imbrian Orientale Montes Rook Formation, Knobby Facies Unit"
-    },
-    "Iorm": {
-        "color": "#465FB8",
-        "description": "Orientale Montes Rook Formation, Massif Facies Unit",
-        "long_description": "Imbrian Orientale Montes Rook Formation, Massif Facies Unit"
-    },
-    "Ip": {
-        "color": "#CBA4CD",
-        "description": "Plains Unit",
-        "long_description": "Imbrian Plains Unit"
-    },
-    "Isc": {
-        "color": "#004DA8",
-        "description": "Secondary Crater Unit",
-        "long_description": "Imbrian Secondary Crater Unit"
-    },
-    "It": {
-        "color": "#CEA7F1",
-        "description": "Terra Unit",
-        "long_description": "Imbrian Terra Unit"
-    },
-    "Itd": {
-        "color": "#00A9E6",
-        "description": "Terra Dome Unit",
-        "long_description": "Imbrian Terra Dome Unit"
-    },
-    "Nb": {
-        "color": "#F4C884",
-        "description": "Basin Undivided Unit",
-        "long_description": "Nectarian Basin Undivided Unit"
-    },
-    "Nbl": {
-        "color": "#FFCDB9",
-        "description": "Basin Lineated Unit",
-        "long_description": "Nectarian Basin Lineated Unit"
-    },
-    "Nbm": {
-        "color": "#FFCCBD",
-        "description": "Basin Massif Unit",
-        "long_description": "Nectarian Basin Massif Unit"
-    },
-    "Nbsc": {
-        "color": "#F4A164",
-        "description": "Basin Secondary Crater Unit",
-        "long_description": "Nectarian Basin Secondary Crater Unit"
-    },
-    "Nc": {
-        "color": "#C96936",
-        "description": "Crater Unit",
-        "long_description": "Nectarian Crater Unit"
-    },
-    "Nnj": {
-        "color": "#FFFFBE",
-        "description": "Nectaris Janssen Formation Unit",
-        "long_description": "Nectarian Nectaris Janssen Formation Unit"
-    },
-    "Np": {
-        "color": "#F0BCAD",
-        "description": "Plains Unit",
-        "long_description": "Nectarian Plains Unit"
-    },
-    "Nt": {
-        "color": "#FBD5D3",
-        "description": "Terra Unit",
-        "long_description": "Nectarian Terra Unit"
-    },
-    "Ntp": {
-        "color": "#EFBECF",
-        "description": "Plains and Mantling, Terra Unit",
-        "long_description": "Nectarian Plains and Mantling, Terra Unit"
-    },
-    "pNb": {
-        "color": "#65442F",
-        "description": "Basin Undivided Unit",
-        "long_description": "Pre-Nectarian Basin Undivided Unit"
-    },
-    "pNbm": {
-        "color": "#4E3A37",
-        "description": "Basin Massif Unit",
-        "long_description": "Pre-Nectarian Basin Massif Unit"
-    },
-    "pNc": {
-        "color": "#7A3E29",
-        "description": "Crater Unit",
-        "long_description": "Pre-Nectarian Crater Unit"
-    },
-    "pNt": {
-        "color": "#DC9F91",
-        "description": "Terra Unit",
-        "long_description": "Pre-Nectarian Terra Unit"
-    }
+  "Cc": {
+    "color": "#FCDC0A",
+    "description": "Crater Unit",
+    "long_description": "Copernican Crater Unit"
+  },
+  "Ccc": {
+    "color": "#FDC602",
+    "description": "Crater Cluster Unit",
+    "long_description": "Copernican Crater Cluster Unit"
+  },
+  "Csc": {
+    "color": "#FFFFBE",
+    "description": "Secondary Crater Unit",
+    "long_description": "Copernican Secondary Crater Unit"
+  },
+  "Ec": {
+    "color": "#A5CF30",
+    "description": "Crater Unit",
+    "long_description": "Eratosthenian Crater Unit"
+  },
+  "Ecc": {
+    "color": "#1AA946",
+    "description": "Crater Cluster Unit",
+    "long_description": "Eratosthenian Crater Cluster Unit"
+  },
+  "EIp": {
+    "color": "#E64D75",
+    "description": "Plateau Unit",
+    "long_description": "Eratosthenian-Imbrian Plateau Unit"
+  },
+  "Em": {
+    "color": "#F20D0D",
+    "description": "Mare Unit",
+    "long_description": "Eratosthenian Mare Unit"
+  },
+  "Esc": {
+    "color": "#6FC400",
+    "description": "Secondary Crater Unit",
+    "long_description": "Eratosthenian Secondary Crater Unit"
+  },
+  "Ib": {
+    "color": "#446589",
+    "description": "Basin Undivided Unit",
+    "long_description": "Imbrian Basin Undivided Unit"
+  },
+  "Ibm": {
+    "color": "#BC424D",
+    "description": "Basin Massif Unit",
+    "long_description": "Imbrian Basin Massif Unit"
+  },
+  "Ic": {
+    "color": "#6B20DF",
+    "description": "Crater Undivided Unit",
+    "long_description": "Imbrian Crater Undivided Unit"
+  },
+  "Ic1": {
+    "color": "#2016F8",
+    "description": "Lower Crater Unit",
+    "long_description": "Imbrian Lower Crater Unit"
+  },
+  "Ic2": {
+    "color": "#1C7BF6",
+    "description": "Upper Crater Unit",
+    "long_description": "Imbrian Upper Crater Unit"
+  },
+  "Icc": {
+    "color": "#97DBF2",
+    "description": "Crater Cluster Unit",
+    "long_description": "Imbrian Crater Cluster Unit"
+  },
+  "Icf": {
+    "color": "#F38BB8",
+    "description": "Crater Fracture Floor Unit",
+    "long_description": "Imbrian Crater Fracture Floor Unit"
+  },
+  "Id": {
+    "color": "#FF3600",
+    "description": "Dark Mantling Unit",
+    "long_description": "Imbrian Dark Mantling Unit"
+  },
+  "Ig": {
+    "color": "#73B2C2",
+    "description": "Grooved Terrain Unit",
+    "long_description": "Imbrian Grooved Terrain Unit"
+  },
+  "Iia": {
+    "color": "#2A5ED4",
+    "description": "Imbrium Alpes Formation Unit",
+    "long_description": "Imbrian Imbrium Alpes Formation Unit"
+  },
+  "Iiap": {
+    "color": "#704489",
+    "description": "Imbrium Apenninus Formation Unit",
+    "long_description": "Imbrian Imbrium Apenninus Formation Unit"
+  },
+  "Iic": {
+    "color": "#1091CA",
+    "description": "Imbrium Crater Unit",
+    "long_description": "Imbrian Imbrium Crater Unit"
+  },
+  "Iif": {
+    "color": "#AA58E0",
+    "description": "Imbrium Fra Mauro Formation Unit",
+    "long_description": "Imbrian Imbrium Fra Mauro Formation Unit"
+  },
+  "Im1": {
+    "color": "#E500C5",
+    "description": "Lower Mare Unit",
+    "long_description": "Imbrian Lower Mare Unit"
+  },
+  "Im2": {
+    "color": "#FF3361",
+    "description": "Upper Mare Unit",
+    "long_description": "Imbrian Upper Mare Unit"
+  },
+  "Imd": {
+    "color": "#FD029B",
+    "description": "Mare Dome Unit",
+    "long_description": "Imbrian Mare Dome Unit"
+  },
+  "INp": {
+    "color": "#73B2C2",
+    "description": "Plains Unit",
+    "long_description": "Imbrian-Nectarian Plains Unit"
+  },
+  "INt": {
+    "color": "#CCABAB",
+    "description": "Terra Unit",
+    "long_description": "Imbrian-Nectarian Terra Unit"
+  },
+  "Iohi": {
+    "color": "#A6D6FF",
+    "description": "Orientale Hevelius Formation, Inner Facies Unit",
+    "long_description": "Imbrian Orientale Hevelius Formation, Inner Facies Unit"
+  },
+  "Ioho": {
+    "color": "#C4E8FF",
+    "description": "Orientale Hevelius Formation, Inner Facies Unit",
+    "long_description": "Imbrian Orientale Hevelius Formation, Outer Facies Unit"
+  },
+  "Iohs": {
+    "color": "#00ABB3",
+    "description": "Orientale Hevelius Formation, Secondary Crater Facies Unit",
+    "long_description": "Imbrian Orientale Hevelius Formation, Secondary Crater Facies Unit"
+  },
+  "Iom": {
+    "color": "#7695DB",
+    "description": "Orientale Maunder Formation Unit",
+    "long_description": "Imbrian Orientale Maunder Formation Unit"
+  },
+  "Iork": {
+    "color": "#52BAFC",
+    "description": "Orientale Montes Rook Formation, Knobby Facies Unit",
+    "long_description": "Imbrian Orientale Montes Rook Formation, Knobby Facies Unit"
+  },
+  "Iorm": {
+    "color": "#465FB8",
+    "description": "Orientale Montes Rook Formation, Massif Facies Unit",
+    "long_description": "Imbrian Orientale Montes Rook Formation, Massif Facies Unit"
+  },
+  "Ip": {
+    "color": "#CBA4CD",
+    "description": "Plains Unit",
+    "long_description": "Imbrian Plains Unit"
+  },
+  "Isc": {
+    "color": "#004DA8",
+    "description": "Secondary Crater Unit",
+    "long_description": "Imbrian Secondary Crater Unit"
+  },
+  "It": {
+    "color": "#CEA7F1",
+    "description": "Terra Unit",
+    "long_description": "Imbrian Terra Unit"
+  },
+  "Itd": {
+    "color": "#00A9E6",
+    "description": "Terra Dome Unit",
+    "long_description": "Imbrian Terra Dome Unit"
+  },
+  "Nb": {
+    "color": "#F4C884",
+    "description": "Basin Undivided Unit",
+    "long_description": "Nectarian Basin Undivided Unit"
+  },
+  "Nbl": {
+    "color": "#FFCDB9",
+    "description": "Basin Lineated Unit",
+    "long_description": "Nectarian Basin Lineated Unit"
+  },
+  "Nbm": {
+    "color": "#FFCCBD",
+    "description": "Basin Massif Unit",
+    "long_description": "Nectarian Basin Massif Unit"
+  },
+  "Nbsc": {
+    "color": "#F4A164",
+    "description": "Basin Secondary Crater Unit",
+    "long_description": "Nectarian Basin Secondary Crater Unit"
+  },
+  "Nc": {
+    "color": "#C96936",
+    "description": "Crater Unit",
+    "long_description": "Nectarian Crater Unit"
+  },
+  "Nnj": {
+    "color": "#FFFFBE",
+    "description": "Nectaris Janssen Formation Unit",
+    "long_description": "Nectarian Nectaris Janssen Formation Unit"
+  },
+  "Np": {
+    "color": "#F0BCAD",
+    "description": "Plains Unit",
+    "long_description": "Nectarian Plains Unit"
+  },
+  "Nt": {
+    "color": "#FBD5D3",
+    "description": "Terra Unit",
+    "long_description": "Nectarian Terra Unit"
+  },
+  "Ntp": {
+    "color": "#EFBECF",
+    "description": "Plains and Mantling, Terra Unit",
+    "long_description": "Nectarian Plains and Mantling, Terra Unit"
+  },
+  "pNb": {
+    "color": "#65442F",
+    "description": "Basin Undivided Unit",
+    "long_description": "Pre-Nectarian Basin Undivided Unit"
+  },
+  "pNbm": {
+    "color": "#4E3A37",
+    "description": "Basin Massif Unit",
+    "long_description": "Pre-Nectarian Basin Massif Unit"
+  },
+  "pNc": {
+    "color": "#7A3E29",
+    "description": "Crater Unit",
+    "long_description": "Pre-Nectarian Crater Unit"
+  },
+  "pNt": {
+    "color": "#DC9F91",
+    "description": "Terra Unit",
+    "long_description": "Pre-Nectarian Terra Unit"
+  }
 }
