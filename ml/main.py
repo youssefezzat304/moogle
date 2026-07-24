@@ -11,6 +11,7 @@ if str(SRC_DIR) not in sys.path:
 from lunar_apps.dashboard.cli.catalog import add_catalog_subcommands
 from lunar_apps.dashboard.cli.clip import add_clip_subcommands
 from lunar_apps.dashboard.cli.generation import add_generation_subcommand
+from lunar_apps.dashboard.cli.index import add_index_subcommands
 from lunar_apps.dashboard.cli.mlm import add_mlm_subcommands
 from lunar_apps.dashboard.cli.tokenizer import add_tokenizer_subcommands
 
@@ -29,6 +30,7 @@ def build_parser() -> argparse.ArgumentParser:
     add_mlm_subcommands(subparsers)
     add_clip_subcommands(subparsers)
     add_catalog_subcommands(subparsers)
+    add_index_subcommands(subparsers)
 
     return parser
 

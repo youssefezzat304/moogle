@@ -1,0 +1,20 @@
+schema_version: 1
+index_id: bpe_geo-v1
+
+catalog:
+  path: storage/catalogs/lunar-v1
+
+source:
+  modality: geomap
+  path: UnifiedGeoMap/geomap_map_zoom6_resized.tiff
+
+model:
+  model_id: bpe_geo
+  manifest: storage/models/bpe_geo/manifest.yaml
+  device: cuda
+
+build:
+  batch_size: 24
+
+output:
+  path: storage/indexes/bpe_geo/v1
