@@ -1,6 +1,7 @@
 import { Canvas } from "@react-three/fiber";
 import { useRef } from "react";
 import * as THREE from "three";
+import type { RetrievalResult } from "../../retrieval/api";
 import { useMoonInteraction } from "../hooks/useMoonInteraction";
 import type { MoonTarget } from "../types";
 import MoonHud from "./MoonHud";
@@ -8,9 +9,10 @@ import MoonScene from "./MoonScene";
 
 interface MoonCanvasProps {
   activeResult: MoonTarget;
+  onPreviewResult: (result: RetrievalResult) => void;
 }
 
-function MoonCanvas({ activeResult }: MoonCanvasProps) {
+function MoonCanvas({ activeResult, onPreviewResult }: MoonCanvasProps) {
   const cameraDistanceRef = useRef(6.4);
   const {
     hasWandered,
@@ -53,6 +55,7 @@ function MoonCanvas({ activeResult }: MoonCanvasProps) {
           userInteracting={userInteracting}
           onInteractionStart={startInteraction}
           onInteractionEnd={settleInteraction}
+          onPreviewResult={onPreviewResult}
         />
       </Canvas>
     </div>

@@ -7,9 +7,13 @@ import { latLngToSpherical } from "../lib/sphericalCoordinates";
 
 interface EvidenceCalloutProps {
   activeResult: RetrievalResult;
+  onPreviewResult: (result: RetrievalResult) => void;
 }
 
-function EvidenceCallout({ activeResult }: EvidenceCalloutProps) {
+function EvidenceCallout({
+  activeResult,
+  onPreviewResult,
+}: EvidenceCalloutProps) {
   const markerPosition = useMemo(
     () => latLngToSpherical(activeResult.lat, activeResult.lng, 2.12),
     [activeResult.lat, activeResult.lng],
@@ -41,15 +45,16 @@ function EvidenceCallout({ activeResult }: EvidenceCalloutProps) {
         className="target-callout-html"
       >
         <article className="target-evidence-card">
-          <a
-            href={activeResult.wacImageUrl}
-            target="_blank"
-            rel="noreferrer"
+          <button
+            type="button"
             className="target-evidence-thumb"
-            aria-label={`Open ${resultLabel(activeResult)} image`}
-            title={`Open ${resultLabel(activeResult)} image`}
+            aria-label={`Preview ${resultLabel(activeResult)} image and description`}
+            title={`Preview ${resultLabel(activeResult)} image and description`}
             onPointerDown={(event) => event.stopPropagation()}
-            onClick={(event) => event.stopPropagation()}
+            onClick={(event) => {
+              event.stopPropagation();
+              onPreviewResult(activeResult);
+            }}
             style={{
               backgroundImage: `linear-gradient(145deg, rgba(3, 8, 14, 0.16), rgba(125, 211, 252, 0.12)), url('${activeResult.wacImageUrl}')`,
             }}

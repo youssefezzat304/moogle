@@ -1,5 +1,6 @@
 import { OrbitControls, Stars } from "@react-three/drei";
 import { Suspense, type MutableRefObject } from "react";
+import type { RetrievalResult } from "../../retrieval/api";
 import type { MoonTarget } from "../types";
 import CameraController from "./CameraController";
 import EvidenceCallout from "./EvidenceCallout";
@@ -15,6 +16,7 @@ interface MoonSceneProps {
   userInteracting: boolean;
   onInteractionStart: () => void;
   onInteractionEnd: () => void;
+  onPreviewResult: (result: RetrievalResult) => void;
 }
 
 function MoonScene({
@@ -24,6 +26,7 @@ function MoonScene({
   userInteracting,
   onInteractionStart,
   onInteractionEnd,
+  onPreviewResult,
 }: MoonSceneProps) {
   return (
     <>
@@ -71,7 +74,10 @@ function MoonScene({
         {activeResult && (
           <>
             <TargetMarker activeResult={activeResult} />
-            <EvidenceCallout activeResult={activeResult} />
+            <EvidenceCallout
+              activeResult={activeResult}
+              onPreviewResult={onPreviewResult}
+            />
           </>
         )}
       </Suspense>
