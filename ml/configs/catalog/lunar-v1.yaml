@@ -1,0 +1,47 @@
+schema_version: 1
+catalog_id: lunar-v1
+
+grid:
+  raster_width: 109164
+  raster_height: 54582
+  patch_size: 512
+  stride: 512
+  columns: 213
+  rows: 106
+  patch_count: 22578
+  ordering: column_major
+
+coordinates:
+  projection: simple_cylindrical
+  longitude_convention: positive_east_[-180,180)
+  origin_x_meters: -5458203.0763469
+  origin_y_meters: 2729101.53817345
+  pixel_width_meters: 100.0
+  pixel_height_meters: -100.0
+  radius_meters: 1737400.0
+
+sources:
+  geomap:
+    id: unified-geologic-map-zoom6-resized-2025-10-09
+    path: UnifiedGeoMap/geomap_map_zoom6_resized.tiff
+    expected_bands: 3
+    expected_dtype: uint8
+  wac:
+    id: lroc-wac-global-100m-june-2013
+    path: wac/Lunar_LRO_LROC-WAC_Mosaic_global_100m_June2013.tif
+    expected_bands: 1
+    expected_dtype: uint8
+
+captions:
+  path: ml/data/text/patches_description.parquet
+  source_version: v3.0
+  prompt_style: Geologist to Non-Geologist
+
+images:
+  format: WEBP
+  extension: .webp
+  quality: 85
+  shard_size: 1000
+
+output:
+  path: storage/catalogs/lunar-v1
