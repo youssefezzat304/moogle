@@ -31,6 +31,9 @@ log_cli_date_format = "%Y-%m-%d %H:%M:%S"
 
 [tool.uv.build-backend]
 
+[tool.uv]
+environments = ["sys_platform == 'linux'"]
+
 [tool.uv.workspace]
 members = [
     "backend",
@@ -52,10 +55,10 @@ build-backend = "uv_build"
 # Adjust the CUDA/ROCm version to match your target machine.
 # Browse available versions: https://download.pytorch.org/whl/
 
-# [[tool.uv.index]]
-# name = "pytorch-cuda"
-# url = "https://download.pytorch.org/whl/cu124"
-# explicit = true
+[[tool.uv.index]]
+name = "pytorch-cuda"
+url = "https://download.pytorch.org/whl/cu124"
+explicit = true
 
 # [[tool.uv.index]]
 # name = "pytorch-xpu"
@@ -67,8 +70,8 @@ build-backend = "uv_build"
 # url = "https://download.pytorch.org/whl/rocm7.2"
 # explicit = true
 
-# [tool.uv.sources]
-# torch = [{ index = "pytorch-cuda" }]
+[tool.uv.sources]
+torch = [{ index = "pytorch-cuda" }]
 # torchvision = [{ index = "pytorch-cuda" }]
 # torchaudio = [{ index = "pytorch-cuda" }]
 
