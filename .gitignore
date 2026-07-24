@@ -172,6 +172,10 @@ ENV/
 env.bak/
 venv.bak/
 
+# Generated retrieval artifacts (stored outside Git)
+storage/catalogs/
+storage/indexes/
+
 # Spyder project settings
 .spyderproject
 .spyproject
