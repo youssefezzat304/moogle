@@ -8,6 +8,7 @@ SRC_DIR = Path(__file__).resolve().parent / "src"
 if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
+from lunar_apps.dashboard.cli.catalog import add_catalog_subcommands
 from lunar_apps.dashboard.cli.clip import add_clip_subcommands
 from lunar_apps.dashboard.cli.generation import add_generation_subcommand
 from lunar_apps.dashboard.cli.mlm import add_mlm_subcommands
@@ -27,6 +28,7 @@ def build_parser() -> argparse.ArgumentParser:
     add_tokenizer_subcommands(subparsers)
     add_mlm_subcommands(subparsers)
     add_clip_subcommands(subparsers)
+    add_catalog_subcommands(subparsers)
 
     return parser
 
