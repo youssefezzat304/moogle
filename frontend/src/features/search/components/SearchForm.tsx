@@ -1,14 +1,18 @@
 import { useState, type FormEvent } from "react";
-import { Loader2, Search, Send } from "lucide-react";
+import { ChevronDown, Loader2, Search, Send } from "lucide-react";
 
 interface SearchFormProps {
   isSubmitting: boolean;
-  onSubmit: (query: string) => Promise<boolean>;
+  topK: number;
+  onTopKChange: (topK: number) => void;
+  onSubmit: (query: string, topK: number) => Promise<boolean>;
   placement?: "initial" | "conversation";
 }
 
 function SearchForm({
   isSubmitting,
+  topK,
+  onTopKChange,
   onSubmit,
   placement = "initial",
 }: SearchFormProps) {
@@ -16,9 +20,9 @@ function SearchForm({
 
   const submit = async () => {
     const query = input.trim();
-    if (!query || isSubmitting) return;
+    if (!query || isSubmitting || topK === 0) return;
 
-    if (await onSubmit(query)) {
+    if (await onSubmit(query, topK)) {
       setInput("");
     }
   };
@@ -56,7 +60,7 @@ function SearchForm({
         <button
           type="submit"
           className="send-button"
-          disabled={!input.trim() || isSubmitting}
+          disabled={!input.trim() || isSubmitting || topK === 0}
           aria-label="Run retrieval query"
           title="Run retrieval query"
         >
@@ -66,6 +70,49 @@ function SearchForm({
             <Send size={16} />
           )}
         </button>
+
+        <div className="retrieval-controls">
+          <label className="top-k-control">
+            <span>
+              Top-k images
+              <strong>{topK}</strong>
+            </span>
+            <input
+              type="range"
+              min="0"
+              max="10"
+              step="1"
+              value={topK}
+              onChange={(event) => onTopKChange(Number(event.target.value))}
+              disabled={isSubmitting}
+              aria-valuetext={`${topK} retrieval images`}
+            />
+            <small>
+              <span>0</span>
+              <span>10</span>
+            </small>
+          </label>
+
+          <label className="model-control">
+            <span>Model</span>
+            <span className="model-select">
+              <select
+                defaultValue="bpe_geo"
+                disabled={isSubmitting}
+                aria-label="Retrieval model"
+              >
+                <option value="bpe_geo">BPE-GEO</option>
+              </select>
+              <ChevronDown size={14} aria-hidden="true" />
+            </span>
+          </label>
+        </div>
+
+        {topK === 0 && (
+          <small className="retrieval-control-hint">
+            Select at least one image to run retrieval.
+          </small>
+        )}
       </form>
     </section>
   );

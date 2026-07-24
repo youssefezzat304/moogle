@@ -32,14 +32,13 @@ const INITIAL_STATE: SearchState = {
   messages: [],
 };
 
-const requestRetrieval: SearchRequest = (query, signal) =>
-  retrieveLunarPatches(query, { signal });
+const requestRetrieval: SearchRequest = (query, signal, topK) =>
+  retrieveLunarPatches(query, { signal, limit: topK });
 
 export function useSearch(
   searchRequest: SearchRequest = requestRetrieval,
 ): SearchController {
   const [state, setState] = useState<SearchState>(INITIAL_STATE);
-  const [queryCount, setQueryCount] = useState(0);
   const requestRef = useRef<AbortController | null>(null);
   const messageIdRef = useRef(0);
 
@@ -51,9 +50,11 @@ export function useSearch(
   );
 
   const runSearch = useCallback(
-    async (rawQuery: string) => {
+    async (rawQuery: string, topK: number) => {
       const query = rawQuery.trim();
-      if (!query) return false;
+      if (!query || !Number.isInteger(topK) || topK < 1 || topK > 10) {
+        return false;
+      }
 
       requestRef.current?.abort();
       const request = new AbortController();
@@ -71,7 +72,7 @@ export function useSearch(
       }));
 
       try {
-        const response = await searchRequest(query, request.signal);
+        const response = await searchRequest(query, request.signal, topK);
         if (requestRef.current !== request) return false;
 
         requestRef.current = null;
@@ -99,7 +100,6 @@ export function useSearch(
           },
           messages: [...current.messages, assistantMessage],
         }));
-        setQueryCount((count) => count + 1);
         return true;
       } catch (requestError) {
         if (
@@ -159,7 +159,6 @@ export function useSearch(
     error: state.error,
     metadata: state.metadata,
     messages: state.messages,
-    queryCount,
     runSearch,
     selectResult,
   };

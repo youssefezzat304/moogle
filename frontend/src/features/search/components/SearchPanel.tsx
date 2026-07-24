@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { SearchController } from "../types";
 import SearchConversation from "./SearchConversation";
 import SearchForm from "./SearchForm";
@@ -9,6 +10,8 @@ interface SearchPanelProps {
 }
 
 function SearchPanel({ search }: SearchPanelProps) {
+  const [topK, setTopK] = useState(5);
+
   if (search.messages.length === 0) {
     return (
       <div className="search-panel initial">
@@ -20,6 +23,8 @@ function SearchPanel({ search }: SearchPanelProps) {
           </p>
           <SearchForm
             isSubmitting={search.phase === "loading"}
+            topK={topK}
+            onTopKChange={setTopK}
             onSubmit={search.runSearch}
             placement="initial"
           />
@@ -48,6 +53,8 @@ function SearchPanel({ search }: SearchPanelProps) {
       <SearchConversation messages={search.messages} phase={search.phase} />
       <SearchForm
         isSubmitting={search.phase === "loading"}
+        topK={topK}
+        onTopKChange={setTopK}
         onSubmit={search.runSearch}
         placement="conversation"
       />

@@ -43,11 +43,6 @@ function MoonHud({ activeResult, hasWandered, onRecenter }: MoonHudProps) {
       )}
 
       <SearchFeatureLegend />
-
-      <div className="viewport-footer">
-        <span>LROC texture · LDEM relief</span>
-        <strong>dynamic terminator</strong>
-      </div>
     </div>
   );
 }

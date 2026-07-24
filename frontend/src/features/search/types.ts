@@ -18,6 +18,7 @@ export interface SearchMessage {
 export type SearchRequest = (
   query: string,
   signal: AbortSignal,
+  topK: number,
 ) => Promise<RetrievalResponse>;
 
 export interface SearchController {
@@ -28,7 +29,6 @@ export interface SearchController {
   error: string | null;
   metadata: SearchMetadata;
   messages: SearchMessage[];
-  queryCount: number;
-  runSearch: (query: string) => Promise<boolean>;
+  runSearch: (query: string, topK: number) => Promise<boolean>;
   selectResult: (result: RetrievalResult) => void;
 }

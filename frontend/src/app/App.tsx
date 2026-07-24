@@ -26,10 +26,6 @@ function App() {
     <>
       <SplitLayout
         activeResult={search.activeResult}
-        stats={{
-          totalResults: search.results.length,
-          queryCount: search.queryCount,
-        }}
         leftPanel={
           <MoonCanvas
             activeResult={search.activeResult}

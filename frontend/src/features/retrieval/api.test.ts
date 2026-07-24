@@ -139,4 +139,23 @@ describe("retrieval API contract", () => {
       top_k: 5,
     });
   });
+
+  it("sends the selected top-k", async () => {
+    const fixture = responseFixture();
+    (fixture.results as Record<string, unknown>[])[0].wac_image_url =
+      "https://example.test/patch.webp";
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => fixture,
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    await retrieveLunarPatches("young crater with bright ejecta", { limit: 8 });
+
+    const [, request] = fetchMock.mock.calls[0] as [string, RequestInit];
+    expect(JSON.parse(String(request.body))).toEqual({
+      query: "young crater with bright ejecta",
+      top_k: 8,
+    });
+  });
 });
