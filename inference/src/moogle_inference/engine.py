@@ -68,6 +68,21 @@ class RetrievalEngine:
         }
         self._catalog_root = catalog.root.resolve()
 
+    @property
+    def model_id(self) -> str:
+        return self._index.manifest.descriptor.model_id
+
+    @property
+    def index_size(self) -> int:
+        return self._index.manifest.index_size
+
+    def wac_image_path(self, patch_id: int) -> Path:
+        try:
+            metadata = self._metadata_by_patch_id[patch_id]
+        except KeyError as exc:
+            raise KeyError(f"Unknown patch ID: {patch_id}.") from exc
+        return (self._catalog_root / str(metadata["wac_image_path"])).resolve()
+
     def search(self, query: str, *, top_k: int = 5) -> list[RetrievalResult]:
         normalized_query = _validate_query(query)
         _validate_top_k(top_k)
@@ -101,9 +116,7 @@ class RetrievalEngine:
                     description=str(metadata["description"]),
                     source_version=str(metadata["source_version"]),
                     prompt_style=str(metadata["prompt_style"]),
-                    wac_image_path=(
-                        self._catalog_root / str(metadata["wac_image_path"])
-                    ).resolve(),
+                    wac_image_path=self.wac_image_path(patch_id),
                     latitude=float(metadata["latitude"]),
                     longitude=float(metadata["longitude"]),
                 )

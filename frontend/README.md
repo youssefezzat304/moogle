@@ -56,9 +56,9 @@ and integrated into Vite by `@tailwindcss/vite`.
 
 The frontend sends `POST /api/retrieval` by default. During local development,
 Vite proxies `/api` to `http://localhost:8000`. The authoritative wire contract
-is [`docs/api/retrieval-v1.yaml`](../docs/api/retrieval-v1.yaml). This repository
-does not yet provide the endpoint, so queries fail visibly until a compatible
-service is running.
+is [`docs/api/retrieval-v1.yaml`](../docs/api/retrieval-v1.yaml). Start the
+backend from the repository root with
+`uv run --project backend python backend/main.py`.
 
 The request body is:
 
