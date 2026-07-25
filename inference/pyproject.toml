@@ -6,7 +6,7 @@ readme = "README.md"
 requires-python = ">=3.12,<3.13"
 dependencies = [
     "clip",
-    "torch==2.6.0+cu124",
+    "torch==2.6.0",
 ]
 
 [build-system]

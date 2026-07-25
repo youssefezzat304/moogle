@@ -44,41 +44,12 @@ members = [
 requires = ["uv_build >= 0.8.0, <1.0.0"]
 build-backend = "uv_build"
 
-# --- PyTorch GPU Backend Configuration ---
-# Uncomment the block for your GPU, then add packages with uv add:
-#   uv add torch torchvision torchaudio
-#
-# NVIDIA CUDA:     index-url = "https://download.pytorch.org/whl/cu124"
-# Intel Arc (XPU): index-url = "https://download.pytorch.org/whl/xpu"
-# AMD ROCm:        index-url = "https://download.pytorch.org/whl/rocm7.2"
-#
-# Adjust the CUDA/ROCm version to match your target machine.
-# Browse available versions: https://download.pytorch.org/whl/
+# Use CPU-only PyTorch for the deployable retrieval stack.
 
 [[tool.uv.index]]
-name = "pytorch-cuda"
-url = "https://download.pytorch.org/whl/cu124"
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
 explicit = true
 
-# [[tool.uv.index]]
-# name = "pytorch-xpu"
-# url = "https://download.pytorch.org/whl/xpu"
-# explicit = true
-
-# [[tool.uv.index]]
-# name = "pytorch-rocm"
-# url = "https://download.pytorch.org/whl/rocm7.2"
-# explicit = true
-
 [tool.uv.sources]
-torch = [{ index = "pytorch-cuda" }]
-# torchvision = [{ index = "pytorch-cuda" }]
-# torchaudio = [{ index = "pytorch-cuda" }]
-
-# [tool.uv]
-# find-links = ["https://data.pyg.org/whl/"]
-
-# [tool.uv.extra-build-dependencies]
-# torch-scatter = ["torch"]
-# torch-sparse = ["torch"]
-# torch-cluster = ["torch"]
+torch = [{ index = "pytorch-cpu" }]
