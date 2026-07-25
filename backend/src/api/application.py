@@ -7,6 +7,7 @@ from uuid import uuid4
 
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from starlette.middleware.base import RequestResponseEndpoint
 from starlette.responses import Response
@@ -20,6 +21,7 @@ from api.contracts import (
     RetrievalResult,
 )
 from api.runtime import (
+    ALLOWED_ORIGINS,
     EngineLoader,
     RetrievalService,
     load_production_service,
@@ -40,6 +42,7 @@ class ApiError(Exception):
 def create_app(
     *,
     engine_loader: EngineLoader = load_production_service,
+    allowed_origins: tuple[str, ...] = ALLOWED_ORIGINS,
 ) -> FastAPI:
     @asynccontextmanager
     async def lifespan(app: FastAPI):
@@ -58,6 +61,14 @@ def create_app(
         version="1.0.0",
         lifespan=lifespan,
     )
+    if allowed_origins:
+        app.add_middleware(
+            CORSMiddleware,
+            allow_origins=allowed_origins,
+            allow_methods=("GET", "POST"),
+            allow_headers=("Content-Type",),
+            expose_headers=("X-Request-ID",),
+        )
 
     @app.middleware("http")
     async def attach_request_id(

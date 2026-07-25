@@ -27,7 +27,9 @@ uv run --env-file backend/.env --project backend python backend/main.py
 ```
 
 Artifact paths in the environment file may be absolute or relative to the
-repository root. The default runtime uses CPU-only PyTorch.
+repository root. The default runtime uses CPU-only PyTorch. Set
+`MOOGLE_ALLOWED_ORIGINS` to the exact frontend origin, or to comma-separated
+origins when more than one frontend must call the API.
 
 The MVP exposes:
 

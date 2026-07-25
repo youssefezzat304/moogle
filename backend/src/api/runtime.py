@@ -4,11 +4,32 @@ import os
 from collections.abc import Callable
 from pathlib import Path
 from typing import Protocol
+from urllib.parse import urlsplit
 
 from moogle_inference import RetrievalResult, load_retrieval_engine
 
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
+
+
+def _parse_allowed_origins(value: str) -> tuple[str, ...]:
+    origins = tuple(
+        dict.fromkeys(part.strip() for part in value.split(",") if part.strip())
+    )
+    for origin in origins:
+        parsed = urlsplit(origin)
+        if (
+            origin == "*"
+            or parsed.scheme not in {"http", "https"}
+            or not parsed.netloc
+            or parsed.path
+            or parsed.query
+            or parsed.fragment
+        ):
+            raise ValueError(
+                "MOOGLE_ALLOWED_ORIGINS must contain comma-separated HTTP(S) origins."
+            )
+    return origins
 
 
 def _artifact_path(variable: str, default: str) -> Path:
@@ -32,6 +53,7 @@ MODEL_MANIFEST_PATH = _artifact_path(
     "storage/models/bpe_geo/manifest.yaml",
 )
 MODEL_DEVICE = os.environ.get("MOOGLE_MODEL_DEVICE", "cpu").strip() or "cpu"
+ALLOWED_ORIGINS = _parse_allowed_origins(os.environ.get("MOOGLE_ALLOWED_ORIGINS", ""))
 
 
 class RetrievalService(Protocol):

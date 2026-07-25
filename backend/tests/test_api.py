@@ -9,6 +9,7 @@ from fastapi.testclient import TestClient
 from moogle_inference import RetrievalResult
 
 from api.application import create_app
+from api.runtime import _parse_allowed_origins
 
 
 @dataclass
@@ -102,6 +103,65 @@ def test_health_reports_unavailable_retrieval_artifacts() -> None:
         "catalog_loaded": False,
         "index_loaded": False,
     }
+
+
+def test_cors_allows_configured_frontend_origin(
+    service: FakeRetrievalService,
+) -> None:
+    app = create_app(
+        engine_loader=lambda: service,
+        allowed_origins=("https://moogle.vercel.app",),
+    )
+    with TestClient(app, raise_server_exceptions=False) as client:
+        response = client.options(
+            "/api/retrieval",
+            headers={
+                "Origin": "https://moogle.vercel.app",
+                "Access-Control-Request-Method": "POST",
+                "Access-Control-Request-Headers": "Content-Type",
+            },
+        )
+
+    assert response.status_code == 200
+    assert (
+        response.headers["access-control-allow-origin"] == "https://moogle.vercel.app"
+    )
+    assert "POST" in response.headers["access-control-allow-methods"]
+
+
+def test_cors_rejects_unconfigured_frontend_origin(
+    service: FakeRetrievalService,
+) -> None:
+    app = create_app(
+        engine_loader=lambda: service,
+        allowed_origins=("https://moogle.vercel.app",),
+    )
+    with TestClient(app, raise_server_exceptions=False) as client:
+        response = client.options(
+            "/api/retrieval",
+            headers={
+                "Origin": "https://example.com",
+                "Access-Control-Request-Method": "POST",
+                "Access-Control-Request-Headers": "Content-Type",
+            },
+        )
+
+    assert response.status_code == 400
+    assert "access-control-allow-origin" not in response.headers
+
+
+def test_cors_origin_configuration_is_strict() -> None:
+    assert _parse_allowed_origins(
+        " http://localhost:5173,https://moogle.vercel.app,https://moogle.vercel.app "
+    ) == (
+        "http://localhost:5173",
+        "https://moogle.vercel.app",
+    )
+
+    with pytest.raises(ValueError, match="MOOGLE_ALLOWED_ORIGINS"):
+        _parse_allowed_origins("*")
+    with pytest.raises(ValueError, match="MOOGLE_ALLOWED_ORIGINS"):
+        _parse_allowed_origins("https://moogle.vercel.app/path")
 
 
 def test_retrieval_returns_ranked_contract_response(
