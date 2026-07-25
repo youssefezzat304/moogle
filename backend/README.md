@@ -32,6 +32,7 @@ repository root. The default runtime uses CPU-only PyTorch.
 The MVP exposes:
 
 ```text
+GET  /api/health
 POST /api/retrieval
 GET  /api/patches/{patch_id}/wac
 ```

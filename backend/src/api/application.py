@@ -14,6 +14,7 @@ from starlette.responses import Response
 from api.contracts import (
     ErrorDetail,
     ErrorResponse,
+    HealthResponse,
     RetrievalRequest,
     RetrievalResponse,
     RetrievalResult,
@@ -109,6 +110,26 @@ def create_app(
             code="INTERNAL_ERROR",
             message="The retrieval service encountered an unexpected error.",
         )
+
+    @app.get(
+        "/api/health",
+        response_model=HealthResponse,
+        responses={503: {"model": HealthResponse}},
+    )
+    def health(request: Request) -> HealthResponse | JSONResponse:
+        ready = request.app.state.retrieval_service is not None
+        response = HealthResponse(
+            status="ready" if ready else "not_ready",
+            model_loaded=ready,
+            catalog_loaded=ready,
+            index_loaded=ready,
+        )
+        if not ready:
+            return JSONResponse(
+                status_code=503,
+                content=response.model_dump(mode="json"),
+            )
+        return response
 
     @app.post(
         "/api/retrieval",

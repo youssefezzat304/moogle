@@ -18,6 +18,13 @@ class ContractModel(BaseModel):
     model_config = ConfigDict(extra="forbid", strict=True)
 
 
+class HealthResponse(ContractModel):
+    status: Literal["ready", "not_ready"]
+    model_loaded: bool
+    catalog_loaded: bool
+    index_loaded: bool
+
+
 class RetrievalRequest(ContractModel):
     query: str = Field(min_length=1, max_length=500)
     top_k: int = Field(default=5, ge=1, le=10)

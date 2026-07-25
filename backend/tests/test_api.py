@@ -75,6 +75,35 @@ def client(
         yield test_client
 
 
+def test_health_reports_loaded_retrieval_artifacts(client: TestClient) -> None:
+    response = client.get("/api/health")
+
+    assert response.status_code == 200
+    assert response.json() == {
+        "status": "ready",
+        "model_loaded": True,
+        "catalog_loaded": True,
+        "index_loaded": True,
+    }
+
+
+def test_health_reports_unavailable_retrieval_artifacts() -> None:
+    def unavailable_loader() -> FakeRetrievalService:
+        raise RuntimeError("index unavailable")
+
+    app = create_app(engine_loader=unavailable_loader)
+    with TestClient(app, raise_server_exceptions=False) as client:
+        response = client.get("/api/health")
+
+    assert response.status_code == 503
+    assert response.json() == {
+        "status": "not_ready",
+        "model_loaded": False,
+        "catalog_loaded": False,
+        "index_loaded": False,
+    }
+
+
 def test_retrieval_returns_ranked_contract_response(
     client: TestClient,
     service: FakeRetrievalService,
