@@ -712,11 +712,6 @@
   line-height: 1.6;
 }
 
-.result-image-dialog > small {
-  color: var(--color-text-mute);
-  font-size: 12px;
-}
-
 .search-panel {
   height: 100%;
   min-height: 0;

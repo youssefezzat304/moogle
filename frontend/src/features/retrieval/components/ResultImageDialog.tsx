@@ -122,9 +122,6 @@ function ResultImageDialog({
         </div>
 
         <p>{result.description}</p>
-        <small>
-          {result.sourceVersion} · {result.promptStyle}
-        </small>
       </section>
     </div>
   );

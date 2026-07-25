@@ -11,7 +11,7 @@ REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
 CATALOG_PATH = REPOSITORY_ROOT / "storage/catalogs/lunar-v1"
 INDEX_PATH = REPOSITORY_ROOT / "storage/indexes/bpe_geo/v1"
 MODEL_MANIFEST_PATH = REPOSITORY_ROOT / "storage/models/bpe_geo/manifest.yaml"
-MODEL_DEVICE = "cuda"
+MODEL_DEVICE = "cpu"
 
 
 class RetrievalService(Protocol):
