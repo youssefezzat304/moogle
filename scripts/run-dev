@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+set -m
+
+script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+repository_root="$(cd -- "$script_dir/.." && pwd)"
+backend_env="$repository_root/backend/.env"
+
+if [[ ! -f "$backend_env" ]]; then
+  echo "Missing backend/.env."
+  echo "Create it with: cp backend/.env.example backend/.env"
+  exit 1
+fi
+
+backend_pid=""
+frontend_pid=""
+
+cleanup() {
+  trap - EXIT INT TERM
+
+  for pid in "$backend_pid" "$frontend_pid"; do
+    if [[ -n "$pid" ]] && kill -0 "$pid" 2>/dev/null; then
+      kill -- "-$pid" 2>/dev/null || kill "$pid" 2>/dev/null || true
+    fi
+  done
+
+  wait "$backend_pid" "$frontend_pid" 2>/dev/null || true
+}
+
+trap cleanup EXIT INT TERM
+
+echo "Starting backend at http://127.0.0.1:8000"
+(
+  cd "$repository_root"
+  exec uv run --env-file "$backend_env" --project backend python backend/main.py
+) &
+backend_pid=$!
+
+echo "Starting frontend (Vite will print its URL)"
+(
+  cd "$repository_root/frontend"
+
+  nvm_script="${NVM_DIR:-$HOME/.nvm}/nvm.sh"
+  if [[ -s "$nvm_script" ]]; then
+    # shellcheck disable=SC1090
+    source "$nvm_script"
+    nvm use --silent
+  fi
+
+  exec npm run dev
+) &
+frontend_pid=$!
+
+echo "Press Ctrl+C to stop both services."
+
+set +e
+wait -n "$backend_pid" "$frontend_pid"
+exit_status=$?
+set -e
+
+exit "$exit_status"
