@@ -25,7 +25,6 @@ function App() {
   return (
     <>
       <SplitLayout
-        activeResult={search.activeResult}
         leftPanel={
           <MoonCanvas
             activeResult={search.activeResult}

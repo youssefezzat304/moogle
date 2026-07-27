@@ -1,0 +1,67 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="465"
+  height="108"
+  viewBox="0 0 465 108"
+  role="img"
+  aria-label="Arbeitsgebiet Bildsignalverarbeitung"
+>
+  <!-- Main green logo shape with stair-step cutout -->
+  <path
+    fill="#83B818"
+    d="
+      M54 2
+      C24.2 2 0 25.7 0 55
+      C0 84.3 24.2 108 54 108
+      C83.8 108 108 84.3 108 55
+      C108 49.7 107.2 44.7 105.7 40
+      H91
+      V28
+      H78
+      V16
+      H65
+      V3.3
+      C61.4 2.4 57.8 2 54 2
+      Z
+    "
+  />
+
+  <!-- Pixel squares -->
+  <rect x="80" y="3" width="13" height="13" fill="#83B818" />
+  <rect x="101" y="0" width="13" height="13" fill="#83B818" />
+  <rect x="99" y="22" width="13" height="13" fill="#83B818" />
+
+  <!-- bv letters -->
+  <text
+    x="14"
+    y="80"
+    fill="#FFFFFF"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="68"
+    font-weight="700"
+  >
+    b
+  </text>
+
+  <text
+    x="56"
+    y="80"
+    fill="#FFFFFF"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="68"
+    font-weight="700"
+  >
+    v
+  </text>
+
+  <!-- Right-side text -->
+  <g
+    fill="#FFFFFF"
+    font-family="'Helvetica Neue', 'Segoe UI', Roboto, Arial, sans-serif"
+    font-size="31"
+    font-weight="300"
+  >
+    <text x="132" y="47">Arbeitsgebiet</text>
+    <text x="132" y="78">Bildsignalverarbeitung</text>
+  </g>
+</svg>

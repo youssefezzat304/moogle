@@ -1,23 +1,13 @@
 import { type ReactNode, useState } from "react";
 import { Orbit, PanelRightClose, PanelRightOpen } from "lucide-react";
-import {
-  formatCoords,
-  resultLabel,
-  type RetrievalResult,
-} from "../../../features/retrieval/api";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
 interface SplitLayoutProps {
   leftPanel: ReactNode;
   rightPanel: ReactNode;
-  activeResult: RetrievalResult | null;
 }
 
-function SplitLayout({
-  leftPanel,
-  rightPanel,
-  activeResult,
-}: SplitLayoutProps) {
+function SplitLayout({ leftPanel, rightPanel }: SplitLayoutProps) {
   const isMobile = useMediaQuery("(max-width: 845px)");
   const [isAsideCollapsed, setIsAsideCollapsed] = useState(false);
 
@@ -43,15 +33,29 @@ function SplitLayout({
           </div>
         </div>
 
-        <div className="topbar-target">
-          <span>
-            {activeResult ? resultLabel(activeResult) : "No target selected"}
-          </span>
-          <strong>
-            {activeResult
-              ? formatCoords(activeResult.lat, activeResult.lng)
-              : "Waiting for retrieval results"}
-          </strong>
+        <div className="topbar-logos">
+          <a
+            className="topbar-logo-link"
+            href="https://www.tu-dortmund.de"
+            aria-label="Visit the TU Dortmund website"
+          >
+            <img
+              className="topbar-tudo-logo"
+              src="/tudo-logo.svg"
+              alt="Technische Universität Dortmund"
+            />
+          </a>
+          <a
+            className="topbar-logo-link"
+            href="https://bv.etit.tu-dortmund.de"
+            aria-label="Visit the Bildsignalverarbeitung website"
+          >
+            <img
+              className="topbar-institution-logo"
+              src="/bv-logo.svg"
+              alt="Arbeitsgebiet Bildsignalverarbeitung"
+            />
+          </a>
         </div>
       </header>
 

@@ -40,7 +40,7 @@
   height: 64px;
   flex: 0 0 auto;
   display: grid;
-  grid-template-columns: minmax(240px, 1fr) minmax(280px, 1fr);
+  grid-template-columns: minmax(240px, 1fr) auto;
   align-items: center;
   gap: 18px;
   padding: 0 22px;
@@ -89,27 +89,34 @@
   letter-spacing: 0;
 }
 
-.topbar-target {
-  min-width: 0;
+.topbar-logos {
   display: flex;
-  flex-direction: column;
-  gap: 5px;
-  padding-left: 18px;
-  border-left: 1px solid var(--color-line);
+  align-items: center;
+  gap: 18px;
 }
 
-.topbar-target span {
-  color: var(--color-text-soft);
-  font-size: 12px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.topbar-logo-link {
+  display: block;
+  border-radius: 4px;
 }
 
-.topbar-target strong {
-  color: var(--color-text);
-  font-size: 11px;
-  font-weight: 600;
+.topbar-logo-link:focus-visible {
+  outline: 2px solid var(--color-cyan);
+  outline-offset: 4px;
+}
+
+.topbar-tudo-logo,
+.topbar-institution-logo {
+  display: block;
+  height: 40px;
+}
+
+.topbar-tudo-logo {
+  width: 220px;
+}
+
+.topbar-institution-logo {
+  width: 172px;
 }
 
 .workspace-grid {
@@ -1239,7 +1246,21 @@
 
 @media (max-width: 1180px) {
   .topbar {
-    grid-template-columns: minmax(220px, 1fr) minmax(240px, 1fr);
+    grid-template-columns: minmax(220px, 1fr) auto;
+  }
+
+  .topbar-logos {
+    gap: 12px;
+  }
+
+  .topbar-tudo-logo {
+    width: 180px;
+    height: auto;
+  }
+
+  .topbar-institution-logo {
+    width: 150px;
+    height: auto;
   }
 
   .workspace-grid {
