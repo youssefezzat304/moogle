@@ -1,5 +1,6 @@
 import { LocateFixed } from "lucide-react";
 import SearchFeatureLegend from "../../../shared/components/SearchFeatureLegend";
+import type { DemoQueryCatalog } from "../../../shared/utils/demoQueries";
 import { formatCoords, resultLabel } from "../../retrieval/api";
 import type { MoonTarget } from "../types";
 
@@ -7,9 +8,21 @@ interface MoonHudProps {
   activeResult: MoonTarget;
   hasWandered: boolean;
   onRecenter: () => void;
+  demoQueryCatalog: DemoQueryCatalog | null;
+  demoQueryError: string | null;
+  canRunDemoQuery: boolean;
+  onRunDemoQuery: (query: string) => void;
 }
 
-function MoonHud({ activeResult, hasWandered, onRecenter }: MoonHudProps) {
+function MoonHud({
+  activeResult,
+  hasWandered,
+  onRecenter,
+  demoQueryCatalog,
+  demoQueryError,
+  canRunDemoQuery,
+  onRunDemoQuery,
+}: MoonHudProps) {
   return (
     <div className="viewport-hud">
       <div className="hud-target">
@@ -42,7 +55,12 @@ function MoonHud({ activeResult, hasWandered, onRecenter }: MoonHudProps) {
         </button>
       )}
 
-      <SearchFeatureLegend />
+      <SearchFeatureLegend
+        demoQueryCatalog={demoQueryCatalog}
+        demoQueryError={demoQueryError}
+        canRunDemoQuery={canRunDemoQuery}
+        onRunDemoQuery={onRunDemoQuery}
+      />
     </div>
   );
 }

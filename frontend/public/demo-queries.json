@@ -1,0 +1,666 @@
+{
+  "source_version": "v2.0",
+  "prompt_style": "llm_description",
+  "features": {
+    "Cc": [
+      {
+        "patch_id": 1099,
+        "query": "The landscape is overwhelmingly dominated by the Copernican Crater Unit, which occupies the majority of the area and defines the primary texture. This extensive unit is spatially bordered by the Imbrian-Nectarian Plains Unit to the north and interacts with a localized assemblage of the Nectarian Terra Unit and the Pre-Nectarian Crater Unit in the southeastern quadrant."
+      },
+      {
+        "patch_id": 8386,
+        "query": "The area is overwhelmingly dominated by the Copernican Crater Unit, which exhibits a heavily cratered texture indicative of extensive impact history across the majority of the visible surface. This cratered terrain is bordered by a localized patch of the Imbrian Plains Unit, suggesting a structural boundary between two distinct geological provinces."
+      },
+      {
+        "patch_id": 11268,
+        "query": "The surface is overwhelmingly dominated by the Copernican Crater Unit, which provides the primary, continuous texture across the vast majority of the visible region. The Imbrian Upper Mare Unit is spatially restricted to a small, localized boundary area, exhibiting a distinct juxtaposition against the expansive Copernican surface."
+      }
+    ],
+    "Ccc": [
+      {
+        "patch_id": 7744,
+        "query": "The landscape is dominated by the Pre-Nectarian Terra Unit, which serves as the continuous matrix upon which dark, linear Background markings are superimposed, suggesting extensive trough or rille systems. A small, localized Copernican Crater Cluster Unit is visible within this matrix, representing a discrete impact feature adjacent to the major linear geological structures."
+      },
+      {
+        "patch_id": 7850,
+        "query": "The landscape is primarily defined by the extensive Pre-Nectarian Terra Unit, which serves as the matrix into which discrete, localized Copernican Crater Cluster Units are superimposed. These impact features are scattered across the dominant unit, while the entire structure is bordered by a distinct, linear Background marking concentrated along the lower edge."
+      },
+      {
+        "patch_id": 8806,
+        "query": "The Imbrian Plains Unit dominates the upper portion of the region, exhibiting a distinct boundary with the Imbrian Basin Undivided Unit, which occupies the lower section of the map. The Copernican Crater Cluster Unit is localized within the Imbrian Plains Unit, while the background markings define linear features and boundaries across the interface of these major plains."
+      }
+    ],
+    "Csc": [],
+    "Ec": [
+      {
+        "patch_id": 8698,
+        "query": "The landscape is overwhelmingly dominated by the Eratosthenian Crater Unit, which defines the primary surface texture across the majority of the region. This extensive unit is bordered by linear background markings and contains localized patches of the Imbrian Plains Unit and the Pre-Nectarian Terra Unit, suggesting a complex sequence of deposition and peripheral deposits."
+      },
+      {
+        "patch_id": 12196,
+        "query": "The landscape is overwhelmingly dominated by the Eratosthenian Crater Unit, which forms the primary, extensive plain across the majority of the visible area. This main unit is bordered peripherally by distinct, localized patches of the Nectarian Crater Unit and the Imbrian Plains Unit, suggesting a complex boundary environment where these units abut the dominant substrate."
+      },
+      {
+        "patch_id": 17750,
+        "query": "The Eratosthenian Crater Unit dominates the visible landscape, forming the extensive, primary surface material across the majority of the mapped area. This unit is spatially juxtaposed with the Nectarian Terra Unit, which is confined to a distinct, curvilinear band along the lower margin of the region."
+      }
+    ],
+    "Ecc": [
+      {
+        "patch_id": 10074,
+        "query": "The geological structure is dominated by the extensive Pre-Nectarian Terra Unit, which exhibits a highly striated and directional texture across the visible area. This matrix is spatially interrupted by the large, curved Imbrian Imbrium Fra Mauro Formation Unit, while the distinct, linear Eratosthenian Crater Cluster Unit occupies a separate position in the upper quadrant."
+      },
+      {
+        "patch_id": 9438,
+        "query": "The landscape is predominantly covered by the Imbrian-Nectarian Terra Unit, which forms the background matrix, while the Imbrian Plains Unit occupies scattered, less continuous patches. Structurally, the lower portion of the area exhibits a distinct, linear sequence of units, progressing from the Eratosthenian Crater Cluster Unit, overlying the Pre-Nectarian Terra Unit, and capped by the Pre-Nectarian Crater Unit."
+      },
+      {
+        "patch_id": 8274,
+        "query": "The Imbrian Plains Unit dominates the landscape, exhibiting a heavily impacted texture defined by numerous dark, circular features marked by the Background/Line Markings. This vast plain transitions into the localized Pre-Nectarian Terra Unit along one boundary, adjacent to the small, distinct impact zone represented by the Eratosthenian Crater Cluster Unit."
+      }
+    ],
+    "EIp": [
+      {
+        "patch_id": 8094,
+        "query": "The landscape is overwhelmingly dominated by the Eratosthenian-Imbrian Plateau Unit, which forms the primary, extensive geological substrate. Spatially, the Imbrian Upper Crater Unit occupies a distinct, localized feature along the periphery, while the Copernican Crater Unit defines smaller, discrete patches within the overall structure."
+      },
+      {
+        "patch_id": 7987,
+        "query": "The area is overwhelmingly dominated by the Eratosthenian-Imbrian Plateau Unit, which constitutes 99.9% of the visible surface and defines the primary geological texture. The Copernican Crater Unit is restricted to minute, localized patches (0.1% coverage), representing minor impact features superimposed upon the extensive plateau material."
+      },
+      {
+        "patch_id": 7882,
+        "query": "The landscape is overwhelmingly dominated by the Eratosthenian-Imbrian Plateau Unit, which forms the primary, high-albedo terrain. This Plateau Unit is sharply juxtaposed against the Imbrian Upper Mare Unit, which occupies a significant peripheral area, suggesting a contact between older, elevated crust and younger, lower-lying mare material."
+      }
+    ],
+    "Em": [
+      {
+        "patch_id": 9040,
+        "query": "The landscape is overwhelmingly dominated by the Eratosthenian Mare Unit, which forms the expansive, cratered plain texture across the majority of the visible area. This primary unit is sharply juxtaposed against the Imbrian Upper Mare Unit, which occupies a distinct, localized region along the lower boundary."
+      },
+      {
+        "patch_id": 9805,
+        "query": "The geological structure is overwhelmingly dominated by the Eratosthenian Mare Unit, which provides the expansive, primary surface texture across the majority of the field of view. Structurally, the Imbrian Imbrium Alpes Formation Unit and the Imbrian Imbrium Fra Mauro Formation Unit are confined to localized, marginal areas, bordering the vast expanse of the Eratosthenian Mare."
+      },
+      {
+        "patch_id": 12448,
+        "query": "The geological structure is overwhelmingly dominated by the Eratosthenian Mare Unit (81.3%), which forms the primary, extensive plain. Superimposed upon this unit are sinuous, linear features belonging to the Nectarian Basin Lineated Unit (10.5%), which define the major boundaries and structural elements of the area, while the Background/Line Markings (8.1%) provide minor structural definition."
+      }
+    ],
+    "Esc": [
+      {
+        "patch_id": 11227,
+        "query": "The landscape is overwhelmingly dominated by the Eratosthenian Secondary Crater Unit, which constitutes the primary, extensive terrain across 75.9% of the area. The Eratosthenian Crater Unit occupies a significant, yet subordinate, proportion of the surface, defining localized variations within the overall geological structure."
+      },
+      {
+        "patch_id": 4333,
+        "query": "The Eratosthenian Secondary Crater Unit dominates the landscape, forming the primary surface texture across the majority of the visible area. This extensive unit is spatially bordered by the Pre-Nectarian Basin Undivided Unit, which is restricted to a narrow, linear margin along the upper edge of the mapped region."
+      },
+      {
+        "patch_id": 4651,
+        "query": "The Eratosthenian Secondary Crater Unit dominates the landscape, exhibiting a continuous and extensive coverage across the majority of the mapped area. This primary unit is bordered along its lower margin by the Background or line markings, which appear as a narrow, linear feature defining a distinct structural boundary."
+      }
+    ],
+    "Ib": [
+      {
+        "patch_id": 17691,
+        "query": "The Imbrian Basin Undivided Unit constitutes the overwhelming majority of the surface, forming the primary, extensive substrate across the observed region. The Pre-Nectarian Basin Undivided Unit is spatially restricted, defining a distinct, localized margin that borders the dominant Imbrian material."
+      },
+      {
+        "patch_id": 7322,
+        "query": "The region is overwhelmingly dominated by the Imbrian Basin Undivided Unit, which forms the continuous, regional substrate across the majority of the mapped area. Superimposed upon this extensive basin floor is the localized Nectarian Crater Unit, representing a distinct, smaller geological feature whose boundaries contrast sharply with the surrounding basin material."
+      },
+      {
+        "patch_id": 18649,
+        "query": "The landscape is overwhelmingly dominated by the Imbrian Basin Undivided Unit, which constitutes the vast majority of the visible surface. This primary unit is sparsely interrupted by the Background or line markings, which appear as thin, linear features that define minor boundaries or structural elements across the basin floor."
+      }
+    ],
+    "Ibm": [
+      {
+        "patch_id": 18118,
+        "query": "The Imbrian Basin Massif Unit dominates the landscape, covering 64.1% of the area and forming the primary substrate. This extensive unit is bordered by the Imbrian Basin Undivided Unit, which occupies a distinct upper region, suggesting a structural relationship between the two major basin components."
+      },
+      {
+        "patch_id": 20344,
+        "query": "The Imbrian Basin Massif Unit constitutes the overwhelmingly dominant geological terrain, covering the vast majority of the mapped area with a continuous texture. The Imbrian Basin Undivided Unit is spatially restricted to a peripheral, linear zone, abutting the Massif Unit and delineated by thin background markings."
+      },
+      {
+        "patch_id": 19811,
+        "query": "The Imbrian Basin Massif Unit forms the dominant substrate, occupying the largest area and serving as the primary geological base for the region. Superimposed upon this are the Imbrian Terra Unit and the Imbrian Basin Undivided Unit, which exhibit distinct, sharp contacts suggesting a sequential depositional history across the landscape."
+      }
+    ],
+    "Ic": [
+      {
+        "patch_id": 11617,
+        "query": "The geological structure is dominated by the expansive Imbrian Crater Undivided Unit, which forms the primary matrix, juxtaposed against the Imbrian Basin Undivided Unit. Smaller, localized units, including the Copernican Crater Unit and the Imbrian Terra Unit, are interdigitated within this matrix, while the Imbrian Crater Cluster Unit occupies a distinct, linear trough separating major blocks."
+      },
+      {
+        "patch_id": 13094,
+        "query": "The Imbrian Crater Undivided Unit occupies a large, distinct region, spatially overlying the expansive Imbrian Upper Mare Unit, which forms the primary substrate across the area. This relationship defines the major geological structure, with the Nectarian Crater Unit representing a minor, localized feature within the overall context."
+      },
+      {
+        "patch_id": 12363,
+        "query": "The central region is dominated by the Imbrian Crater Undivided Unit, which is spatially bordered by the extensive Imbrian Plains Unit and the smaller Imbrian Crater Cluster Unit. To the north and east, the Nectarian Terra Unit forms a distinct plain, containing the Nectarian Crater Unit, while the Eratosthenian Crater Unit occupies a separate, smaller area adjacent to the Imbrian Plains Unit."
+      }
+    ],
+    "Ic1": [
+      {
+        "patch_id": 17614,
+        "query": "The Imbrian Lower Crater Unit constitutes the overwhelming majority of the observed terrain, forming the primary, extensive geological substrate. This unit is intersected by the Background or line markings, which define a narrow, linear feature traversing the main unit's expanse."
+      },
+      {
+        "patch_id": 83,
+        "query": "The surface is overwhelmingly dominated by the Imbrian Lower Crater Unit, which forms a vast, heavily textured plain that constitutes the primary crustal material. Superimposed upon this extensive unit are localized, smaller-scale features represented by the Nectarian Terra Unit and the Nectarian Crater Unit, suggesting distinct geological interruptions within the main expanse."
+      },
+      {
+        "patch_id": 19661,
+        "query": "The landscape is overwhelmingly dominated by the Imbrian Lower Crater Unit, which exhibits a relatively smooth, heavily cratered texture across the majority of the visible area. This primary unit abuts the Copernican Crater Unit in the lower right quadrant, forming a distinct boundary where the two units meet."
+      }
+    ],
+    "Ic2": [
+      {
+        "patch_id": 17343,
+        "query": "The landscape is overwhelmingly dominated by the Imbrian Upper Crater Unit, which forms the primary, extensive surface texture across the majority of the area. This unit is intersected by the Background/Line markings, which define a distinct, linear feature traversing the upper margin of the region."
+      },
+      {
+        "patch_id": 14335,
+        "query": "The landscape is overwhelmingly dominated by the Imbrian Upper Crater Unit, which occupies the majority of the area and defines the primary texture of the region. This extensive unit abuts the Imbrian Plains Unit along a distinct, curved boundary, with the Imbrian Terra Unit representing a minor, localized contact feature near the edge."
+      },
+      {
+        "patch_id": 19252,
+        "query": "The geological structure is overwhelmingly dominated by the Imbrian Upper Crater Unit, which constitutes the primary substrate across nearly 98.5% of the mapped area. This extensive unit is intersected by sparse, linear features identified as Background or line markings, which represent a minor, traversing structural component across the main unit."
+      }
+    ],
+    "Icc": [
+      {
+        "patch_id": 11944,
+        "query": "The Nectarian Crater Unit and Imbrian Crater Cluster Unit define the primary, expansive region, with the Nectarian Crater Unit forming the largest contiguous area that borders the Imbrian unit. In the lower-left quadrant, the Eratosthenian Crater Unit and Nectarian Terra Unit form a distinct grouping, abutting the Nectarian Crater Unit and suggesting a complex, multi-unit boundary structure."
+      },
+      {
+        "patch_id": 11108,
+        "query": "The landscape is dominated by the Imbrian Crater Cluster Unit, which provides the primary, heavily cratered background texture across the majority of the area. This main unit is spatially bordered by the Nectarian Crater Unit and the Nectarian Basin Secondary Crater Unit, while the Imbrian Plains Unit occupies a smaller, distinct patch defining the overall geological structure."
+      },
+      {
+        "patch_id": 10577,
+        "query": "The landscape is dominated by the extensive Imbrian Crater Cluster Unit and Imbrian Upper Crater Unit, which define the primary, heavily impacted crustal framework. Within this structure, the Nectarian Crater Unit and Imbrian Imbrium Crater Unit occupy major, distinct basins, while smaller patches of Imbrian Lower Crater Unit and the Nectarian Terra Unit abut these larger features."
+      }
+    ],
+    "Icf": [
+      {
+        "patch_id": 20814,
+        "query": "The Imbrian Crater Fracture Floor Unit dominates the visible area, displaying a highly tessellated texture defined by extensive, angular fracture systems represented by the black line markings. This fractured floor is spatially bordered by the Nectarian Crater Unit, which frames the main body of the Imbrian unit, with the Copernican Crater Unit representing a minor, localized inclusion within the overall structure."
+      },
+      {
+        "patch_id": 13573,
+        "query": "The geological structure is dominated by the extensive Imbrian Crater Fracture Floor Unit, which underlies or abuts the other major formations. Overlying this floor are the Nectarian Crater Unit and the Imbrian Plains Unit, which exhibit distinct, adjacent spatial relationships defined by the surrounding background markings."
+      },
+      {
+        "patch_id": 13679,
+        "query": "The Imbrian Crater Fracture Floor Unit forms the predominant matrix, which is partially overlain by the Nectarian Crater Unit and bordered by the Imbrian Plains Unit. The Imbrian Plains Unit occupies a distinct, smaller area adjacent to these larger units, with all geological boundaries clearly delineated by linear markings."
+      }
+    ],
+    "Id": [
+      {
+        "patch_id": 20025,
+        "query": "The landscape is overwhelmingly dominated by the expansive Imbrian Dark Mantling Unit, which forms the primary, contiguous surface texture. This unit primarily contacts the Imbrian Plains Unit, with minor, localized patches of Imbrian Terra and Copernican Crater units marking the boundaries and minor topographical variations."
+      },
+      {
+        "patch_id": 11176,
+        "query": "The Imbrian Dark Mantling Unit dominates the landscape, exhibiting a generally smooth texture indicative of extensive resurfacing that covers the majority of the area. This mantle unit abuts the Imbrian Imbrium Fra Mauro Formation Unit, defining a clear contact boundary where the younger mantle material overlays the older, underlying formation."
+      },
+      {
+        "patch_id": 10332,
+        "query": "The Imbrian Dark Mantling Unit is the overwhelmingly dominant geological feature, covering the vast majority of the observed area and forming the primary substrate. The Imbrian Upper Mare Unit appears as distinct, localized patches, primarily situated along the boundaries of the larger mantle unit, with minor linear features defining the overall structural relationships."
+      }
+    ],
+    "Ig": [],
+    "Iia": [
+      {
+        "patch_id": 12220,
+        "query": "The geological structure is dominated by the extensive Imbrian Imbrium Alpes Formation Unit, which forms the primary substrate across the majority of the mapped area. This main unit interacts with the Nectarian Basin Massif Unit to the north, while the Eratosthenian Mare Unit and the smaller Imbrian Upper Mare Unit occupy distinct, peripheral locations."
+      },
+      {
+        "patch_id": 12744,
+        "query": "The geological structure is overwhelmingly dominated by the Imbrian Imbrium Alpes Formation Unit, which forms the extensive, continuous substrate across the region. Superimposed upon this primary unit are localized, discrete patches of the Imbrian Upper Mare Unit and the Imbrian Imbrium Fra Mauro Formation Unit, indicating these units represent minor, distinct geological overlays."
+      },
+      {
+        "patch_id": 11471,
+        "query": "The landscape is overwhelmingly dominated by the Imbrian Imbrium Alpes Formation Unit, which covers approximately 96.7% of the visible area, establishing the primary geological texture. The Pre-Nectarian Basin Massif Unit is spatially restricted to small, localized patches, suggesting it represents an underlying basement or marginal feature bordering the extensive Imbrian Imbrium Alpes Formation Unit."
+      }
+    ],
+    "Iiap": [
+      {
+        "patch_id": 11798,
+        "query": "The landscape is dominated by the extensive Imbrian Imbrium Apenninus Formation Unit, which provides the primary, heavily cratered substrate. Superimposed upon this substrate are localized patches of the Nectarian Basin Massif Unit, the Imbrian Upper Mare Unit, and the minor Imbrian Terra Unit, suggesting differential infilling or structural boundaries across the region."
+      },
+      {
+        "patch_id": 11169,
+        "query": "The geological structure is dominated by the extensive Imbrian Imbrium Apenninus Formation Unit, which forms the primary substrate and is spatially abutted by the Imbrian Plains Unit. Superimposed upon this substrate are linear Background markings, suggesting structural control, and the minor, localized Copernican Crater Unit."
+      },
+      {
+        "patch_id": 10956,
+        "query": "The geological structure is dominated by the extensive Imbrian Imbrium Apenninus Formation Unit, which forms the primary matrix across the region. Juxtaposed within this matrix are the Nectarian Basin Massif Unit and the Imbrian Plains Unit, which occupy distinct, sharply delineated patches suggesting differential deposition or resurfacing events."
+      }
+    ],
+    "Iic": [
+      {
+        "patch_id": 11634,
+        "query": "The geological structure is dominated by the extensive Imbrian Imbrium Crater Unit, which forms the primary, heavily textured matrix, into which the large, distinct Pre-Nectarian Crater Unit is situated. Peripheral to these major formations, the Nectarian Terra Unit defines a border, while the minor Imbrian Plains Unit represents localized infill, with all units delineated by structural line markings."
+      },
+      {
+        "patch_id": 9939,
+        "query": "The Imbrian Imbrium Crater Unit is the dominant geological feature, covering the majority of the area and surrounding the other units. The Imbrian Plains Unit occupies a distinct, separate region, while the Nectarian Crater Unit is confined to a smaller, peripheral zone."
+      },
+      {
+        "patch_id": 9833,
+        "query": "The Imbrian Imbrium Crater Unit dominates the area, spatially juxtaposed against the Nectarian Crater Unit, which forms a major adjacent geological boundary. The Imbrian Plains Unit is present as a minor component, with the overall structure and delineation of all units defined by the background markings."
+      }
+    ],
+    "Iif": [
+      {
+        "patch_id": 6070,
+        "query": "The landscape is dominated by the extensive Imbrian Imbrium Fra Mauro Formation Unit, which forms the primary, underlying substrate across the majority of the area. Superimposed upon this unit are the Nectarian Crater Unit, which presents as a large, distinct, and irregularly shaped feature, and the Imbrian Plains Unit, which occupies a smaller, localized plain, suggesting a sequence of basin filling and impact events."
+      },
+      {
+        "patch_id": 5967,
+        "query": "The surface is overwhelmingly dominated by the Imbrian Imbrium Fra Mauro Formation Unit, which forms the extensive, primary plain material across the region. This dominant unit is locally modified by minor, discrete patches of the Imbrian Plains Unit and the Imbrian Orientale Hevelius Formation, Secondary Crater Facies Unit."
+      },
+      {
+        "patch_id": 5859,
+        "query": "The landscape is overwhelmingly dominated by the Imbrian Imbrium Fra Mauro Formation Unit, which constitutes the primary, widespread substrate across the region. This extensive unit is locally modified by the minor Imbrian Plains Unit and the highly localized Copernican Crater Unit, with the overall structure delineated by background line markings."
+      }
+    ],
+    "Im1": [
+      {
+        "patch_id": 16725,
+        "query": "The surface is overwhelmingly dominated by the Imbrian Lower Mare Unit, which forms the primary, extensive mare plain across the majority of the visible area. The Imbrian Upper Mare Unit and background markings are present only in trace amounts, suggesting they represent localized, minor deposits or structural boundaries superimposed upon the main mare plain."
+      },
+      {
+        "patch_id": 21923,
+        "query": "The surface is overwhelmingly dominated by the Imbrian Lower Mare Unit, forming a vast, extensive plain that characterizes the primary texture of the region. This mare material has largely covered the underlying Pre-Nectarian Crater Unit, with localized patches of the Imbrian Mare Dome Unit indicating minor compositional or elevation variations within the mare fill."
+      },
+      {
+        "patch_id": 14866,
+        "query": "The landscape is overwhelmingly dominated by the Imbrian Lower Mare Unit, which covers the vast majority of the visible terrain. This extensive unit is bordered by the Nectarian Basin Lineated Unit, which occupies a distinct, localized patch in the lower portion of the image."
+      }
+    ],
+    "Im2": [
+      {
+        "patch_id": 8107,
+        "query": "The area is overwhelmingly dominated by the Imbrian Upper Mare Unit, which forms the primary substrate across the majority of the visible surface. This extensive Imbrian substrate is spatially defined by the Eratosthenian Mare Unit, with the boundary relationships and structural features delineated by the background line markings, while the Copernican Crater Unit represents a minor, localized feature."
+      },
+      {
+        "patch_id": 713,
+        "query": "The surface is overwhelmingly dominated by the Imbrian Upper Mare Unit, which provides the extensive, underlying geological texture across the majority of the mapped area. This primary unit is structurally modified by the localized Imbrian Upper Crater Unit, which represents a distinct, impact-related feature situated adjacent to or within the broader mare material."
+      },
+      {
+        "patch_id": 10638,
+        "query": "The surface is overwhelmingly dominated by the Imbrian Upper Mare Unit, which establishes the primary, smooth texture across the majority of the visible area. This extensive mare material is structurally delineated by linear background markings and is locally interrupted by trace patches of the Imbrian Plains Unit and the minor, distinct features of the Copernican Crater Unit."
+      }
+    ],
+    "Imd": [
+      {
+        "patch_id": 11710,
+        "query": "The Imbrian Terra Unit and Imbrian Plains Unit constitute the dominant geological framework, defining the majority of the surface with broad, contiguous spatial relationships. Smaller, localized units—specifically the Nectarian Basin Lineated Unit and the Imbrian Mare Dome Unit—are observed as distinct patches, suggesting later infilling or structural boundaries relative to the expansive Imbrian units."
+      },
+      {
+        "patch_id": 22234,
+        "query": "The Imbrian Upper Mare Unit forms the dominant geological expanse, exhibiting sharp contacts with the Imbrian Mare Dome Unit and the Pre-Nectarian Crater Unit. These major units frame smaller, localized features, including the Imbrian Crater Undivided Unit and the Imbrian Upper Crater Unit, which are situated near the complex boundary zone defined by the Pre-Nectarian Crater Unit."
+      },
+      {
+        "patch_id": 22029,
+        "query": "The Imbrian Lower Mare Unit constitutes the dominant geological matrix, interspersed with large, irregular patches of the Pre-Nectarian Crater Unit. Smaller, localized deposits of the Imbrian Mare Dome Unit and Imbrian Secondary Crater Unit are observed, suggesting later, discrete episodes of mare flooding and crustal modification across the primary mare surface."
+      }
+    ],
+    "INp": [
+      {
+        "patch_id": 22544,
+        "query": "The surface is overwhelmingly dominated by the Imbrian-Nectarian Plains Unit, which defines the primary, extensive plain texture across the region. This vast unit is locally interrupted by the presence of the Eratosthenian Crater Unit and is further marked by sparse background linear features."
+      },
+      {
+        "patch_id": 1036,
+        "query": "The landscape is overwhelmingly dominated by the Imbrian-Nectarian Plains Unit, which constitutes the vast majority of the surface texture. Superimposed upon this extensive plain is the Imbrian Orientale Hevelius Formation, Secondary Crater Facies Unit, which appears in localized patches, suggesting secondary cratering activity within the larger plain."
+      },
+      {
+        "patch_id": 16994,
+        "query": "The geological structure is overwhelmingly dominated by the Imbrian-Nectarian Plains Unit, which covers the majority of the area and exhibits a smooth, extensive texture. This vast plain is bordered by a localized, distinct patch of the Pre-Nectarian Crater Unit, which occupies a peripheral position within the overall landscape."
+      }
+    ],
+    "INt": [
+      {
+        "patch_id": 16537,
+        "query": "The landscape is overwhelmingly dominated by the Imbrian-Nectarian Terra Unit, which forms the primary matrix of the region. Superimposed upon this extensive unit are minor exposures of the Pre-Nectarian Crater Unit and linear Background or line markings."
+      },
+      {
+        "patch_id": 4377,
+        "query": "The landscape is overwhelmingly dominated by the Imbrian-Nectarian Terra Unit, which forms the primary, extensive geological substrate. Within this terrain, localized patches of the Imbrian Plains Unit are visible, suggesting a distinct, resurfaced material that occupies a secondary, interspersed relationship with the dominant terra."
+      },
+      {
+        "patch_id": 3432,
+        "query": "The landscape is overwhelmingly dominated by the Imbrian-Nectarian Terra Unit, which forms the primary geological substrate across the majority of the mapped area. The Imbrian Orientale Hevelius Formation, Outer Facies Unit is restricted to a small, peripheral zone, marking a distinct, localized boundary against the extensive coverage of the Terra Unit."
+      }
+    ],
+    "Iohi": [
+      {
+        "patch_id": 4001,
+        "query": "The area is overwhelmingly dominated by the Imbrian Orientale Hevelius Formation, Inner Facies Unit (78.5% coverage), which forms the primary, expansive geological matrix. The Imbrian Orientale Hevelius Formation, Secondary Crater Facies Unit (14.6% coverage) occupies a distinct, sinuous band that is largely confined within or immediately adjacent to the boundaries of the larger Inner Facies Unit."
+      },
+      {
+        "patch_id": 4183,
+        "query": "The Imbrian Orientale Hevelius Formation, Inner Facies Unit, constitutes the overwhelming majority of the visible surface area, defining the primary geological structure. This extensive unit is minimally interrupted by isolated or linear patches of the Background or line markings, suggesting peripheral structural features or boundaries across the landscape."
+      },
+      {
+        "patch_id": 5805,
+        "query": "The area is overwhelmingly dominated by the Imbrian Orientale Hevelius Formation, Inner Facies Unit, which forms the primary, extensive substrate. Superimposed upon this substrate is a distinct, localized patch of the Imbrian Orientale Hevelius Formation, Secondary Crater Facies Unit, defining a minor, contained geological feature."
+      }
+    ],
+    "Ioho": [
+      {
+        "patch_id": 3146,
+        "query": "The geological structure is overwhelmingly dominated by the Imbrian Orientale Hevelius Formation, Outer Facies Unit, which constitutes the primary matrix across 98.4% of the mapped area. This extensive unit forms a continuous, planar surface, while the Background or line markings unit represents a minor, linear feature or boundary that overlays the dominant formation, covering only 1.6% of the total area."
+      },
+      {
+        "patch_id": 3862,
+        "query": "The area is overwhelmingly dominated by the Imbrian Orientale Hevelius Formation, Outer Facies Unit, which covers the vast majority of the observed surface. This primary unit is traversed by sparse, linear background markings, suggesting structural boundaries or fault lines that cut across the formation."
+      },
+      {
+        "patch_id": 4540,
+        "query": "The region is overwhelmingly dominated by the Imbrian Orientale Hevelius Formation, Outer Facies Unit, which provides continuous coverage across the majority of the mapped area. This primary unit is traversed by a distinct, linear feature marked by the background or line markings, suggesting a structural boundary or discontinuity across the formation."
+      }
+    ],
+    "Iohs": [
+      {
+        "patch_id": 7615,
+        "query": "The terrain is overwhelmingly dominated by the Imbrian Orientale Hevelius Formation, Secondary Crater Facies Unit, which forms a generally smooth, cratered plain texture across the majority of the visible area. This primary unit is bordered by the Imbrian Orientale Hevelius Formation, Outer Facies Unit, which defines a distinct, irregular peripheral boundary, while the Imbrian Plains Unit is entirely absent from this region."
+      },
+      {
+        "patch_id": 5637,
+        "query": "The landscape is overwhelmingly dominated by the Imbrian Orientale Hevelius Formation, Secondary Crater Facies Unit, which forms the primary, widespread surface texture. This dominant unit interacts with localized, structurally distinct patches of the Imbrian Basin Undivided Unit, suggesting the latter underlies or borders the main formation."
+      },
+      {
+        "patch_id": 8362,
+        "query": "The landscape is overwhelmingly dominated by the Imbrian Orientale Hevelius Formation, Secondary Crater Facies Unit, which defines the primary, heavily textured surface across the region. The Imbrian Orientale Hevelius Formation, Outer Facies Unit is spatially restricted to localized patches, suggesting it represents a structurally distinct unit adjacent to the main secondary crater facies."
+      }
+    ],
+    "Iom": [
+      {
+        "patch_id": 5788,
+        "query": "The landscape is overwhelmingly dominated by the Imbrian Orientale Maunder Formation Unit, which constitutes the primary geological substrate across the region. The Imbrian Orientale Montes Rook Formation, Massif Facies Unit and the Imbrian Upper Crater Unit occupy localized areas, suggesting they represent structural boundaries or infill material relative to the expansive Maunder Formation."
+      },
+      {
+        "patch_id": 5684,
+        "query": "The geological structure is dominated by the Imbrian Orientale Maunder Formation Unit (86.6%), which forms the primary matrix of the region. Minor patches of the Imbrian Plains Unit (3.6%) and Copernican Crater Unit (0.5%) are embedded within this dominant unit, with linear background markings (9.3%) defining structural boundaries across the landscape."
+      },
+      {
+        "patch_id": 5787,
+        "query": "The Imbrian Orientale Maunder Formation Unit constitutes the primary substrate, which is extensively modified and partially covered by the Imbrian Upper Crater Unit. A small, localized Imbrian Orientale Montes Rook Formation, Massif Facies Unit is situated within the boundaries of these two dominant Imbrian units."
+      }
+    ],
+    "Iork": [
+      {
+        "patch_id": 4948,
+        "query": "The surface topography is overwhelmingly dominated by the Imbrian Orientale Montes Rook Formation, Knobby Facies Unit, which constitutes the primary material covering the vast majority of the visible terrain. The Imbrian Orientale Montes Rook Formation, Massif Facies Unit, is spatially restricted to small, localized patches, suggesting it represents an underlying bedrock or a structurally distinct unit exposed within the dominant Knobby Facies material."
+      },
+      {
+        "patch_id": 6006,
+        "query": "The Imbrian Orientale Montes Rook Formation, Knobby Facies Unit, dominates the visible surface, exhibiting near-total coverage across the region. This extensive unit defines the primary geological structure, with the background markings representing only a negligible, peripheral component."
+      },
+      {
+        "patch_id": 5888,
+        "query": "The region is overwhelmingly dominated by the Imbrian Orientale Montes Rook Formation, Knobby Facies Unit, which covers the vast majority of the mapped area. The Imbrian Orientale Montes Rook Formation, Massif Facies Unit, occupies a small, localized patch that is adjacent to, but distinct from, the primary Knobby Facies Unit."
+      }
+    ],
+    "Iorm": [
+      {
+        "patch_id": 4410,
+        "query": "The landscape is dominated by the Imbrian Orientale Montes Rook Formation, Massif Facies Unit, which constitutes the extensive, underlying geological matrix of the region. Superimposed upon or adjacent to this primary unit is the Imbrian Orientale Montes Rook Formation, Knobby Facies Unit, which represents a localized, distinct textural variation within the overall formation."
+      },
+      {
+        "patch_id": 4726,
+        "query": "The area is overwhelmingly dominated by the Imbrian Orientale Montes Rook Formation, Massif Facies Unit, which constitutes the primary geological substrate. The Imbrian Orientale Montes Rook Formation, Knobby Facies Unit, is spatially restricted to a small, localized patch, suggesting a minor boundary feature or localized variation within the larger Massif Facies Unit."
+      },
+      {
+        "patch_id": 4414,
+        "query": "The geological structure is dominated by the extensive Imbrian Orientale Montes Rook Formation, Massif Facies Unit, which forms the primary matrix of the region. This matrix is locally juxtaposed with the Imbrian Orientale Montes Rook Formation, Knobby Facies Unit, while the Imbrian Plains Unit occupies distinct, isolated areas, suggesting these plains represent younger infill or a separate depositional event relative to the main massif formations."
+      }
+    ],
+    "Ip": [
+      {
+        "patch_id": 15582,
+        "query": "The landscape is dominated by the extensive Imbrian Plains Unit, which forms the primary, underlying substrate across the majority of the area. Superimposed upon or adjacent to this plains material are localized exposures of the Pre-Nectarian Crater Unit, suggesting a structural relationship where the crater material represents a distinct, impact-derived feature relative to the older plains."
+      },
+      {
+        "patch_id": 12518,
+        "query": "The surface is overwhelmingly dominated by the Imbrian Plains Unit, which exhibits a continuous, widespread texture across the majority of the mapped area. This primary unit is sparsely interrupted by the Background or line markings, which appear as localized, linear, or point features that overlay the main plains material."
+      },
+      {
+        "patch_id": 14012,
+        "query": "The surface is overwhelmingly dominated by the Imbrian Plains Unit, which forms the primary, extensive substrate across the region. Within this vast plains matrix, the Imbrian Basin Undivided Unit appears as a localized, distinct feature, while the Imbrian Lower Mare Unit and background markings occupy minimal, peripheral coverage."
+      }
+    ],
+    "Isc": [
+      {
+        "patch_id": 1257,
+        "query": "The landscape is overwhelmingly dominated by the Imbrian Secondary Crater Unit, which constitutes the vast majority of the visible surface area and defines the primary geological texture. This extensive unit is sparsely punctuated and delineated by the Background or line markings, which appear as minor, linear, or isolated features defining the boundaries across the terrain."
+      },
+      {
+        "patch_id": 309,
+        "query": "The geological structure is overwhelmingly dominated by the Imbrian Secondary Crater Unit, which constitutes 99.4% of the observed area and forms the primary matrix of the landscape. This extensive unit is minimally traversed by the Background or line markings, which represent only 0.6% of the coverage and appear as linear features superimposed upon the main cratering terrain."
+      },
+      {
+        "patch_id": 21931,
+        "query": "The Imbrian Secondary Crater Unit constitutes the overwhelming majority of the area (95.7% coverage), defining the primary, expansive geological texture. The Background or line markings (4.3% coverage) are spatially restricted, appearing as linear or patchy features that traverse the surface of the dominant Imbrian unit."
+      }
+    ],
+    "It": [
+      {
+        "patch_id": 21688,
+        "query": "The landscape is overwhelmingly dominated by the Imbrian Terra Unit, which constitutes the primary geological matrix of the observed region. This extensive unit is spatially bordered by the Nectarian Terra Unit and the Imbrian Plains Unit, defining a complex structural boundary where these three distinct geological formations meet."
+      },
+      {
+        "patch_id": 20448,
+        "query": "The geological structure is overwhelmingly dominated by the Imbrian Terra Unit, which forms the extensive, continuous substrate across the majority of the observed area. The Imbrian Basin Undivided Unit occupies a distinct, localized position, defining a structural boundary or fill material adjacent to the primary terra."
+      },
+      {
+        "patch_id": 13320,
+        "query": "The landscape is dominated by the extensive Imbrian Terra Unit and the Imbrian Lower Crater Unit, which define the major regional structure and occupy the largest contiguous areas. The Eratosthenian Crater Unit is a smaller, localized feature situated adjacent to the boundary formed by the two major Imbrian units."
+      }
+    ],
+    "Itd": [
+      {
+        "patch_id": 8975,
+        "query": "The geological structure is dominated by the Imbrian Terra Dome Unit, which forms the extensive basin floor and contains the central, distinct Copernican Crater Unit. This primary impact feature is spatially bordered by the Nectarian Crater Unit and the Nectarian Basin Massif Unit, indicating a complex relationship between the main basin infilling and peripheral, adjacent impact structures."
+      },
+      {
+        "patch_id": 12560,
+        "query": "The Imbrian Terra Dome Unit constitutes the vast majority of the terrain, defining the expansive, smooth plains and the interior structure of the major impact feature. This dome unit is spatially bordered by the Imbrian Upper Mare Unit, which delineates distinct peripheral zones, while the Imbrian Basin Undivided Unit occupies only a minimal, localized boundary position."
+      },
+      {
+        "patch_id": 12454,
+        "query": "The Imbrian Terra Dome Unit dominates the eastern sector, while the Imbrian Upper Mare Unit forms a prominent, vertically oriented boundary on the western side. These major units abut the Eratosthenian Crater Unit in the lower center, which is flanked by the Nectarian Basin Lineated Unit and the Nectarian Terra Unit, suggesting a complex interplay of mare and terra deposits."
+      }
+    ],
+    "Nb": [
+      {
+        "patch_id": 19410,
+        "query": "The landscape is overwhelmingly dominated by the Nectarian Basin Undivided Unit, which forms the primary, extensive geological matrix. The Imbrian Plains Unit occupies a minor, localized position, appearing as a distinct, peripheral feature adjacent to the vast Nectarian Basin."
+      },
+      {
+        "patch_id": 1543,
+        "query": "The landscape is overwhelmingly dominated by the Nectarian Basin Undivided Unit, which forms the primary, extensive plain material. Minor, localized patches of Nectarian Terra Unit and Imbrian Plains Unit are observed, representing peripheral deposits or minor overlays upon the main basin material."
+      },
+      {
+        "patch_id": 1429,
+        "query": "The landscape is overwhelmingly dominated by the Nectarian Basin Undivided Unit, which forms the primary, extensive plain. This unit interacts spatially with the Imbrian Plains Unit, which occupies a distinct, large patch, and the Nectarian Terra Unit, which appears as minor, localized deposits across the surface."
+      }
+    ],
+    "Nbl": [
+      {
+        "patch_id": 17716,
+        "query": "The Nectarian Basin Lineated Unit constitutes the overwhelming majority of the visible terrain, presenting a continuous, expansive substrate. This primary unit is intersected by the Background or line markings, which manifest as a linear, low-coverage feature suggesting a distinct boundary or structural demarcation across the lower edge of the area."
+      },
+      {
+        "patch_id": 20719,
+        "query": "The area is overwhelmingly dominated by the Nectarian Basin Lineated Unit, which constitutes the primary and extensive geological surface. This widespread unit is bordered by the Background or line markings, which appear as thin, linear features defining the periphery of the mapped region."
+      },
+      {
+        "patch_id": 17286,
+        "query": "The surface is overwhelmingly dominated by the Nectarian Basin Lineated Unit, which forms the primary, extensive geological matrix. The Pre-Nectarian Basin Massif Unit appears as minor, localized patches or linear features that are interspersed within the broader expanse of the Nectarian Unit."
+      }
+    ],
+    "Nbm": [
+      {
+        "patch_id": 13212,
+        "query": "The landscape is dominated by the Nectarian Basin Massif Unit, which forms the primary matrix interspersed with extensive patches of Imbrian Terra and Imbrian Plains units. This terrain is punctuated by localized impact features, including the Imbrian Crater Cluster Unit and the Imbrian Lower Crater Unit, which are bordered by the Nectarian Terra Unit."
+      },
+      {
+        "patch_id": 12007,
+        "query": "The landscape is dominated by the Nectarian Basin Massif Unit, which serves as the primary substrate, juxtaposed against the extensive Imbrian Terra Unit. The Imbrian Upper Mare Unit and Imbrian Lower Crater Unit occupy distinct, localized patches, suggesting later infilling or depositional events within the broader Nectarian and Imbrian Terra terrains."
+      },
+      {
+        "patch_id": 13185,
+        "query": "The landscape is dominated by the Nectarian Basin Massif Unit, which forms the primary matrix, into which the Imbrian Upper Mare Unit is extensively interdigitated in large, irregular patches. The overall structure is characterized by the complex juxtaposition of these two major units, with the smaller Imbrian Dark Mantling Unit and Nectarian Terra Unit occupying localized, residual areas."
+      }
+    ],
+    "Nbsc": [
+      {
+        "patch_id": 15905,
+        "query": "The landscape is overwhelmingly dominated by the Nectarian Basin Secondary Crater Unit, which constitutes the vast majority of the visible terrain at 76.3% coverage. This primary unit is spatially related to the Nectarian Basin Lineated Unit, which borders and overlays portions of the secondary crater structure, while the Imbrian Plains Unit and background markings occupy minor, localized areas."
+      },
+      {
+        "patch_id": 15798,
+        "query": "The geological structure is overwhelmingly dominated by the Nectarian Basin Secondary Crater Unit, which covers 98.6% of the area. This extensive unit contains only trace exposures of the Pre-Nectarian Terra Unit (1.0% coverage) and is delineated by minimal background or line markings (0.4% coverage)."
+      },
+      {
+        "patch_id": 16989,
+        "query": "The area is overwhelmingly dominated by the Nectarian Basin Secondary Crater Unit, which covers 98.5% of the surface and defines the primary geological texture. The Nectarian Basin Lineated Unit is present as a minor feature (1.0% coverage), while the Background or line markings constitute a negligible fraction (0.6%), indicating a highly uniform surface structure."
+      }
+    ],
+    "Nc": [
+      {
+        "patch_id": 19459,
+        "query": "The landscape is dominated by the Nectarian Crater Unit, which abuts the extensive Pre-Nectarian Terra Unit across the majority of the visible area. This primary contact is punctuated by smaller, localized patches of Eratosthenian Crater Unit and Nectarian Terra Unit, indicating varied geological history across the region."
+      },
+      {
+        "patch_id": 16532,
+        "query": "The surface is overwhelmingly dominated by the Nectarian Crater Unit, which forms the primary, continuous matrix of the region. This extensive unit is traversed by linear Background markings and contains minor, localized outcrops of the older Pre-Nectarian Crater Unit."
+      },
+      {
+        "patch_id": 9729,
+        "query": "The terrain is overwhelmingly dominated by the Nectarian Crater Unit, which exhibits a modified texture indicative of extensive impact processes. This primary unit is spatially juxtaposed with minor, localized patches of Imbrian Plains Unit and Nectarian Terra Unit, with linear background markings delineating boundaries across the overall structure."
+      }
+    ],
+    "Nnj": [
+      {
+        "patch_id": 14810,
+        "query": "The geological structure is overwhelmingly dominated by the Nectarian Nectaris Janssen Formation Unit, which constitutes the primary surface material across the vast majority of the area. The Imbrian Plains Unit is present as a highly localized feature, appearing to be juxtaposed against the dominant formation unit."
+      },
+      {
+        "patch_id": 14705,
+        "query": "The Nectarian Nectaris Janssen Formation Unit constitutes the extensive, surrounding terrain, forming the primary geological substrate across the majority of the visible area. The Imbrian Lower Crater Unit occupies a large, distinct, and relatively isolated basin structure, spatially defined by its boundaries against the surrounding Nectarian material."
+      },
+      {
+        "patch_id": 15124,
+        "query": "The landscape is dominated by the Nectarian Nectaris Janssen Formation Unit, which forms the extensive, underlying plain across the majority of the visible area. This plain is bordered by the large Imbrian Lower Crater Unit, which occupies a significant basin structure, and is further abutted by the smaller Imbrian Secondary Crater Unit, defining a complex, multi-unit boundary zone."
+      }
+    ],
+    "Np": [
+      {
+        "patch_id": 20736,
+        "query": "The landscape is overwhelmingly dominated by the Nectarian Plains Unit, which covers the majority of the surface area. This plain is structurally defined by the Pre-Nectarian Crater Unit, which forms a prominent, linear boundary, and is locally intersected by the smaller, distinct Nectarian Crater Unit."
+      },
+      {
+        "patch_id": 18489,
+        "query": "The landscape is overwhelmingly dominated by the Nectarian Plains Unit, which exhibits a heavily cratered and subdued texture across the majority of the visible area. Spatially, the Imbrian Upper Crater Unit occupies a distinct, curved patch adjacent to the Nectarian Plains, while the Pre-Nectarian Terra Unit defines a linear, marginal boundary along the lower right edge of the composition."
+      },
+      {
+        "patch_id": 18383,
+        "query": "The Nectarian Plains Unit is the dominant geological feature, occupying the majority of the area and serving as the primary matrix for the landscape. This unit is spatially bordered by the Imbrian Upper Crater Unit and the Nectarian Terra Unit, which together define a complex, curvilinear contact zone."
+      }
+    ],
+    "Nt": [
+      {
+        "patch_id": 7526,
+        "query": "The landscape is overwhelmingly dominated by the Nectarian Terra Unit, which forms the expansive, underlying surface across the majority of the area. This primary unit is spatially bordered by the Pre-Nectarian Crater Unit along the superior margin and the minor, linear Eratosthenian Crater Unit along the inferior margin."
+      },
+      {
+        "patch_id": 1209,
+        "query": "The landscape is overwhelmingly dominated by the Nectarian Terra Unit, which forms the continuous, primary substrate across the majority of the visible area. This extensive unit is spatially bordered by the Nectarian Crater Unit, which occupies a localized, distinct region along the lower margin, suggesting a boundary between two differing crustal compositions."
+      },
+      {
+        "patch_id": 1590,
+        "query": "The landscape is overwhelmingly dominated by the expansive Nectarian Terra Unit, which exhibits a smooth, continuous texture across the majority of the surface. This primary unit is structurally traversed by linear black markings and locally modified by patches of Pre-Nectarian Terra and the distinct, confined Pre-Nectarian Crater Unit."
+      }
+    ],
+    "Ntp": [
+      {
+        "patch_id": 1691,
+        "query": "The landscape is overwhelmingly dominated by the Nectarian Plains and Mantling, Terra Unit, which forms the primary, extensive geological matrix. This matrix is interrupted only by a small, localized patch of the Nectarian Basin Secondary Crater Unit in the upper quadrant, with linear background markings defining the overall boundaries."
+      },
+      {
+        "patch_id": 19184,
+        "query": "The landscape is overwhelmingly dominated by the Nectarian Plains and Mantling, Terra Unit, which forms the primary matrix across the surface. Superimposed upon this extensive unit are localized patches of the Imbrian Plains Unit, while the Pre-Nectarian Basin Undivided Unit occupies a confined, underlying position, all delineated by prominent linear background markings."
+      },
+      {
+        "patch_id": 1583,
+        "query": "The landscape is overwhelmingly dominated by the Nectarian Plains and Mantling, Terra Unit, which forms the continuous, extensive matrix across the region. This primary unit contains minor, linear features represented by the Background or line markings, while the Imbrian Upper Crater Unit is highly restricted, appearing only as sparse, localized inclusions within the broader Nectarian terrain."
+      }
+    ],
+    "pNb": [
+      {
+        "patch_id": 20033,
+        "query": "The area is overwhelmingly dominated by the Pre-Nectarian Basin Undivided Unit, which constitutes the primary geological substrate. Superimposed upon this extensive unit are sparse, linear background markings, suggesting localized structural features or minor overlying material."
+      },
+      {
+        "patch_id": 13564,
+        "query": "The surface is overwhelmingly dominated by the Pre-Nectarian Basin Undivided Unit, which constitutes the vast majority of the mapped area. This extensive basin material contains only trace, localized exposures of the Pre-Nectarian Crater Unit, with the spatial relationships of all major units delineated by subtle Background or line markings."
+      },
+      {
+        "patch_id": 20968,
+        "query": "The landscape is overwhelmingly dominated by the Pre-Nectarian Basin Undivided Unit, which forms the primary, extensive substrate across the region. The Pre-Nectarian Terra Unit is confined to a minor, localized area, suggesting a marginal geological transition or overlay upon the vast expanse of the basin unit."
+      }
+    ],
+    "pNbm": [
+      {
+        "patch_id": 1232,
+        "query": "The landscape is overwhelmingly dominated by the Pre-Nectarian Basin Massif Unit, which forms the primary bedrock structure across the region. An extensive Imbrian Plains Unit occupies a large portion of the area, bordering the massif, while the Nectarian Terra Unit appears as a minor, localized feature within the overall structure."
+      },
+      {
+        "patch_id": 9215,
+        "query": "The geological structure is overwhelmingly dominated by the Pre-Nectarian Basin Massif Unit, which forms the vast, primary body of the region. This extensive Massif is structurally defined and bordered by the Pre-Nectarian Terra Unit, which occupies a distinct, peripheral margin marking the structural edge of the basin."
+      },
+      {
+        "patch_id": 8366,
+        "query": "The geological structure is overwhelmingly dominated by the Pre-Nectarian Basin Massif Unit, which forms the primary, extensive crustal foundation across the region. This ancient massif is locally modified and partially overlaid by the Imbrian Plains Unit, which represents a minor, younger deposit, with the background markings delineating minor structural boundaries within the overall topography."
+      }
+    ],
+    "pNc": [
+      {
+        "patch_id": 10814,
+        "query": "The landscape is overwhelmingly dominated by the Pre-Nectarian Crater Unit, which forms the primary, expansive crustal material. The Imbrian Plains Unit appears as scattered, less extensive patches, while the Imbrian-Nectarian Terra Unit is present only in minimal, localized deposits. Linear features, marked by the background markings, traverse the surface, suggesting structural control or erosional pathways cutting across the older, dominant crust."
+      },
+      {
+        "patch_id": 3812,
+        "query": "The landscape is overwhelmingly dominated by the extensive Pre-Nectarian Crater Unit, which forms the primary geological texture across the majority of the area. This unit is spatially juxtaposed with the Pre-Nectarian Basin Undivided Unit, and a minor, distinct patch of the Imbrian Plains Unit is also visible, with all major boundaries clearly delineated by the background line markings."
+      },
+      {
+        "patch_id": 4021,
+        "query": "The geological structure is overwhelmingly dominated by the Pre-Nectarian Crater Unit, which constitutes the primary matrix covering 90.5% of the area. Within this extensive unit, the Pre-Nectarian Basin Undivided Unit appears as a localized, subordinate feature occupying 7.0% of the coverage, with background markings completing the remaining 2.6%."
+      }
+    ],
+    "pNt": [
+      {
+        "patch_id": 21268,
+        "query": "The landscape is overwhelmingly dominated by the Pre-Nectarian Terra Unit, which forms the primary, extensive substrate across the majority of the visible area. The Nectarian Crater Unit occupies a localized, distinct patch, suggesting it represents a more recent or structurally isolated impact feature adjacent to the older, surrounding terrain."
+      },
+      {
+        "patch_id": 19047,
+        "query": "The surface is overwhelmingly dominated by the Pre-Nectarian Terra Unit (82.9%), which forms the primary, continuous plain texture. This extensive terrain is structurally bordered and punctuated by the Pre-Nectarian Crater Unit (11.0%), while small, localized patches of the Nectarian Terra Unit (3.9%) represent minor, distinct infilling deposits."
+      },
+      {
+        "patch_id": 20855,
+        "query": "The landscape is overwhelmingly dominated by the Pre-Nectarian Terra Unit, which constitutes the primary crustal material covering over 80% of the observed area. This extensive terrain is spatially juxtaposed against the Pre-Nectarian Crater Unit, which occupies a distinct, localized band along the lower edge, representing a secondary geological modification."
+      }
+    ]
+  }
+}

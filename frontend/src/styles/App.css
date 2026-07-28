@@ -388,6 +388,8 @@
 .search-feature-list {
   min-height: 0;
   display: grid;
+  grid-auto-rows: max-content;
+  align-content: start;
   gap: 5px;
   margin: 0;
   padding: 0 3px 0 0;
@@ -396,14 +398,41 @@
 }
 
 .search-feature-list li {
+  display: block;
+  border: 1px solid rgba(255, 255, 255, 0.055);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.025);
+  overflow: hidden;
+}
+
+.search-feature-list li > button {
+  width: 100%;
   display: grid;
   grid-template-columns: 13px minmax(0, 1fr);
   align-items: start;
   gap: 9px;
   padding: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.055);
-  border-radius: 7px;
-  background: rgba(255, 255, 255, 0.025);
+  border: 0;
+  color: inherit;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    color 160ms ease,
+    background 160ms ease;
+}
+
+.search-feature-list li > button:hover:not(:disabled),
+.search-feature-list li > button:focus-visible {
+  color: var(--color-cyan);
+  background: rgba(125, 211, 252, 0.08);
+  outline: 0;
+}
+
+.search-feature-list li > button:disabled {
+  opacity: 0.46;
+  cursor: not-allowed;
 }
 
 .search-feature-swatch {
@@ -415,7 +444,7 @@
   box-shadow: 0 0 8px rgba(255, 255, 255, 0.08);
 }
 
-.search-feature-list li > span:last-child {
+.search-feature-list li > button > span:last-child {
   min-width: 0;
 }
 
@@ -894,6 +923,71 @@
 
 .composer-box textarea::placeholder {
   color: var(--color-text-mute);
+}
+
+.search-suggestions {
+  display: grid;
+  gap: 7px;
+  margin-top: 10px;
+}
+
+.search-suggestions > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-text-mute);
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.search-suggestions > span svg {
+  color: var(--color-cyan);
+}
+
+.search-suggestion-list {
+  display: grid;
+  gap: 6px;
+}
+
+.search-suggestion-list button {
+  width: 100%;
+  padding: 8px 10px;
+  overflow: hidden;
+  border: 1px solid var(--color-line);
+  border-radius: 7px;
+  color: var(--color-text-soft);
+  background: rgba(255, 255, 255, 0.025);
+  font: inherit;
+  font-size: 11px;
+  line-height: 1.35;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    border-color 160ms ease,
+    color 160ms ease,
+    background 160ms ease;
+}
+
+.search-suggestion-list button:hover:not(:disabled),
+.search-suggestion-list button:focus-visible {
+  border-color: var(--color-line-strong);
+  color: var(--color-text);
+  background: rgba(125, 211, 252, 0.07);
+  outline: 0;
+}
+
+.search-suggestion-list button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.search-suggestion-error {
+  display: block;
+  margin-top: 8px;
+  color: var(--color-rose);
+  font-size: 10px;
 }
 
 .composer-actions {

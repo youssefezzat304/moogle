@@ -4,10 +4,26 @@ import {
   parseSearchFeatures,
   type SearchFeature,
 } from "../utils/searchFeatures";
+import {
+  pickFeatureDemoQuery,
+  type DemoQueryCatalog,
+} from "../utils/demoQueries";
 
 const LEGEND_URL = `${import.meta.env.BASE_URL}legend.json`;
 
-function SearchFeatureLegend() {
+interface SearchFeatureLegendProps {
+  demoQueryCatalog: DemoQueryCatalog | null;
+  demoQueryError: string | null;
+  canRunDemoQuery: boolean;
+  onRunDemoQuery: (query: string) => void;
+}
+
+function SearchFeatureLegend({
+  demoQueryCatalog,
+  demoQueryError,
+  canRunDemoQuery,
+  onRunDemoQuery,
+}: SearchFeatureLegendProps) {
   const [features, setFeatures] = useState<SearchFeature[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -77,7 +93,10 @@ function SearchFeatureLegend() {
             </button>
           </header>
 
-          <p>Use these mapped unit names as terms in your terrain query.</p>
+          <p>
+            Select a mapped unit to run one of its real v2.0 example
+            descriptions.
+          </p>
 
           {error ? (
             <div className="search-feature-message error">{error}</div>
@@ -85,22 +104,56 @@ function SearchFeatureLegend() {
             <div className="search-feature-message">Loading feature list…</div>
           ) : (
             <ul className="search-feature-list">
-              {features.map((feature) => (
-                <li key={feature.code}>
-                  <span
-                    className="search-feature-swatch"
-                    style={{ backgroundColor: feature.color }}
-                    aria-hidden="true"
-                  />
-                  <span>
-                    <strong>{feature.longDescription}</strong>
-                    <small>
-                      {feature.code} · {feature.description}
-                    </small>
-                  </span>
-                </li>
-              ))}
+              {features.map((feature) => {
+                const hasDemoQuery =
+                  (demoQueryCatalog?.features[feature.code]?.length ?? 0) > 0;
+                const isDisabled = !canRunDemoQuery || !hasDemoQuery;
+
+                return (
+                  <li key={feature.code}>
+                    <button
+                      type="button"
+                      disabled={isDisabled}
+                      title={
+                        hasDemoQuery
+                          ? `Run a v2.0 example for ${feature.longDescription}`
+                          : `No v2.0 example is available for ${feature.longDescription}`
+                      }
+                      onClick={() => {
+                        const query = pickFeatureDemoQuery(
+                          demoQueryCatalog,
+                          feature.code,
+                        );
+                        if (!query) return;
+                        setIsOpen(false);
+                        onRunDemoQuery(query);
+                      }}
+                    >
+                      <span
+                        className="search-feature-swatch"
+                        style={{ backgroundColor: feature.color }}
+                        aria-hidden="true"
+                      />
+                      <span>
+                        <strong>{feature.longDescription}</strong>
+                        <small>
+                          {feature.code} · {feature.description}
+                          {!hasDemoQuery && demoQueryCatalog && (
+                            <> · No v2.0 example</>
+                          )}
+                        </small>
+                      </span>
+                    </button>
+                  </li>
+                );
+              })}
             </ul>
+          )}
+
+          {demoQueryError && (
+            <div className="search-feature-message error">
+              Demo descriptions could not be loaded.
+            </div>
           )}
         </section>
       )}
@@ -114,7 +167,6 @@ function SearchFeatureLegend() {
       >
         <ListTree size={15} />
         <span>Search vocabulary</span>
-        {features.length > 0 && <strong>{features.length}</strong>}
       </button>
     </div>
   );

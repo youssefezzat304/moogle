@@ -1,11 +1,29 @@
-import { useRef, useState, type FormEvent } from "react";
-import { ChevronDown, Loader2, Search, Send, Settings2 } from "lucide-react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type FormEvent,
+} from "react";
+import {
+  ChevronDown,
+  Loader2,
+  Search,
+  Send,
+  Settings2,
+  Sparkles,
+} from "lucide-react";
+import type { DemoQueryRequest } from "../types";
 
 interface SearchFormProps {
   isSubmitting: boolean;
   topK: number;
   onTopKChange: (topK: number) => void;
   onSubmit: (query: string, topK: number) => Promise<boolean>;
+  suggestions?: string[];
+  suggestionError?: string | null;
+  demoQueryRequest?: DemoQueryRequest | null;
+  onConsumeDemoQuery?: (requestId: number) => void;
   placement?: "initial" | "conversation";
 }
 
@@ -14,20 +32,46 @@ function SearchForm({
   topK,
   onTopKChange,
   onSubmit,
+  suggestions = [],
+  suggestionError = null,
+  demoQueryRequest = null,
+  onConsumeDemoQuery,
   placement = "initial",
 }: SearchFormProps) {
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState(demoQueryRequest?.query ?? "");
   const settingsRef = useRef<HTMLDetailsElement>(null);
+  const submittedDemoQueryIdRef = useRef<number | null>(null);
 
-  const submit = async () => {
-    const query = input.trim();
-    if (!query || isSubmitting || topK === 0) return;
+  const submitQuery = useCallback(
+    async (rawQuery: string) => {
+      const query = rawQuery.trim();
+      if (!query || isSubmitting || topK === 0) return;
 
-    settingsRef.current?.removeAttribute("open");
-    if (await onSubmit(query, topK)) {
-      setInput("");
+      settingsRef.current?.removeAttribute("open");
+      if (await onSubmit(query, topK)) {
+        setInput("");
+      }
+    },
+    [isSubmitting, onSubmit, topK],
+  );
+
+  const submit = () => submitQuery(input);
+
+  useEffect(() => {
+    if (
+      !demoQueryRequest ||
+      !onConsumeDemoQuery ||
+      submittedDemoQueryIdRef.current === demoQueryRequest.id
+    ) {
+      return;
     }
-  };
+
+    submittedDemoQueryIdRef.current = demoQueryRequest.id;
+    window.requestAnimationFrame(() => {
+      void submitQuery(demoQueryRequest.query);
+      onConsumeDemoQuery(demoQueryRequest.id);
+    });
+  }, [demoQueryRequest, onConsumeDemoQuery, submitQuery]);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -136,6 +180,39 @@ function SearchForm({
           </button>
         </div>
       </form>
+
+      {placement === "initial" && suggestions.length > 0 && (
+        <div className="search-suggestions">
+          <span>
+            <Sparkles size={12} />
+            Try an example
+          </span>
+          <div className="search-suggestion-list">
+            {suggestions.map((suggestion) => (
+              <button
+                key={suggestion}
+                type="button"
+                title={suggestion}
+                disabled={isSubmitting || topK === 0}
+                onClick={() => {
+                  setInput(suggestion);
+                  window.requestAnimationFrame(() => {
+                    void submitQuery(suggestion);
+                  });
+                }}
+              >
+                {suggestion}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {placement === "initial" && suggestionError && (
+        <small className="search-suggestion-error">
+          Example queries are temporarily unavailable.
+        </small>
+      )}
     </section>
   );
 }

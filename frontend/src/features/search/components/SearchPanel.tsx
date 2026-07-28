@@ -1,5 +1,7 @@
-import { useState } from "react";
-import type { SearchController } from "../types";
+import { useMemo } from "react";
+import type { DemoQueryCatalog } from "../../../shared/utils/demoQueries";
+import { pickRandomDemoSuggestions } from "../../../shared/utils/demoQueries";
+import type { DemoQueryRequest, SearchController } from "../types";
 import SearchConversation from "./SearchConversation";
 import SearchForm from "./SearchForm";
 import SearchResults from "./SearchResults";
@@ -7,10 +9,27 @@ import SearchStatus from "./SearchStatus";
 
 interface SearchPanelProps {
   search: SearchController;
+  topK: number;
+  onTopKChange: (topK: number) => void;
+  demoQueryCatalog: DemoQueryCatalog | null;
+  demoQueryError: string | null;
+  demoQueryRequest: DemoQueryRequest | null;
+  onConsumeDemoQuery: (requestId: number) => void;
 }
 
-function SearchPanel({ search }: SearchPanelProps) {
-  const [topK, setTopK] = useState(5);
+function SearchPanel({
+  search,
+  topK,
+  onTopKChange,
+  demoQueryCatalog,
+  demoQueryError,
+  demoQueryRequest,
+  onConsumeDemoQuery,
+}: SearchPanelProps) {
+  const suggestions = useMemo(
+    () => pickRandomDemoSuggestions(demoQueryCatalog, 3),
+    [demoQueryCatalog],
+  );
 
   if (search.messages.length === 0) {
     return (
@@ -22,10 +41,15 @@ function SearchPanel({ search }: SearchPanelProps) {
             Describe a landform, surface texture, or mapped geologic feature.
           </p>
           <SearchForm
+            key={`initial-${demoQueryRequest?.id ?? "manual"}`}
             isSubmitting={search.phase === "loading"}
             topK={topK}
-            onTopKChange={setTopK}
+            onTopKChange={onTopKChange}
             onSubmit={search.runSearch}
+            suggestions={suggestions}
+            suggestionError={demoQueryError}
+            demoQueryRequest={demoQueryRequest}
+            onConsumeDemoQuery={onConsumeDemoQuery}
             placement="initial"
           />
         </div>
@@ -52,10 +76,13 @@ function SearchPanel({ search }: SearchPanelProps) {
       />
       <SearchConversation messages={search.messages} phase={search.phase} />
       <SearchForm
+        key={`conversation-${demoQueryRequest?.id ?? "manual"}`}
         isSubmitting={search.phase === "loading"}
         topK={topK}
-        onTopKChange={setTopK}
+        onTopKChange={onTopKChange}
         onSubmit={search.runSearch}
+        demoQueryRequest={demoQueryRequest}
+        onConsumeDemoQuery={onConsumeDemoQuery}
         placement="conversation"
       />
     </div>

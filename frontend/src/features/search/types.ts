@@ -15,6 +15,11 @@ export interface SearchMessage {
   tone?: "default" | "error";
 }
 
+export interface DemoQueryRequest {
+  id: number;
+  query: string;
+}
+
 export type SearchRequest = (
   query: string,
   signal: AbortSignal,
