@@ -1,31 +1,34 @@
-import { OrbitControls, Stars } from "@react-three/drei";
+import { Stars } from "@react-three/drei";
 import { Suspense, type MutableRefObject } from "react";
 import type { RetrievalResult } from "../../retrieval/api";
 import type { MoonTarget } from "../types";
 import CameraController from "./CameraController";
 import EvidenceCallout from "./EvidenceCallout";
 import Moon from "./Moon";
+import MoonControls from "./MoonControls";
 import MoonFallback from "./MoonFallback";
 import TargetMarker from "./TargetMarker";
 import TrackingLight from "./TrackingLight";
 
 interface MoonSceneProps {
+  results: RetrievalResult[];
   activeResult: MoonTarget;
   cameraDistanceRef: MutableRefObject<number>;
+  interactionNonceRef: MutableRefObject<number>;
   recenterNonce: number;
-  userInteracting: boolean;
   onInteractionStart: () => void;
-  onInteractionEnd: () => void;
+  onSelectResult: (result: RetrievalResult) => void;
   onPreviewResult: (result: RetrievalResult) => void;
 }
 
 function MoonScene({
+  results,
   activeResult,
   cameraDistanceRef,
+  interactionNonceRef,
   recenterNonce,
-  userInteracting,
   onInteractionStart,
-  onInteractionEnd,
+  onSelectResult,
   onPreviewResult,
 }: MoonSceneProps) {
   return (
@@ -36,21 +39,16 @@ function MoonScene({
         <CameraController
           activeResult={activeResult}
           cameraDistanceRef={cameraDistanceRef}
+          interactionNonceRef={interactionNonceRef}
           recenterNonce={recenterNonce}
-          userInteracting={userInteracting}
         />
       )}
 
-      <OrbitControls
-        enableDamping
-        dampingFactor={0.065}
-        rotateSpeed={0.42}
+      <MoonControls
+        cameraDistanceRef={cameraDistanceRef}
         minDistance={2.7}
         maxDistance={15}
-        enablePan={false}
-        onStart={onInteractionStart}
-        onEnd={onInteractionEnd}
-        makeDefault
+        onInteractionStart={onInteractionStart}
       />
 
       <Stars
@@ -71,15 +69,21 @@ function MoonScene({
               : null
           }
         />
-        {activeResult && (
-          <>
-            <TargetMarker activeResult={activeResult} />
-            <EvidenceCallout
-              activeResult={activeResult}
-              onPreviewResult={onPreviewResult}
-            />
-          </>
-        )}
+        {results.map((result) => {
+          const selected = result.id === activeResult?.id;
+
+          return (
+            <group key={result.id}>
+              <TargetMarker result={result} selected={selected} />
+              <EvidenceCallout
+                result={result}
+                selected={selected}
+                onSelectResult={onSelectResult}
+                onPreviewResult={onPreviewResult}
+              />
+            </group>
+          );
+        })}
       </Suspense>
     </>
   );

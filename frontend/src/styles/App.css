@@ -208,6 +208,7 @@
   display: block;
   width: 100%;
   height: 100%;
+  touch-action: none;
 }
 
 .moon-stage > div,
@@ -219,7 +220,7 @@
 .viewport-hud {
   position: absolute;
   inset: 0;
-  z-index: 2;
+  z-index: 100;
   pointer-events: none;
 }
 
@@ -279,7 +280,7 @@
   position: absolute;
   left: 22px;
   bottom: 22px;
-  z-index: 4;
+  z-index: 100;
   width: min(390px, calc(100% - 44px));
   pointer-events: auto;
 }
@@ -524,24 +525,55 @@
 }
 
 .target-callout-html {
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 .target-evidence-card {
+  position: relative;
   width: 215px;
   display: grid;
   grid-template-columns: 60px minmax(0, 1fr);
   gap: 9px;
   padding: 9px;
-  border: 1px solid rgba(125, 211, 252, 0.34);
+  border: 1px solid rgba(244, 208, 111, 0.28);
   border-radius: 8px;
   background: rgba(6, 10, 16, 0.74);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.34);
   backdrop-filter: blur(12px);
-  pointer-events: none;
+  pointer-events: auto;
+  opacity: 0.86;
+  transform: scale(0.94);
+  transition:
+    border-color 160ms ease,
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+.target-evidence-center {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  padding: 0;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  cursor: pointer;
+}
+
+.target-evidence-center:focus-visible {
+  outline: 2px solid var(--color-cyan);
+  outline-offset: 2px;
+}
+
+.target-evidence-card.selected {
+  border-color: rgba(125, 211, 252, 0.5);
+  opacity: 1;
+  transform: scale(1);
 }
 
 .target-evidence-thumb {
+  position: relative;
+  z-index: 2;
   display: block;
   width: 100%;
   min-height: 48px;
@@ -565,10 +597,13 @@
 }
 
 .target-evidence-card section {
+  position: relative;
+  z-index: 1;
   min-width: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  pointer-events: none;
 }
 
 .target-evidence-card strong {
@@ -582,8 +617,12 @@
 
 .target-evidence-card span {
   margin-top: 5px;
-  color: var(--color-cyan);
+  color: var(--color-gold);
   font-size: 11px;
+}
+
+.target-evidence-card.selected span {
+  color: var(--color-cyan);
 }
 
 .result-image-backdrop {

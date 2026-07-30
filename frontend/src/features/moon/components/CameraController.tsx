@@ -7,59 +7,94 @@ import { latLngToSpherical } from "../lib/sphericalCoordinates";
 interface CameraControllerProps {
   activeResult: RetrievalResult;
   cameraDistanceRef: MutableRefObject<number>;
+  interactionNonceRef: MutableRefObject<number>;
   recenterNonce: number;
-  userInteracting: boolean;
 }
 
 function CameraController({
   activeResult,
   cameraDistanceRef,
+  interactionNonceRef,
   recenterNonce,
-  userInteracting,
 }: CameraControllerProps) {
   const { camera } = useThree();
-  const currentPosition = useRef(new THREE.Vector3(0, 0, 6.4));
-  const isRecentering = useRef(true);
-  const lastResultId = useRef(activeResult.id);
+  const isRecentering = useRef(false);
   const lastRecenterNonce = useRef(recenterNonce);
+  const lastInteractionNonce = useRef(0);
+  const progress = useRef(0);
+  const startDirection = useRef(new THREE.Vector3(0, 0, 1));
+  const startUp = useRef(new THREE.Vector3(0, 1, 0));
+  const targetDirection = useRef(new THREE.Vector3());
+  const arcRotation = useRef(new THREE.Quaternion());
+  const frameRotation = useRef(new THREE.Quaternion());
+  const frameDirection = useRef(new THREE.Vector3());
+  const frameUp = useRef(new THREE.Vector3());
 
-  useFrame(() => {
-    if (
-      activeResult.id !== lastResultId.current ||
-      recenterNonce !== lastRecenterNonce.current
-    ) {
-      lastResultId.current = activeResult.id;
+  useFrame((_, delta) => {
+    if (recenterNonce !== lastRecenterNonce.current) {
       lastRecenterNonce.current = recenterNonce;
       isRecentering.current = true;
-      currentPosition.current.copy(camera.position);
+      progress.current = 0;
       cameraDistanceRef.current = camera.position.length();
+      startDirection.current.copy(camera.position).normalize();
+      startUp.current
+        .copy(camera.up)
+        .addScaledVector(
+          startDirection.current,
+          -camera.up.dot(startDirection.current),
+        )
+        .normalize();
+      targetDirection.current
+        .copy(latLngToSpherical(activeResult.lat, activeResult.lng, 1))
+        .normalize();
+      arcRotation.current.setFromUnitVectors(
+        startDirection.current,
+        targetDirection.current,
+      );
     }
 
-    if (userInteracting) {
+    if (interactionNonceRef.current !== lastInteractionNonce.current) {
+      lastInteractionNonce.current = interactionNonceRef.current;
       isRecentering.current = false;
       cameraDistanceRef.current = camera.position.length();
-      currentPosition.current.copy(camera.position);
       return;
     }
 
-    if (!isRecentering.current) return;
+    if (!isRecentering.current) {
+      cameraDistanceRef.current = camera.position.length();
+      return;
+    }
 
     const cameraDistance = THREE.MathUtils.clamp(
       cameraDistanceRef.current,
       2.7,
       15,
     );
-    const targetPosition = latLngToSpherical(
-      activeResult.lat,
-      activeResult.lng,
-      cameraDistance,
-    );
+    progress.current = 1 - (1 - progress.current) * Math.exp(-2.15 * delta);
+    frameRotation.current
+      .identity()
+      .slerp(arcRotation.current, progress.current);
+    frameDirection.current
+      .copy(startDirection.current)
+      .applyQuaternion(frameRotation.current);
+    frameUp.current
+      .copy(startUp.current)
+      .applyQuaternion(frameRotation.current)
+      .normalize();
 
-    currentPosition.current.lerp(targetPosition, 0.035);
-    camera.position.copy(currentPosition.current);
+    camera.position.copy(frameDirection.current).multiplyScalar(cameraDistance);
+    camera.up.copy(frameUp.current);
     camera.lookAt(0, 0, 0);
 
-    if (currentPosition.current.distanceTo(targetPosition) < 0.015) {
+    if (progress.current > 0.9975) {
+      camera.position
+        .copy(targetDirection.current)
+        .multiplyScalar(cameraDistance);
+      camera.up
+        .copy(startUp.current)
+        .applyQuaternion(arcRotation.current)
+        .normalize();
+      camera.lookAt(0, 0, 0);
       isRecentering.current = false;
     }
   });

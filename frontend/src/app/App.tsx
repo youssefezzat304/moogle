@@ -50,7 +50,9 @@ function App() {
       <SplitLayout
         leftPanel={
           <MoonCanvas
+            results={search.results}
             activeResult={search.activeResult}
+            onSelectResult={selectResult}
             onPreviewResult={previewImage}
             demoQueryCatalog={demoQueries.catalog}
             demoQueryError={demoQueries.error}

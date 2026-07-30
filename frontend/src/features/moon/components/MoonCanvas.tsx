@@ -1,5 +1,5 @@
 import { Canvas } from "@react-three/fiber";
-import { useRef } from "react";
+import { useCallback, useRef } from "react";
 import * as THREE from "three";
 import type { RetrievalResult } from "../../retrieval/api";
 import { useMoonInteraction } from "../hooks/useMoonInteraction";
@@ -9,7 +9,9 @@ import MoonHud from "./MoonHud";
 import MoonScene from "./MoonScene";
 
 interface MoonCanvasProps {
+  results: RetrievalResult[];
   activeResult: MoonTarget;
+  onSelectResult: (result: RetrievalResult) => void;
   onPreviewResult: (result: RetrievalResult) => void;
   demoQueryCatalog: DemoQueryCatalog | null;
   demoQueryError: string | null;
@@ -18,7 +20,9 @@ interface MoonCanvasProps {
 }
 
 function MoonCanvas({
+  results,
   activeResult,
+  onSelectResult,
   onPreviewResult,
   demoQueryCatalog,
   demoQueryError,
@@ -29,11 +33,17 @@ function MoonCanvas({
   const {
     hasWandered,
     recenterNonce,
-    userInteracting,
+    interactionNonceRef,
     startInteraction,
-    settleInteraction,
     recenterTarget,
   } = useMoonInteraction();
+  const centerResult = useCallback(
+    (result: RetrievalResult) => {
+      onSelectResult(result);
+      recenterTarget();
+    },
+    [onSelectResult, recenterTarget],
+  );
 
   return (
     <div className="moon-stage">
@@ -50,13 +60,6 @@ function MoonCanvas({
       <Canvas
         camera={{ position: [0, 0, 6.4], fov: 48 }}
         className="moon-canvas"
-        onPointerDown={startInteraction}
-        onPointerUp={settleInteraction}
-        onPointerLeave={settleInteraction}
-        onWheel={() => {
-          startInteraction();
-          settleInteraction();
-        }}
         gl={{
           antialias: true,
           toneMapping: THREE.ACESFilmicToneMapping,
@@ -65,12 +68,13 @@ function MoonCanvas({
         }}
       >
         <MoonScene
+          results={results}
           activeResult={activeResult}
           cameraDistanceRef={cameraDistanceRef}
           recenterNonce={recenterNonce}
-          userInteracting={userInteracting}
+          interactionNonceRef={interactionNonceRef}
           onInteractionStart={startInteraction}
-          onInteractionEnd={settleInteraction}
+          onSelectResult={centerResult}
           onPreviewResult={onPreviewResult}
         />
       </Canvas>
