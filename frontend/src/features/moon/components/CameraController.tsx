@@ -20,7 +20,7 @@ function CameraController({
   const { camera } = useThree();
   const isRecentering = useRef(false);
   const lastRecenterNonce = useRef(recenterNonce);
-  const lastInteractionNonce = useRef(0);
+  const lastInteractionNonce = useRef<number | null>(null);
   const progress = useRef(0);
   const startDirection = useRef(new THREE.Vector3(0, 0, 1));
   const startUp = useRef(new THREE.Vector3(0, 1, 0));
@@ -53,7 +53,9 @@ function CameraController({
       );
     }
 
-    if (interactionNonceRef.current !== lastInteractionNonce.current) {
+    if (lastInteractionNonce.current === null) {
+      lastInteractionNonce.current = interactionNonceRef.current;
+    } else if (interactionNonceRef.current !== lastInteractionNonce.current) {
       lastInteractionNonce.current = interactionNonceRef.current;
       isRecentering.current = false;
       cameraDistanceRef.current = camera.position.length();
