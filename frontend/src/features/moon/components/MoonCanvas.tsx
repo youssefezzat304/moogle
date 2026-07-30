@@ -1,5 +1,5 @@
 import { Canvas } from "@react-three/fiber";
-import { useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import * as THREE from "three";
 import type { RetrievalResult } from "../../retrieval/api";
 import { useMoonInteraction } from "../hooks/useMoonInteraction";
@@ -32,6 +32,7 @@ function MoonCanvas({
   onRunDemoQuery,
 }: MoonCanvasProps) {
   const cameraDistanceRef = useRef(6.4);
+  const wasLoadingRef = useRef(isLoading);
   const {
     hasWandered,
     recenterNonce,
@@ -46,6 +47,16 @@ function MoonCanvas({
     },
     [onSelectResult, recenterTarget],
   );
+
+  useEffect(() => {
+    const retrievalJustFinished =
+      wasLoadingRef.current && !isLoading && activeResult !== null;
+    wasLoadingRef.current = isLoading;
+
+    if (retrievalJustFinished) {
+      recenterTarget();
+    }
+  }, [activeResult, isLoading, recenterTarget]);
 
   return (
     <div className="moon-stage">
