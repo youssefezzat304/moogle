@@ -6,6 +6,7 @@ import type { MoonTarget } from "../types";
 
 interface MoonHudProps {
   activeResult: MoonTarget;
+  isLoading: boolean;
   hasWandered: boolean;
   onRecenter: () => void;
   demoQueryCatalog: DemoQueryCatalog | null;
@@ -16,6 +17,7 @@ interface MoonHudProps {
 
 function MoonHud({
   activeResult,
+  isLoading,
   hasWandered,
   onRecenter,
   demoQueryCatalog,
@@ -27,15 +29,30 @@ function MoonHud({
     <div className="viewport-hud">
       <div className="hud-target">
         <span className="eyebrow">
-          {activeResult ? "retrieval target" : "no target"}
+          {isLoading
+            ? "semantic scan active"
+            : activeResult
+              ? "retrieval target"
+              : "no target"}
         </span>
         <strong>
-          {activeResult ? resultLabel(activeResult) : "Awaiting retrieval"}
+          {isLoading
+            ? "Searching lunar surface"
+            : activeResult
+              ? resultLabel(activeResult)
+              : "Awaiting retrieval"}
         </strong>
         <small>
-          {activeResult
-            ? formatCoords(activeResult.lat, activeResult.lng)
-            : "Submit a query to the retrieval API"}
+          {isLoading ? (
+            <span className="hud-searching">
+              Tracing semantic features
+              <span aria-hidden="true">•••</span>
+            </span>
+          ) : activeResult ? (
+            formatCoords(activeResult.lat, activeResult.lng)
+          ) : (
+            "Submit a query to the retrieval API"
+          )}
         </small>
       </div>
 

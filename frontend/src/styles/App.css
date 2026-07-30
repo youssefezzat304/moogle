@@ -249,6 +249,32 @@
   font-size: 11px;
 }
 
+.hud-searching {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-cyan);
+}
+
+.hud-searching > span {
+  display: inline-block;
+  width: 18px;
+  overflow: hidden;
+  color: var(--color-cyan-strong);
+  letter-spacing: 2px;
+  animation: hud-search-dots 900ms steps(4, end) infinite;
+}
+
+@keyframes hud-search-dots {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 18px;
+  }
+}
+
 .recenter-button {
   position: absolute;
   left: 22px;

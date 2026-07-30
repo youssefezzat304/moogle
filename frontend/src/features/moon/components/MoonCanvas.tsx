@@ -11,6 +11,7 @@ import MoonScene from "./MoonScene";
 interface MoonCanvasProps {
   results: RetrievalResult[];
   activeResult: MoonTarget;
+  isLoading: boolean;
   onSelectResult: (result: RetrievalResult) => void;
   onPreviewResult: (result: RetrievalResult) => void;
   demoQueryCatalog: DemoQueryCatalog | null;
@@ -22,6 +23,7 @@ interface MoonCanvasProps {
 function MoonCanvas({
   results,
   activeResult,
+  isLoading,
   onSelectResult,
   onPreviewResult,
   demoQueryCatalog,
@@ -49,6 +51,7 @@ function MoonCanvas({
     <div className="moon-stage">
       <MoonHud
         activeResult={activeResult}
+        isLoading={isLoading}
         hasWandered={hasWandered}
         onRecenter={recenterTarget}
         demoQueryCatalog={demoQueryCatalog}
@@ -70,6 +73,7 @@ function MoonCanvas({
         <MoonScene
           results={results}
           activeResult={activeResult}
+          isLoading={isLoading}
           cameraDistanceRef={cameraDistanceRef}
           recenterNonce={recenterNonce}
           interactionNonceRef={interactionNonceRef}

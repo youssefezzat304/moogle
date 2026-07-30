@@ -7,12 +7,14 @@ import EvidenceCallout from "./EvidenceCallout";
 import Moon from "./Moon";
 import MoonControls from "./MoonControls";
 import MoonFallback from "./MoonFallback";
+import RetrievalMeteorSearch from "./RetrievalMeteorSearch";
 import TargetMarker from "./TargetMarker";
 import TrackingLight from "./TrackingLight";
 
 interface MoonSceneProps {
   results: RetrievalResult[];
   activeResult: MoonTarget;
+  isLoading: boolean;
   cameraDistanceRef: MutableRefObject<number>;
   interactionNonceRef: MutableRefObject<number>;
   recenterNonce: number;
@@ -24,6 +26,7 @@ interface MoonSceneProps {
 function MoonScene({
   results,
   activeResult,
+  isLoading,
   cameraDistanceRef,
   interactionNonceRef,
   recenterNonce,
@@ -60,6 +63,8 @@ function MoonScene({
         fade
         speed={0.006}
       />
+
+      {isLoading && <RetrievalMeteorSearch />}
 
       <Suspense fallback={<MoonFallback />}>
         <Moon

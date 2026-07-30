@@ -52,6 +52,7 @@ function App() {
           <MoonCanvas
             results={search.results}
             activeResult={search.activeResult}
+            isLoading={search.phase === "loading"}
             onSelectResult={selectResult}
             onPreviewResult={previewImage}
             demoQueryCatalog={demoQueries.catalog}
