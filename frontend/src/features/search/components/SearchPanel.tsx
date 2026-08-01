@@ -11,6 +11,8 @@ interface SearchPanelProps {
   search: SearchController;
   topK: number;
   onTopKChange: (topK: number) => void;
+  selectedModelId: string;
+  onSelectedModelChange: (modelId: string) => void;
   demoQueryCatalog: DemoQueryCatalog | null;
   demoQueryError: string | null;
   demoQueryRequest: DemoQueryRequest | null;
@@ -21,6 +23,8 @@ function SearchPanel({
   search,
   topK,
   onTopKChange,
+  selectedModelId,
+  onSelectedModelChange,
   demoQueryCatalog,
   demoQueryError,
   demoQueryRequest,
@@ -45,6 +49,8 @@ function SearchPanel({
             isSubmitting={search.phase === "loading"}
             topK={topK}
             onTopKChange={onTopKChange}
+            selectedModelId={selectedModelId}
+            onSelectedModelChange={onSelectedModelChange}
             onSubmit={search.runSearch}
             suggestions={suggestions}
             suggestionError={demoQueryError}
@@ -80,6 +86,8 @@ function SearchPanel({
         isSubmitting={search.phase === "loading"}
         topK={topK}
         onTopKChange={onTopKChange}
+        selectedModelId={selectedModelId}
+        onSelectedModelChange={onSelectedModelChange}
         onSubmit={search.runSearch}
         demoQueryRequest={demoQueryRequest}
         onConsumeDemoQuery={onConsumeDemoQuery}

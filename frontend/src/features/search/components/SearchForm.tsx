@@ -19,6 +19,8 @@ interface SearchFormProps {
   isSubmitting: boolean;
   topK: number;
   onTopKChange: (topK: number) => void;
+  selectedModelId: string;
+  onSelectedModelChange: (modelId: string) => void;
   onSubmit: (query: string, topK: number) => Promise<boolean>;
   suggestions?: string[];
   suggestionError?: string | null;
@@ -31,6 +33,8 @@ function SearchForm({
   isSubmitting,
   topK,
   onTopKChange,
+  selectedModelId,
+  onSelectedModelChange,
   onSubmit,
   suggestions = [],
   suggestionError = null,
@@ -147,7 +151,10 @@ function SearchForm({
                 <span>Model</span>
                 <span className="model-select">
                   <select
-                    defaultValue="bpe_geo"
+                    value={selectedModelId}
+                    onChange={(event) =>
+                      onSelectedModelChange(event.target.value)
+                    }
                     disabled={isSubmitting}
                     aria-label="Retrieval model"
                   >

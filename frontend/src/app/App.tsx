@@ -2,6 +2,7 @@ import { useCallback, useRef, useState } from "react";
 import MoonCanvas from "../features/moon/components/MoonCanvas";
 import type { RetrievalResult } from "../features/retrieval/api";
 import ResultImageDialog from "../features/retrieval/components/ResultImageDialog";
+import ModelArchitectureDialog from "../features/search/components/ModelArchitectureDialog";
 import SearchPanel from "../features/search/components/SearchPanel";
 import { useSearch } from "../features/search/hooks/useSearch";
 import type { DemoQueryRequest } from "../features/search/types";
@@ -14,6 +15,10 @@ function App() {
   const demoQueries = useDemoQueries();
   const { selectResult } = search;
   const [topK, setTopK] = useState(5);
+  const [selectedModelId, setSelectedModelId] = useState("bpe_geo");
+  const [isArchitectureOpen, setIsArchitectureOpen] = useState(false);
+  const openArchitecture = useCallback(() => setIsArchitectureOpen(true), []);
+  const closeArchitecture = useCallback(() => setIsArchitectureOpen(false), []);
   const [demoQueryRequest, setDemoQueryRequest] =
     useState<DemoQueryRequest | null>(null);
   const demoQueryIdRef = useRef(0);
@@ -48,6 +53,7 @@ function App() {
   return (
     <>
       <SplitLayout
+        onOpenModelArchitecture={openArchitecture}
         leftPanel={
           <MoonCanvas
             results={search.results}
@@ -66,6 +72,8 @@ function App() {
             search={search}
             topK={topK}
             onTopKChange={setTopK}
+            selectedModelId={selectedModelId}
+            onSelectedModelChange={setSelectedModelId}
             demoQueryCatalog={demoQueries.catalog}
             demoQueryError={demoQueries.error}
             demoQueryRequest={demoQueryRequest}
@@ -79,6 +87,12 @@ function App() {
           activeResultId={previewResult.id}
           onSelectResult={previewImage}
           onClose={closePreview}
+        />
+      )}
+      {isArchitectureOpen && (
+        <ModelArchitectureDialog
+          modelId={selectedModelId}
+          onClose={closeArchitecture}
         />
       )}
     </>

@@ -1,20 +1,36 @@
 import { type ReactNode, useState } from "react";
-import { Orbit, PanelRightClose, PanelRightOpen } from "lucide-react";
+import { Info, Orbit, PanelRightClose, PanelRightOpen } from "lucide-react";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
 interface SplitLayoutProps {
   leftPanel: ReactNode;
   rightPanel: ReactNode;
+  onOpenModelArchitecture: () => void;
 }
 
-function SplitLayout({ leftPanel, rightPanel }: SplitLayoutProps) {
+function SplitLayout({
+  leftPanel,
+  rightPanel,
+  onOpenModelArchitecture,
+}: SplitLayoutProps) {
   const isMobile = useMediaQuery("(max-width: 845px)");
   const [isAsideCollapsed, setIsAsideCollapsed] = useState(false);
 
   if (isMobile) {
     return (
       <main className="app-shell mobile-shell">
-        <section className="mobile-canvas">{leftPanel}</section>
+        <section className="mobile-canvas">
+          {leftPanel}
+          <button
+            type="button"
+            className="mobile-architecture-button"
+            onClick={onOpenModelArchitecture}
+            aria-label="View model architecture"
+            title="View model architecture"
+          >
+            <Info size={17} />
+          </button>
+        </section>
         <section className="mobile-panel">{rightPanel}</section>
       </main>
     );
@@ -65,23 +81,34 @@ function SplitLayout({ leftPanel, rightPanel }: SplitLayoutProps) {
         }`}
       >
         <section className="viewport-panel">{leftPanel}</section>
-        <button
-          type="button"
-          className="aside-edge-toggle"
-          onClick={() => setIsAsideCollapsed((collapsed) => !collapsed)}
-          aria-label={
-            isAsideCollapsed ? "Show retrieval panel" : "Hide retrieval panel"
-          }
-          title={
-            isAsideCollapsed ? "Show retrieval panel" : "Hide retrieval panel"
-          }
-        >
-          {isAsideCollapsed ? (
-            <PanelRightOpen size={16} />
-          ) : (
-            <PanelRightClose size={16} />
-          )}
-        </button>
+        <div className="aside-edge-controls">
+          <button
+            type="button"
+            className="aside-edge-button aside-edge-toggle"
+            onClick={() => setIsAsideCollapsed((collapsed) => !collapsed)}
+            aria-label={
+              isAsideCollapsed ? "Show retrieval panel" : "Hide retrieval panel"
+            }
+            title={
+              isAsideCollapsed ? "Show retrieval panel" : "Hide retrieval panel"
+            }
+          >
+            {isAsideCollapsed ? (
+              <PanelRightOpen size={16} />
+            ) : (
+              <PanelRightClose size={16} />
+            )}
+          </button>
+          <button
+            type="button"
+            className="aside-edge-button architecture-info-button"
+            onClick={onOpenModelArchitecture}
+            aria-label="View model architecture"
+            title="View model architecture"
+          >
+            <Info size={17} />
+          </button>
+        </div>
         {!isAsideCollapsed && (
           <aside className="retrieval-panel">{rightPanel}</aside>
         )}
