@@ -1571,7 +1571,37 @@
 }
 
 .architecture-overview {
+  position: relative;
   min-width: 0;
+}
+
+.architecture-index-connector {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.architecture-index-connector > path {
+  fill: none;
+  stroke: var(--color-gold);
+  stroke-width: 1.6;
+  vector-effect: non-scaling-stroke;
+  filter: drop-shadow(0 0 5px rgba(244, 208, 111, 0.48));
+}
+
+.architecture-index-connector marker path {
+  fill: var(--color-gold);
+}
+
+.architecture-section-heading,
+.architecture-flow-scroll,
+.architecture-index-bridge {
+  position: relative;
+  z-index: 2;
 }
 
 .architecture-section-heading {
@@ -1623,10 +1653,7 @@
 }
 
 .architecture-flow.index-flow {
-  min-width: 850px;
-  grid-template-columns:
-    minmax(140px, 1fr) 42px minmax(140px, 1fr) 42px minmax(140px, 1fr) 42px
-    minmax(140px, 1fr) 42px minmax(140px, 1fr);
+  min-width: 1000px;
 }
 
 .architecture-node {
@@ -1758,33 +1785,26 @@
 }
 
 .architecture-index-bridge {
-  position: relative;
   height: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--color-text-mute);
-  font-size: 10px;
+  font-size: 9px;
   text-transform: uppercase;
 }
 
-.architecture-index-bridge i {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 78%;
-  width: 1px;
-  background: linear-gradient(
-    rgba(244, 208, 111, 0.5),
-    rgba(244, 208, 111, 0.08)
-  );
-}
-
 .architecture-index-bridge span {
+  position: absolute;
+  top: 50%;
+  left: 75%;
   padding: 3px 8px;
-  border: 1px solid var(--color-line);
+  border: 1px solid rgba(244, 208, 111, 0.26);
   border-radius: 999px;
+  color: var(--color-gold);
   background: var(--color-surface);
+  white-space: nowrap;
+  transform: translate(-50%, -50%);
 }
 
 .encoder-comparison {

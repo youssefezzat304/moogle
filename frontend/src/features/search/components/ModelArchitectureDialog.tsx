@@ -38,6 +38,7 @@ interface DiagramNodeProps {
   detail: string;
   accent?: "cyan" | "gold" | "rose";
   step?: number;
+  className?: string;
 }
 
 const MODEL_LABELS: Record<string, string> = {
@@ -51,9 +52,10 @@ function DiagramNode({
   detail,
   accent = "cyan",
   step,
+  className = "",
 }: DiagramNodeProps) {
   return (
-    <article className={`architecture-node ${accent}`}>
+    <article className={`architecture-node ${accent} ${className}`}>
       {step !== undefined && (
         <span className="architecture-step" aria-hidden="true">
           {step}
@@ -79,8 +81,95 @@ function FlowConnector({ label }: { label?: string }) {
 }
 
 function ArchitectureOverview() {
+  const overviewRef = useRef<HTMLDivElement>(null);
+  const connectorMarkerId = useId().replace(/:/g, "");
+  const [connector, setConnector] = useState<{
+    width: number;
+    height: number;
+    path: string;
+  } | null>(null);
+
+  useEffect(() => {
+    const overview = overviewRef.current;
+    if (!overview) return;
+
+    const similarityNode = overview.querySelector<HTMLElement>(
+      ".similarity-search-node",
+    );
+    const vectorIndexNode =
+      overview.querySelector<HTMLElement>(".vector-index-node");
+    if (!similarityNode || !vectorIndexNode) return;
+    const measuredOverview: HTMLDivElement = overview;
+    const measuredSimilarityNode: HTMLElement = similarityNode;
+    const measuredVectorIndexNode: HTMLElement = vectorIndexNode;
+
+    function updateConnector() {
+      const overviewBounds = measuredOverview.getBoundingClientRect();
+      const similarityBounds = measuredSimilarityNode.getBoundingClientRect();
+      const vectorBounds = measuredVectorIndexNode.getBoundingClientRect();
+      const startX =
+        vectorBounds.left + vectorBounds.width / 2 - overviewBounds.left;
+      const startY = vectorBounds.top - overviewBounds.top;
+      const endX =
+        similarityBounds.left +
+        similarityBounds.width / 2 -
+        overviewBounds.left;
+      const endY = similarityBounds.bottom - overviewBounds.top;
+      const midpointY = endY + (startY - endY) / 2;
+
+      setConnector({
+        width: overviewBounds.width,
+        height: overviewBounds.height,
+        path: `M ${startX} ${startY} C ${startX} ${midpointY}, ${endX} ${midpointY}, ${endX} ${endY}`,
+      });
+    }
+
+    const resizeObserver = new ResizeObserver(updateConnector);
+    resizeObserver.observe(overview);
+    resizeObserver.observe(similarityNode);
+    resizeObserver.observe(vectorIndexNode);
+    const scrollContainers = overview.querySelectorAll(
+      ".architecture-flow-scroll",
+    );
+    scrollContainers.forEach((container) =>
+      container.addEventListener("scroll", updateConnector, { passive: true }),
+    );
+    window.addEventListener("resize", updateConnector);
+    updateConnector();
+
+    return () => {
+      resizeObserver.disconnect();
+      scrollContainers.forEach((container) =>
+        container.removeEventListener("scroll", updateConnector),
+      );
+      window.removeEventListener("resize", updateConnector);
+    };
+  }, []);
+
   return (
-    <div className="architecture-overview">
+    <div ref={overviewRef} className="architecture-overview">
+      {connector && (
+        <svg
+          className="architecture-index-connector"
+          viewBox={`0 0 ${connector.width} ${connector.height}`}
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <defs>
+            <marker
+              id={connectorMarkerId}
+              markerWidth="8"
+              markerHeight="8"
+              refX="6"
+              refY="4"
+              orient="auto"
+            >
+              <path d="M 0 0 L 8 4 L 0 8 Z" />
+            </marker>
+          </defs>
+          <path d={connector.path} markerEnd={`url(#${connectorMarkerId})`} />
+        </svg>
+      )}
       <div className="architecture-section-heading">
         <div>
           <span className="eyebrow">Online retrieval path</span>
@@ -130,6 +219,7 @@ function ArchitectureOverview() {
             detail="Query vector against the image index"
             accent="gold"
             step={5}
+            className="similarity-search-node"
           />
           <FlowConnector label="top-k" />
           <DiagramNode
@@ -144,8 +234,7 @@ function ArchitectureOverview() {
       </div>
 
       <div className="architecture-index-bridge" aria-hidden="true">
-        <span>compared with</span>
-        <i />
+        <span>indexed image embeddings</span>
       </div>
 
       <div className="architecture-section-heading index-heading">
@@ -193,6 +282,7 @@ function ArchitectureOverview() {
             title="Vector index"
             detail="Embedding paired with patch metadata"
             accent="gold"
+            className="vector-index-node"
           />
         </div>
       </div>
