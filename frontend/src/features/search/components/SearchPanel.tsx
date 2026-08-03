@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import type { DemoQueryCatalog } from "../../../shared/utils/demoQueries";
 import { pickRandomDemoSuggestions } from "../../../shared/utils/demoQueries";
+import type { RetrievalResult } from "../../retrieval/api";
 import type { DemoQueryRequest, SearchController } from "../types";
 import SearchConversation from "./SearchConversation";
 import SearchForm from "./SearchForm";
@@ -9,6 +10,7 @@ import SearchStatus from "./SearchStatus";
 
 interface SearchPanelProps {
   search: SearchController;
+  onPreviewResult: (result: RetrievalResult) => void;
   topK: number;
   onTopKChange: (topK: number) => void;
   selectedModelId: string;
@@ -21,6 +23,7 @@ interface SearchPanelProps {
 
 function SearchPanel({
   search,
+  onPreviewResult,
   topK,
   onTopKChange,
   selectedModelId,
@@ -71,6 +74,7 @@ function SearchPanel({
             results={search.results}
             activeResult={search.activeResult}
             onSelectResult={search.selectResult}
+            onPreviewResult={onPreviewResult}
           />
         </div>
       )}

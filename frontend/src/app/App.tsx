@@ -70,6 +70,7 @@ function App() {
         rightPanel={
           <SearchPanel
             search={search}
+            onPreviewResult={previewImage}
             topK={topK}
             onTopKChange={setTopK}
             selectedModelId={selectedModelId}

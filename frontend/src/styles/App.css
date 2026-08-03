@@ -1273,21 +1273,26 @@
 }
 
 .evidence-section {
+  display: flex;
   flex: 1 1 auto;
   min-height: 0;
+  flex-direction: column;
   padding: 12px;
   overflow: hidden;
 }
 
 .evidence-grid {
   display: grid;
+  min-height: 0;
+  flex: 1 1 auto;
+  align-content: start;
   gap: 9px;
-  max-height: 100%;
   overflow-y: auto;
   padding-right: 2px;
 }
 
 .evidence-card {
+  position: relative;
   width: 100%;
   display: grid;
   grid-template-columns: 78px minmax(0, 1fr);
@@ -1297,18 +1302,45 @@
   border-radius: 8px;
   color: inherit;
   background: rgba(5, 7, 11, 0.36);
-  font: inherit;
-  text-align: left;
-  cursor: pointer;
   transition:
     border-color 160ms ease,
     background 160ms ease;
 }
 
 .evidence-card:hover,
+.evidence-card:focus-within,
 .evidence-card.selected {
   border-color: var(--color-line-strong);
   background: rgba(125, 211, 252, 0.08);
+}
+
+.evidence-card-select {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  padding: 0;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  cursor: pointer;
+}
+
+.evidence-card-select:focus-visible {
+  outline: 2px solid var(--color-cyan);
+  outline-offset: 2px;
+}
+
+.evidence-thumb-button {
+  position: relative;
+  z-index: 2;
+  width: 78px;
+  height: 64px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  cursor: zoom-in;
 }
 
 .evidence-thumb {
@@ -1324,15 +1356,23 @@
     filter 160ms ease;
 }
 
-.evidence-card:hover .evidence-thumb,
-.evidence-card:focus-visible .evidence-thumb {
+.evidence-thumb-button:hover .evidence-thumb,
+.evidence-thumb-button:focus-visible .evidence-thumb {
   filter: contrast(1.2) brightness(1.16) saturate(0.95);
   box-shadow: 0 0 0 1px rgba(125, 211, 252, 0.72);
 }
 
+.evidence-thumb-button:focus-visible {
+  outline: 2px solid var(--color-cyan);
+  outline-offset: 2px;
+}
+
 .evidence-copy {
+  position: relative;
+  z-index: 1;
   display: block;
   min-width: 0;
+  pointer-events: none;
 }
 
 .evidence-title-row {

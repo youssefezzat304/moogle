@@ -7,12 +7,14 @@ interface SearchResultsProps {
   results: RetrievalResult[];
   activeResult: RetrievalResult | null;
   onSelectResult: (result: RetrievalResult) => void;
+  onPreviewResult: (result: RetrievalResult) => void;
 }
 
 function SearchResults({
   results,
   activeResult,
   onSelectResult,
+  onPreviewResult,
 }: SearchResultsProps) {
   if (results.length === 0) return null;
 
@@ -39,6 +41,7 @@ function SearchResults({
             result={result}
             selected={result.id === activeResult?.id}
             onSelect={onSelectResult}
+            onPreview={onPreviewResult}
           />
         ))}
       </div>
