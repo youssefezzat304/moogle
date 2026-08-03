@@ -57,6 +57,16 @@ function ResultImageDialog({
         if (event.target === event.currentTarget) onClose();
       }}
     >
+      <button
+        type="button"
+        className="result-image-navigation previous"
+        onClick={() => showResult(-1)}
+        disabled={results.length < 2}
+        aria-label="Show previous retrieved image"
+      >
+        <ChevronLeft size={24} />
+      </button>
+
       <section
         className="result-image-dialog"
         role="dialog"
@@ -82,28 +92,10 @@ function ResultImageDialog({
         </header>
 
         <div className="result-image-stage">
-          <button
-            type="button"
-            className="result-image-navigation previous"
-            onClick={() => showResult(-1)}
-            disabled={results.length < 2}
-            aria-label="Show previous retrieved image"
-          >
-            <ChevronLeft size={24} />
-          </button>
           <img
             src={result.wacImageUrl}
             alt={`Retrieved lunar ${resultLabel(result)}`}
           />
-          <button
-            type="button"
-            className="result-image-navigation next"
-            onClick={() => showResult(1)}
-            disabled={results.length < 2}
-            aria-label="Show next retrieved image"
-          >
-            <ChevronRight size={24} />
-          </button>
         </div>
 
         <div className="result-image-details">
@@ -123,6 +115,16 @@ function ResultImageDialog({
 
         <p>{result.description}</p>
       </section>
+
+      <button
+        type="button"
+        className="result-image-navigation next"
+        onClick={() => showResult(1)}
+        disabled={results.length < 2}
+        aria-label="Show next retrieved image"
+      >
+        <ChevronRight size={24} />
+      </button>
     </div>
   );
 }
